@@ -8,25 +8,30 @@ const navigation = () => {
       icon: 'tabler:user',
     },
     {
-      title: i18n.t('dreams'),
-      icon: 'tabler:zzz',
+      title: i18n.t('ads'),
+      icon: 'tabler:ad',
       children: [
         {
-          title: i18n.t('dreams'),
-          path: '/dreams',
-          icon: 'tabler:zzz',
+          title: i18n.t('ads'),
+          path: '/ads',
+          icon: 'tabler:ad',
         },
         {
-          title: i18n.t('dream_types'),
-          path: '/dream-types',
-          icon: 'tabler:align-box-left-middle',
+          title: i18n.t('attributes_sets'),
+          path: '/attributes-sets',
+          icon: 'tabler:list-details',
         },
         {
-          title: i18n.t('dreams_reports'),
-          path: '/dream-reports',
-          icon: 'tabler:message-report',
+          title: i18n.t('attributes'),
+          path: '/attributes',
+          icon: 'tabler:list-search',
         },
       ]
+    },
+    {
+      title:  i18n.t('categories'),
+      path: '/categories',
+      icon: 'tabler:category',
     },
     {
       title:  i18n.t('packages'),
