@@ -15,9 +15,10 @@ import {nanoid} from "nanoid";
 import { Box, Checkbox, FormControlLabel, styled } from '@mui/material'
 import { fetchAllCategories } from './CategoriesServices';
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
+import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories';
 
 
-const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg}) => {
+const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg, category_id}) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const [categories , setCategories] = useState([]);
@@ -82,7 +83,7 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
-
+            <Grid container spacing={4} item md={9}>
               <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <ImgStyled src={imgSrc} alt={t('category')} />
@@ -244,32 +245,6 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-              <Controller
-                name='parent_id'
-                control={control}
-                rules={{ required: false }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomAutocomplete
-                    value={value}
-                    onChange={(e, newValue) => {
-                      if (newValue) {
-                        setValue('parent_id', newValue)
-                        onChange(newValue)
-                      } else {
-                        setValue('parent_id', null)
-                      }
-                    }}
-                    isOptionEqualToValue={(option, value) => option.id === value?.id}
-                    options={categories}
-                    getOptionLabel={option => option.name || ''}
-                    renderInput={params => <CustomTextField {...params}
-                     label={t('parent_Category')} />}
-                  />
-                )}
-              />
-            </Grid>
-
               <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
                 <FormControl>
                   <Controller
@@ -330,6 +305,10 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                   }
                 </Button>
               </Grid>
+            </Grid>
+            <Grid item md={3}>
+              <AdsSelectCategories category_id={category_id} setValue={setValue}/>
+            </Grid>
             </Grid>
         </form>
       </CardContent>

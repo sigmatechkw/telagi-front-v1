@@ -72,6 +72,7 @@ const AttributesSetsEdit = ({ type, id }) => {
     setValue('name_ar', type.name_ar)
     setValue('image', type.image)
     setImgSrc(type.image);
+    // TODO: add category_id for edit
     setValue('category_id', type.category)
     setValue('order', type.order)
     setValue('active', type.active)

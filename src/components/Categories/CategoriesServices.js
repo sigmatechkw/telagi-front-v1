@@ -42,7 +42,7 @@ export const fetchCategories = async (page = 1, search, sortKey = 'id', sortType
 
 export const fetchAllCategories = async () => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}categories`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}all-categories`, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'

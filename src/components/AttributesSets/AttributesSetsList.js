@@ -87,7 +87,7 @@ const AttributesSetsList = ({
       headerName: t('type'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.type}
+          {row.type_data?.name}
         </Typography>
       )
     },

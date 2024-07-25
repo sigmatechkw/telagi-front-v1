@@ -16,6 +16,7 @@ import { Box, Checkbox, FormControlLabel, styled } from '@mui/material'
 import { fetchAllCategories } from 'src/components/Categories/CategoriesServices'
 import { fetchAttributesSetsTypes } from './AttributesSetsServices'
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
+import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories'
 
 const AttributesSetsForm = ({
   type = 'create',
@@ -101,172 +102,153 @@ const AttributesSetsForm = ({
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
-            <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <ImgStyled src={imgSrc} alt={t('attributes_sets')} />
-                <div>
-                  <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                    {t('upload_Photo')}
-                    <input
-                      hidden
-                      type='file'
-                      value={attributeSetImg}
-                      accept='image/*'
-                      onChange={handleInputImageChange}
-                      id='account-settings-upload-image'
-                    />
-                  </ButtonStyled>
-                  <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
-                    {t('Reset')}
-                  </ResetButtonStyled>
-                </div>
-              </Box>
-            </Grid>
+            <Grid container spacing={4} item md={9}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <ImgStyled src={imgSrc} alt={t('attributes_sets')} />
+                  <div>
+                    <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+                      {t('upload_Photo')}
+                      <input
+                        hidden
+                        type='file'
+                        value={attributeSetImg}
+                        accept='image/*'
+                        onChange={handleInputImageChange}
+                        id='account-settings-upload-image'
+                      />
+                    </ButtonStyled>
+                    <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
+                      {t('Reset')}
+                    </ResetButtonStyled>
+                  </div>
+                </Box>
+              </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name='name_en'
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomTextField
-                    fullWidth
-                    value={value}
-                    label={t('name_en')}
-                    onChange={onChange}
-                    required
-                    error={Boolean(errors.title)}
-                    aria-describedby='validation-basic-name_en'
-                    {...(errors.name_en && { helperText: t('required') })}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name='name_ar'
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomTextField
-                    fullWidth
-                    value={value}
-                    label={t('name_ar')}
-                    onChange={onChange}
-                    required
-                    error={Boolean(errors.title)}
-                    aria-describedby='validation-basic-name_ar'
-                    {...(errors.name_en && { helperText: t('required') })}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name='order'
-                control={control}
-                rules={{ required: false }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomTextField
-                    fullWidth
-                    value={value}
-                    label={t('order')}
-                    onChange={onChange}
-                    error={Boolean(errors.order)}
-                    aria-describedby='validation-basic-order'
-                    {...(errors.order && { helperText: t('required') })}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name='category_id'
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomAutocomplete
-                    value={value}
-                    onChange={(e, newValue) => {
-                      if (newValue) {
-                        setValue('category_id', newValue)
-                        onChange(newValue)
-                      } else {
-                        setValue('category_id', null)
-                      }
-                    }}
-                    isOptionEqualToValue={(option, value) => option.id === value?.id}
-                    options={categories}
-                    required
-                    getOptionLabel={option => option.name || ''}
-                    renderInput={params => <CustomTextField required {...params} label={t('categories')} />}
-                  />
-                )}
-              />
-            </Grid>
-
-
-            <Grid item xs={12} sm={6}>
-              <Controller
-                name='type'
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomAutocomplete
-                    value={value}
-                    onChange={(e, newValue) => {
-                      if (newValue) {
-                        setValue('type', newValue)
-                        onChange(newValue)
-                      } else {
-                        setValue('type', null)
-                      }
-                    }}
-                    
-                    isOptionEqualToValue={(option, value) => option.id === value?.id}
-                    options={attributeTypes}
-                    getOptionLabel={option => option.name || ''}
-                    renderInput={params => <CustomTextField required  {...params} label={t('type')} />}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
-              <FormControl>
+              <Grid item xs={12} sm={6}>
                 <Controller
-                  name='active'
+                  name='name_en'
                   control={control}
-                  render={({ field }) => (
-                    <FormControlLabel
-                      label={t('active')}
-                      sx={errors.active ? { color: 'error.main' } : null}
-                      control={
-                        <Checkbox
-                          {...field}
-                          checked={field.value}
-                          name='validation-basic-active'
-                          sx={errors.active ? { color: 'error.main' } : null}
-                        />
-                      }
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextField
+                      fullWidth
+                      value={value}
+                      label={t('name_en')}
+                      onChange={onChange}
+                      required
+                      error={Boolean(errors.title)}
+                      aria-describedby='validation-basic-name_en'
+                      {...(errors.name_en && { helperText: t('required') })}
                     />
                   )}
                 />
-              </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='name_ar'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextField
+                      fullWidth
+                      value={value}
+                      label={t('name_ar')}
+                      onChange={onChange}
+                      required
+                      error={Boolean(errors.title)}
+                      aria-describedby='validation-basic-name_ar'
+                      {...(errors.name_en && { helperText: t('required') })}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='order'
+                  control={control}
+                  rules={{ required: false }}
+                  render={({ field: { value, onChange } }) => (
+                    <CustomTextField
+                      fullWidth
+                      value={value}
+                      label={t('order')}
+                      onChange={onChange}
+                      error={Boolean(errors.order)}
+                      aria-describedby='validation-basic-order'
+                      {...(errors.order && { helperText: t('required') })}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='type'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange } }) => (
+                    <CustomAutocomplete
+                      value={value}
+                      onChange={(e, newValue) => {
+                        if (newValue) {
+                          setValue('type', newValue)
+                          onChange(newValue)
+                        } else {
+                          setValue('type', null)
+                        }
+                      }}
+                      
+                      isOptionEqualToValue={(option, value) => option.id === value?.id}
+                      options={attributeTypes}
+                      getOptionLabel={option => option.name || ''}
+                      renderInput={params => <CustomTextField required  {...params} label={t('type')} />}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
+                <FormControl>
+                  <Controller
+                    name='active'
+                    control={control}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        label={t('active')}
+                        sx={errors.active ? { color: 'error.main' } : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-active'
+                            sx={errors.active ? { color: 'error.main' } : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button type='submit' variant='contained' disabled={loading}>
+                  {loading ? <CircularProgress size={'1.5rem'} /> : t('save')}
+                </Button>
+              </Grid>
+
+            </Grid>
+            <Grid item md={3}>
+              <AdsSelectCategories setValue={setValue}/>
             </Grid>
 
-            <Grid item xs={12}>
-              <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
-            </Grid>
 
-            <Grid item xs={12}>
-              <Button type='submit' variant='contained' disabled={loading}>
-                {loading ? <CircularProgress size={'1.5rem'} /> : t('save')}
-              </Button>
-            </Grid>
           </Grid>
         </form>
       </CardContent>

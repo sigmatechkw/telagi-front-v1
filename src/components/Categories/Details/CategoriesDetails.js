@@ -40,7 +40,7 @@ const CategoryDetails = ({ type }) => {
       <Grid item xs={12}>
         <Card>
           <Typography variant={'h3'} sx={{ px: 3, pt: 3 }}>
-            {t('ads')}
+            {t('category')}
           </Typography>
           <CardContent>
             <Box sx={{ display: 'flex', mb: 3 }}>

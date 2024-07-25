@@ -17,7 +17,7 @@ const defaultValues = {
     long_description_en: "",
     long_description_ar: "",
     image: "",
-    parent_id: "",
+    category_id: "",
     order : "",
     active: false,
     featured: ""
@@ -31,6 +31,7 @@ const CategoriesEdit = ({ type, id }) => {
   const [loading, setLoading] = useState(false)
   const [imgSrc, setImgSrc] = useState('')
   const [categoryImg, setCategoryImg] = useState('')
+  const [category_id , setCategoryId] = useState('')
 
   const {
     control,
@@ -44,7 +45,7 @@ const CategoriesEdit = ({ type, id }) => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.parent_id = data.parent_id?.id;
+    data.parent_id = data.category_id?.id;
     if(!imgSrc){ 
         delete data.image;
     }else{ 
@@ -78,7 +79,9 @@ const CategoriesEdit = ({ type, id }) => {
     setValue('long_description_ar', type.long_description_ar)
     setValue('image', type.image)
     setImgSrc(type.image);
-    setValue('parent_id', type.parent?.id)
+    // TODO: add category_id for edit
+    setValue('category_id', type.parent?.id)
+    setCategoryId(type.parent?.id)
     setValue('order', type.order)
     setValue('active', type.active)
     setValue('featured', type.featured)
@@ -98,6 +101,7 @@ const CategoriesEdit = ({ type, id }) => {
         setImgSrc={setImgSrc}
         categoryImg={categoryImg}
         setCategoryImg={setCategoryImg}
+        category_id={category_id}
         onSubmit={handleSubmit(onSubmit)}
         control={control}
         watch={watch}

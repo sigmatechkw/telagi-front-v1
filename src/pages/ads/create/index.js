@@ -6,24 +6,41 @@ import axios from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import AttributesForm from 'src/components/Attributes/AttributesForm'
+import AdsForm from 'src/components/Ads/AdsForm'
 
 const defaultValues = {
-    name_en: "",
-    name_ar: "",
-    image: "",
-    attribute_set_id: "",
-    order : "",
-    is_default: false,
+    title: "",
+    description: "",
+    expiration_period: "",
+    expiration_date: "",
+    price : "",
+    phone: "",
+    views: "",
     active: false,
-}
+    sold: false,
+    featured: false,
+    featured_start_date: false,
+    featured_end_date: false,
+    status: false,
+    country_id: false,
+    category_id: false,
+    user_id: false,
+    image : "",
+    images: [],
+    video : "",
+    attributes : []
+ }
 
-const AttributesCreate = () => {
+const AdsCreate = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [imgSrc, setImgSrc] = useState('')
-  const [attributeImg, setAttributeImg] = useState('')
+  const [adImg, setAdImg] = useState('')
+  const [imgsArr, setImgsArr] = useState([])
+  const [adsImgsArr, setAdsImgsArr] = useState([])
+  const [videoSrc, setVideoSrc] = useState('')
+  const [adVideo, setAdVideo] = useState('')
   const [content, setContent] = useState('')
 
   const auth = useSelector(state => state.auth)
@@ -38,25 +55,39 @@ const AttributesCreate = () => {
     formState: { errors }
   } = useForm({ defaultValues })
 
-  const testBase64 = src => {
-    const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
-
-    return base64Regex.test(src)
-  }
-
   const onSubmit = data => {
     setLoading(true)
 
-    data.attribute_set_id = data.attribute_set_id.id;
+    data.country_id = data.country_id?.id;
+    data.category_id = data.category_id?.id;
+    data.user_id = data.user_id?.id;
+
+    data.image = imgSrc;
+    data.image = imgSrc;
+    
 
     if(!imgSrc){ 
-        delete data.image;
+      delete data.image;
     }else{ 
-        data.image = imgSrc;
+      data.image = imgSrc;
     }
 
+    if(!videoSrc){ 
+      delete data.video;
+    }else{ 
+      data.video = videoSrc;
+    }
+
+    if(!imgsArr){ 
+      delete data.imgsArr;
+    }else{ 
+      data.images = imgsArr;
+    }
+
+    console.log(data)
+
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_KEY}attributes`, data, {
+      .post(`${process.env.NEXT_PUBLIC_API_KEY}ads`, data, {
         headers: {
           Authorization: auth.token
         }
@@ -64,7 +95,7 @@ const AttributesCreate = () => {
       .then(res => {
         setLoading(false)
         toast.success(t('success'))
-        router.push('/attributes')
+        router.push('/ads')
         reset()
       })
       .catch(error => {
@@ -76,19 +107,27 @@ const AttributesCreate = () => {
 
   return (
     <Card>
-      <AttributesForm
+      <AdsForm
         getValues={getValues}
         type={'create'}
         imgSrc={imgSrc}
         setImgSrc={setImgSrc}
-        attributeImg={attributeImg}
-        setAttributeImg={setAttributeImg}
+        adImg={adImg}
+        setAdImg={setAdImg}
+        imgsArr={imgsArr}
+        setImgsArr={setImgsArr}
+        adsImgsArr={adsImgsArr}
+        setAdsImgsArr={setAdsImgsArr}
+        videoSrc={videoSrc}
+        setVideoSrc={setVideoSrc}
+        adVideo={adVideo}
+        setAdVideo={setAdVideo}
         onSubmit={handleSubmit(onSubmit)}
         control={control}
         watch={watch}
         setValue={setValue}
         errors={errors}
-        title={t('attributes_create')}
+        title={t('ads_create')}
         loading={loading}
         content={content}
         setContent={setContent}
@@ -97,4 +136,4 @@ const AttributesCreate = () => {
   )
 }
 
-export default AttributesCreate
+export default AdsCreate

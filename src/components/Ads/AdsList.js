@@ -181,7 +181,7 @@ const AdsList = ({
     },
     {
       flex: 0.175,
-      minWidth: 100,
+      minWidth: 150,
       sortable: false,
       field: 'actions',
       headerName: t('actions'),

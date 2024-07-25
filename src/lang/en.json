@@ -306,8 +306,11 @@
   "made_with": "Made with",
   "by": "by",
 
-
+  "deal" : "Deal",
   "ads" : "Ads",
+  "ad" : "Ad",
+  "ads_create" : "Create Ad",
+  "ads_edit" : "Edit Ad",
   "is_expired" : "Is Expired",
   "is_sold" : "Is Sold",
   "is_featured" : "Is Featured",

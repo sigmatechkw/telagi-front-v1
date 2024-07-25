@@ -19,8 +19,19 @@ import {nanoid} from "nanoid";
 import { fetchAllCategories } from '../Categories/CategoriesServices';
 import { fetchCountries } from '../Users/List/userListServices';
 import { fetchUsersInfinityQuery } from '../Users/List/userListServices';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import {styled } from '@mui/material'
+import DatePicker from 'react-datepicker'
+import { useTheme } from '@mui/material/styles'
+import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCustomInput'
+import CustomAutocomplete from 'src/@core/components/mui/autocomplete';
+import AdsSelectCategories from './AdsForm/AdsSelectCategories';
+import AdsAttributesSetsForm from './AdsForm/AdsAttributesSetsForm';
 
-const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading}) => {
+const AdsForm = ({
+  type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc,
+  adImg ,setAdImg ,imgsArr , setImgsArr , adsImgsArr ,setAdsImgsArr ,videoSrc , setVideoSrc , adVideo , setAdVideo
+}) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const {t, i18n} = useTranslation()
@@ -28,6 +39,9 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
   const [countries , setCountries] = useState([]);
   const [searchUsersTerm, setSearchUsersTerm] = useState('');
 
+  const theme = useTheme()
+  const { direction } = theme
+  const popperPlacement = direction === 'ltr' ? 'bottom-start' : 'bottom-end'
 
   useEffect(() => { 
     getCountries();
@@ -67,16 +81,127 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
 
   const usersOptions = users?.pages.flatMap((page) => page.items) || [];  
 
+  const ImgStyled = styled('img')(({ theme }) => ({
+    width: 100,
+    height: 100,
+    marginRight: theme.spacing(6),
+    borderRadius: theme.shape.borderRadius
+  }))
+
+  const ButtonStyled = styled(Button)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }))
+
+  const ResetButtonStyled = styled(Button)(({ theme }) => ({
+    marginLeft: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+      textAlign: 'center',
+      marginTop: theme.spacing(2)
+    }
+  }))
+
+
+  const handleInputImageChange = file => {
+    const reader = new FileReader()
+    const { files } = file.target
+    if (files && files.length !== 0) {
+      reader.onload = () => {
+        setImgSrc(reader.result)
+      }
+      reader.readAsDataURL(files[0])
+      if (reader.result !== null) {
+        setAdImg(reader.result)
+      }
+    }
+  }
+
+  const handleInputVideoChange = file => {
+    const reader = new FileReader()
+    const { files } = file.target
+    if (files && files.length !== 0) {
+      reader.onload = () => {
+        setVideoSrc(reader.result)
+      }
+      reader.readAsDataURL(files[0])
+      if (reader.result !== null) {
+        setAdVideo(reader.result)
+      }
+    }
+  }
+
+
+  
+  const handleInputImagesChange = (event) => {
+    const { files } = event.target;
+    console.log(files);
+    if (files && files.length > 0) {
+      const promises = [];
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        
+        const promise = new Promise((resolve) => {
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(file);
+        });
+        
+        promises.push(promise);
+      }
+      
+      Promise.all(promises).then((images) => {
+        console.log(images)
+        setImgsArr(images);
+        setAdsImgsArr(images);
+      });
+    }
+  }
+
+  const handleInputImageReset = () => {
+    setAdImg('')
+    setImgSrc('')
+  }
+
+  const handleInputImagesReset = () => {
+    setImgsArr([]);
+    setAdsImgsArr([]);
+  }
+  
+  const handleInputVideoReset = () => {
+    setAdVideo()
+    setVideoSrc()
+  }
+
+  const handleAddAttr = (attributes) => {
+    if (attributes) {
+      setValue('attributes', [...attributes, {id : nanoid() , attribute_set_id : "", value: ""}])
+    } else {
+      setValue('attributes', [{id : nanoid() ,attribute_set_id : "", value: ""}])
+    }
+  }
+
+  const handleRemoveAttributes = (attributes, id) => {
+    setValue('attributes', attributes.filter(attr => attr.id !== id))
+  }
+
   return (
     <>
       <CardHeader title={title} />
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
+          <Grid container spacing={4} item xs={6} md={9}>
 
-            <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+            <Grid item md={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ImgStyled src={imgSrc} alt={t('category')} />
+                  <ImgStyled src={imgSrc} alt={t('upload_Photo')} />
                   <div>
                     <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
                       {t('upload_Photo')}
@@ -98,48 +223,50 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
 
               <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <ImgStyled src={imgSrc} alt={t('category')} />
+                    <ImgStyled src={videoSrc} alt={t('upload_video')} />
                     <div>
-                      <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                        {t('upload_Photos')}
+                      <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-video'>
+                        {t('upload_video')}
                         <input
                           hidden
                           type='file'
-                          value={adsImgs}
-                          accept='image/*'
-                          onChange={handleInputImageChange}
-                          multiple
-                          id='account-settings-upload-image'
-                        />
-                      </ButtonStyled>
-                      <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
-                        {t('Reset')}
-                      </ResetButtonStyled>
-                    </div>
-                  </Box>
-                </Grid>
-
-              <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <ImgStyled src={imgSrc} alt={t('category')} />
-                    <div>
-                      <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                        {t('upload_Photos')}
-                        <input
-                          hidden
-                          type='file'
-                          value={adsImgs}
+                          value={adVideo}
                           accept='video/*'
-                          onChange={handleInputImageChange}
+                          onChange={handleInputVideoChange}
                           id='account-settings-upload-video'
                         />
                       </ButtonStyled>
-                      <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
+                      <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputVideoReset}>
                         {t('Reset')}
                       </ResetButtonStyled>
                     </div>
                   </Box>
-                </Grid>
+              </Grid>
+
+              <Grid item md={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {imgsArr.map((image, index) => (
+                    <ImgStyled src={image} key={index} alt={t('upload_Photos')} />
+                  ))}
+                  
+                  <div>
+                    <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-images'>
+                      {t('upload_Photos')}
+                      <input
+                        hidden
+                        type='file'
+                        accept='image/*'
+                        onChange={handleInputImagesChange}
+                        multiple
+                        id='account-settings-upload-images'
+                      />
+                    </ButtonStyled>
+                    <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImagesReset}>
+                      {t('Reset')}
+                    </ResetButtonStyled>
+                  </div>
+                </Box>
+              </Grid>
 
               <Grid item xs={12} sm={6}>
                 <Controller
@@ -210,7 +337,7 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
 
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name='start_date'
+                  name='expiration_date'
                   control={control}
                   render={({ field: { value } }) => (
                     <DatePicker
@@ -219,8 +346,8 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
                       id='locale-time'
                       dateFormat='MM/dd/yyyy h:mm aa'
                       popperPlacement={popperPlacement} // Set the popperPlacement if needed
-                      onChange={newValue => setValue('start_date', newValue)}
-                      customInput={<PickersComponent label={'start date'} />}
+                      onChange={newValue => setValue('expiration_date', newValue)}
+                      customInput={<PickersComponent label={'expiration_date'} />}
                     />
                   )}
                 /></Grid>
@@ -302,75 +429,6 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
                     />
                   )}
                 />
-              </Grid>
-
-              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
-                <FormControl>
-                  <Controller
-                    name='active'
-                    control={control}
-                    render={({field}) => (
-                      <FormControlLabel
-                        label={t('active')}
-                        sx={errors.active ? {color: 'error.main'} : null}
-                        control={
-                          <Checkbox
-                            {...field}
-                            checked={field.value}
-                            name='validation-basic-active'
-                            sx={errors.active ? {color: 'error.main'} : null}
-                          />
-                        }
-                      />
-                    )}
-                  />
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
-                <FormControl>
-                  <Controller
-                    name='sold'
-                    control={control}
-                    render={({field}) => (
-                      <FormControlLabel
-                        label={t('sold')}
-                        sx={errors.sold ? {color: 'error.main'} : null}
-                        control={
-                          <Checkbox
-                            {...field}
-                            checked={field.value}
-                            name='validation-basic-sold'
-                            sx={errors.sold ? {color: 'error.main'} : null}
-                          />
-                        }
-                      />
-                    )}
-                  />
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
-                <FormControl>
-                  <Controller
-                    name='featured'
-                    control={control}
-                    render={({field}) => (
-                      <FormControlLabel
-                        label={t('featured')}
-                        sx={errors.featured ? {color: 'error.main'} : null}
-                        control={
-                          <Checkbox
-                            {...field}
-                            checked={field.value}
-                            name='validation-basic-featured'
-                            sx={errors.featured ? {color: 'error.main'} : null}
-                          />
-                        }
-                      />
-                    )}
-                  />
-                </FormControl>
               </Grid>
 
               <Grid item xs={12} sm={6}>
@@ -524,11 +582,105 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
               />
             </Grid>
 
-              {/* need to add 
-                  image   string  optional  
-                  video   string  optional  
-                  images   string[]  optional  
-               */}
+            
+            <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
+                <FormControl>
+                  <Controller
+                    name='active'
+                    control={control}
+                    render={({field}) => (
+                      <FormControlLabel
+                        label={t('active')}
+                        sx={errors.active ? {color: 'error.main'} : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-active'
+                            sx={errors.active ? {color: 'error.main'} : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
+                <FormControl>
+                  <Controller
+                    name='sold'
+                    control={control}
+                    render={({field}) => (
+                      <FormControlLabel
+                        label={t('sold')}
+                        sx={errors.sold ? {color: 'error.main'} : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-sold'
+                            sx={errors.sold ? {color: 'error.main'} : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
+                <FormControl>
+                  <Controller
+                    name='featured'
+                    control={control}
+                    render={({field}) => (
+                      <FormControlLabel
+                        label={t('featured')}
+                        sx={errors.featured ? {color: 'error.main'} : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-featured'
+                            sx={errors.featured ? {color: 'error.main'} : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+
+            <Grid item xs={12} p={3}>
+              <Controller
+                name='attributes'
+                control={control}
+                render={({field: {value, onChange}}) => (
+                  <Box>
+                    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3}}>
+                      <Typography variant={'h4'}>{t('attributes')}</Typography>
+                      <Button role='button' variant='contained' color='success' onClick={() => handleAddAttr(value)}>{t('add')}</Button>
+                    </Box>
+                    {
+                      value && value.length > 0 &&
+                        value.map(attr => (
+                          <AdsAttributesSetsForm
+                            key={attr.id}
+                            attr={attr}
+                            errors={errors}
+                            attributes={value}
+                            setValue={setValue}
+                            control={control}
+                            handleRemoveAttributes={() => handleRemoveAttributes(value, attr.id)}
+                          />
+                        ))
+                    }
+                  </Box>
+                )}
+              />
+             </Grid>
+
 
               <Grid item xs={12}>
                 <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
@@ -545,6 +697,12 @@ const AdsForm = ({type = 'create', errors, control, watch, setValue, onSubmit, t
                 </Button>
               </Grid>
             </Grid>
+            <Grid item md={3}>
+              <AdsSelectCategories setValue={setValue}/>
+            </Grid>
+            </Grid>
+           
+            
         </form>
       </CardContent>
     </>

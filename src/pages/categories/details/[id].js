@@ -9,8 +9,8 @@ const CategoryDetailsPage = ({type: initialTypeData, id}) => {
   const router = useRouter()
 
   const {isPending, data: type, error} = useQuery({
-    queryKey: ['fetchAdsDetails', id],
-    queryFn: () => fetchAdsDetails(id),
+    queryKey: ['fetchCategoryDetails', id],
+    queryFn: () => fetchCategoryDetails(id),
     enabled: !!id,
     initialData: initialTypeData
   })

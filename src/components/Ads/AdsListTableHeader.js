@@ -79,10 +79,10 @@ const AdsListTableHeader = ({ selectedRows, onChange, value, clearSearch, fetchD
             }
           }}
         />
-        <Button onClick={() => router.push('/ads/create')} variant='contained' sx={{ '& svg': { mr: 2 } }}>
+        {/* <Button onClick={() => router.push('/ads/create')} variant='contained' sx={{ '& svg': { mr: 2 } }}>
           <Icon fontSize='1.125rem' icon='tabler:plus' />
           {t('add')}
-        </Button>
+        </Button> */}
       </Box>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

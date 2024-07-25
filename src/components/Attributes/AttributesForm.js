@@ -220,8 +220,7 @@ const AttributesForm = ({
                     isOptionEqualToValue={(option, value) => option.id === value?.id}
                     options={AttributesSetsOptions}
                     getOptionLabel={option => option.name || ''}
-                    required
-                    renderInput={params => <CustomTextField {...params}
+                    renderInput={params => <CustomTextField required  {...params}
                      label={t('attributes_sets')} />}
                   />
                 )}

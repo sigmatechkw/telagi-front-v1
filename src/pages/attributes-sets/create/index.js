@@ -46,8 +46,7 @@ const AttributesSetsCreate = () => {
 
   const onSubmit = data => {
     setLoading(true)
-
-    data.category_id = data.category_id?.id;
+    data.category_id = data.category_id;
     data.type = data.type?.id;
     if(!imgSrc){ 
         delete data.image;

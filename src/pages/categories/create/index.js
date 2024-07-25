@@ -17,7 +17,7 @@ const defaultValues = {
     long_description_en: "",
     long_description_ar: "",
     image: "",
-    parent_id: "",
+    category_id: "",
     order : "",
     active: false,
     featured: ""
@@ -52,12 +52,14 @@ const CategoryCreate = () => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.parent_id = data.parent_id?.id;
-    if(!imgSrc){ 
+    data.parent_id = data.category_id?.id;
+    if(!categoryImg){ 
         delete data.image;
     }else{ 
-        data.image = imgSrc;
+        data.image = categoryImg;
     }
+
+    console.log(data);
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}categories`, data, {
