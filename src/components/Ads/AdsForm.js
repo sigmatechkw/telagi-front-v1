@@ -52,6 +52,7 @@ const AdsForm = ({
     const data = await fetchAllCategories()
     setCategories(data);
   }
+  
   const getCountries = async() => {
     const data = await fetchCountries()
     setCountries(data)
