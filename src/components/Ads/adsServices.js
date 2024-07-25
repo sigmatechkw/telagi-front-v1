@@ -11,6 +11,7 @@ export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'asc
     page: page + 1,
     perPage,
   }
+  
   const filters = { 
     active : isActive,
     expired : isExpired,

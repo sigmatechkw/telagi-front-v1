@@ -71,6 +71,7 @@ export const fetchAttributesSetsTypes = async () => {
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
     })
+    
     return response.data.data.items.types
   } catch (err) {
     toast.error(err.response?.data?.message)
