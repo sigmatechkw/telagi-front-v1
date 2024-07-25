@@ -84,6 +84,7 @@
 //     setValue('name_ar', type.name_ar)
 //     setValue('image', type.image)
 //     setImgSrc(type.image);
+//     Todo add category_id
 //     setValue('attribute_set_id', type.attribute_set)
 //     setValue('order', type.order)
 //     setValue('active', type.active)
