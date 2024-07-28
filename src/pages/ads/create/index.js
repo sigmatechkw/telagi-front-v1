@@ -62,9 +62,7 @@ const AdsCreate = () => {
     data.category_id = data.category_id?.id;
     data.user_id = data.user_id?.id;
 
-    data.image = imgSrc;
-    data.image = imgSrc;
-    
+    data.image = imgSrc;    
 
     if(!imgSrc){ 
       delete data.image;

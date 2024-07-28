@@ -320,7 +320,7 @@
   "is_liked" : "Is Liked",
   "is_favorite" : "Is Favorite",
   "categories" : "Categories",
-  "full_name" : "Full Name",
+  "sub_categories" : "Sub Categories",
   "sub_categories_count" : "Sub Categories Count",
   "parent_Category" : "Parent Category",
   "category" : "Category",

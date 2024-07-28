@@ -25,7 +25,7 @@ export const fetchCategories = async (page = 1, search, sortKey = 'id', sortType
   }
 
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}categories`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}all-categories`, {
       params,
       headers: {
         'Authorization': getCookie('token'),

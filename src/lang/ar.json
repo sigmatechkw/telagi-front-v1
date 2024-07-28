@@ -334,6 +334,7 @@
   "is_favorite" : "هل مفضل",
   "categories" : "الاقسام",
   "full_name" : "الاسم كامل",
+  "sub_categories" : "الاقسام المدرجة",
   "sub_categories_count" : "عدد الاقسام المدرجة",
   "parent_Category" : "القسم الاب",
   "category" : "القسم",

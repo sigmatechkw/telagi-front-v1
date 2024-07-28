@@ -122,7 +122,8 @@ const LoginPage = () => {
   })
 
   const onSubmit = data => {
-    const { email, password } = data
+    data.role = 'admin';
+    const { email, password } = data;
     auth.login({ email, password, rememberMe }, () => {
       setError('email', {
         type: 'manual',

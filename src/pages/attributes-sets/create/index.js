@@ -54,6 +54,7 @@ const AttributesSetsCreate = () => {
         data.image = imgSrc;
     }
 
+
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}attribute-sets`, data, {
         headers: {

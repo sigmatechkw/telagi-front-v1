@@ -23,6 +23,8 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
   const [currentAttibuteSet, setCurrentAttibuteSet] = useState(attr)
   const [currentAttibutes, setCurrentAttibute] = useState([])
   const [searchAttributesSetsTerm, setSearchAttributesSetsTerm] = useState('');
+  const [currentAttributeSetOption, setCurrentAttributeSetOption] = useState(null);
+  const [currentAttributeOption, setCurrentAttributeOption] = useState(null);
   
   const {
     data : attributesSets,
@@ -46,7 +48,7 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
     }
   };
 
-  const AttributesSetsOptions = attributesSets?.pages.flatMap((page) => page.items) || [];  
+  const AttributesSetsOptions = attributesSets?.pages.flatMap((page) => page.items) || [];
 
   const handleChangeAttributeSet = (e) => {
     setCurrentAttibuteSet(prev => {
@@ -73,7 +75,25 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
       item.id === attr.id ? { ...item, attribute_set_id: currentAttibuteSet?.attribute_set_id , value: currentAttibuteSet?.value } : item
     );
     setValue('attributes', updatedAttribute)
+    setCurrentAttributeOption(currentAttibutes.find(option => option.id === currentAttibuteSet.value));
   }, [currentAttibuteSet])
+
+
+
+  useEffect(() => {
+    const findCurrentAttributeSetOption = () => {
+      const data = AttributesSetsOptions.find(option => option.id === currentAttibuteSet.attribute_set_id);
+      setCurrentAttibute(data?.attributes || []);
+      return data;
+    };
+
+    if(AttributesSetsOptions.length > 0) { 
+      const option = findCurrentAttributeSetOption();
+      setCurrentAttributeSetOption(option);
+    }
+    setCurrentAttributeOption(currentAttibutes.find(option => option.id === currentAttibuteSet.value));
+  }, [attributesSets]);
+
 
   return (
     <>
@@ -83,6 +103,7 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
 
           <Grid item xs={12} sm={6}>
                   <CustomAutocomplete
+                    value={currentAttributeSetOption || null}
                     loading={attributesSetsIsFetching || attributesSetsIsFetchingNextPage}
                     ListboxProps={{
                       onScroll: (event) => {
@@ -111,6 +132,7 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
 
             <Grid item xs={12} sm={6}>
               <CustomAutocomplete
+                value={currentAttributeOption || null}
                 onChange={(e, newValue) => {
                   if (newValue) {
                     handleChangeAttribute(newValue)

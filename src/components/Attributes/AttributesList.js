@@ -73,7 +73,7 @@ const AttributesList = ({
       flex: 0.175,
       minWidth: 120,
       field: 'attribute_set',
-      headerName: t('attribute_set'),
+      headerName: t('attributes_sets'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
           {row.attribute_set?.name}

@@ -110,7 +110,7 @@ const AttributesForm = ({
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
-            <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <ImgStyled src={imgSrc} alt={t('attributes')} />
                 <div>

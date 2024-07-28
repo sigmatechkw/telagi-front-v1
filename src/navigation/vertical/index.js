@@ -38,11 +38,11 @@ const navigation = () => {
       path: '/packages',
       icon: 'tabler:packages',
     },
-    {
-      title: i18n.t('blogs'),
-      path: '/blogs',
-      icon: 'tabler:news',
-    },
+    // {
+    //   title: i18n.t('blogs'),
+    //   path: '/blogs',
+    //   icon: 'tabler:news',
+    // },
     {
       title: i18n.t('banners'),
       path: '/banners',
@@ -57,18 +57,18 @@ const navigation = () => {
           path: '/transactions',
           icon: 'tabler:brand-cashapp',
         },
-        {
-          title: i18n.t('expert_transactions'),
-          path: '/expert-transactions',
-          icon: 'tabler:brand-cashapp',
-        }
+        // {
+        //   title: i18n.t('expert_transactions'),
+        //   path: '/expert-transactions',
+        //   icon: 'tabler:brand-cashapp',
+        // }
       ]
     },
-    {
-      title: i18n.t('chats'),
-      path: '/chats',
-      icon: 'tabler:messages',
-    },
+    // {
+    //   title: i18n.t('chats'),
+    //   path: '/chats',
+    //   icon: 'tabler:messages',
+    // },
     {
       title: i18n.t('settings'),
       path: '/settings',

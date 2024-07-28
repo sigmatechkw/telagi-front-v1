@@ -8,10 +8,9 @@ import { styled } from '@mui/material/styles';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import Checkbox from '@mui/material/Checkbox';
-import { fetchAllCategories } from '../../Categories/CategoriesServices';
-import {useTranslation} from "react-i18next";
+import { fetchAllCategories } from './CategoriesServices';
+import { useTranslation } from "react-i18next";
 import { CardHeader } from '@mui/material';
-
 
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   [`& .${treeItemClasses.iconContainer}`]: {
@@ -40,14 +39,11 @@ function CloseSquare(props) {
 }
 
 const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
-  const isLeaf = !node.sub_categories || node.sub_categories.length === 0;
   const isChecked = selectedNode === node.id;
 
   const handleCheck = (event) => {
     event.stopPropagation(); // Prevent tree item selection on checkbox click
-    if (isLeaf) {
-      onNodeSelect(node.id);
-    }
+    onNodeSelect(node.id);
   };
 
   return (
@@ -56,14 +52,12 @@ const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
       label={
         <>
           {node.name}
-          {isLeaf && (
-            <Checkbox
-              checked={isChecked}
-              onChange={handleCheck}
-              onClick={(event) => event.stopPropagation()}
-              style={{ marginLeft: 8 }}
-            />
-          )}
+          <Checkbox
+            checked={isChecked}
+            onChange={handleCheck}
+            onClick={(event) => event.stopPropagation()}
+            style={{ marginLeft: 8 }}
+          />
         </>
       }
       key={node.id}
@@ -80,10 +74,10 @@ const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
   );
 };
 
-export default function AdsSelectCategories({setValue , category_id}) {
+export default function CategoriesSelectForm({ setValue, category_id }) {
   const [categories, setCategories] = useState([]);
-  const [selectedNode, setSelectedNode] = useState(category_id);
-  const {t, i18n} = useTranslation()
+  const [selectedNode, setSelectedNode] = useState('');
+  const { t, i18n } = useTranslation();
 
   const getCategories = async () => {
     const data = await fetchAllCategories();
@@ -95,7 +89,7 @@ export default function AdsSelectCategories({setValue , category_id}) {
   }, []);
 
   useEffect(() => { 
-    setSelectedNode(category_id);
+    setSelectedNode(category_id)
   } , [category_id])
 
   const handleNodeSelect = (nodeId) => {
@@ -104,7 +98,7 @@ export default function AdsSelectCategories({setValue , category_id}) {
   };
 
   return (
-    <Box sx={{ minHeight: 352, minWidth: 250 , maxHeight:352 }} style={{ overflowY: 'scroll' }}>
+    <Box sx={{ minHeight: 352, minWidth: 250, maxHeight: 352 }} style={{ overflowY: 'scroll' }}>
       <CardHeader title={t('categories')} />
 
       <SimpleTreeView
