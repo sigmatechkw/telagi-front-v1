@@ -28,11 +28,11 @@ const AdsRowOptions = ({ id, handleClickDeleteButton }) => {
         onClick={handleView}>
         <Icon icon='tabler:eye' fontSize={20}/>
       </IconButton>
-      {/* <IconButton
+      <IconButton
         color="warning"
         onClick={handleEdit}>
         <Icon icon='tabler:edit' fontSize={20}/>
-      </IconButton> */}
+      </IconButton>
       <IconButton
         color="error"
         onClick={handleDelete}>

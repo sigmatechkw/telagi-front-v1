@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
-import CustomDataGrid from '../Shared/CustomDataGrid'
-import Snackbar from '@mui/material/Snackbar'
-import SnackbarConfirmActions from '../Shared/SnackbarConfirmActions'
+import CustomDataGrid from 'src/components/Shared/CustomDataGrid'
 import { useTranslation } from 'react-i18next'
 import Typography from '@mui/material/Typography'
-import Icon from '../../@core/components/icon'
-import { deleteCategories } from './CategoriesServices'
-import CategoriesRowOptions from './CategoriesRowOptions'
-import CategoriesTableHeader from './CategoriesListTableHeader'
+import Snackbar from '@mui/material/Snackbar'
+import Icon from '../../../@core/components/icon'
+import SnackbarConfirmActions from 'src/components/Shared/SnackbarConfirmActions'
+import { deleteCategories } from '../CategoriesServices'
+import CategoriesRowOptions from '../CategoriesRowOptions'
 
-const CategoriesList = ({
+const SubCategoriesTable = ({
   data,
-  search,
-  setSearch,
-  paginationModel,
-  setPaginationModel,
-  sortModel,
-  setSortModel,
   fetchData,
-  canExport = false
 }) => {
   const { t } = useTranslation()
-  const [total, setTotal] = useState(data.total)
-  const [rowSelectionModel, setRowSelectionModel] = useState([])
-  const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
   const [selectedRowId, setSelectedRowId] = useState(null)
+  const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
 
   const handleDelete = () => {
     deleteCategories([selectedRowId]).then(res => {
@@ -87,7 +77,7 @@ const CategoriesList = ({
       headerName: t('sub_categories_count'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row?.sub_categories?.length}
+          {row.sub_categories_count}
         </Typography>
       )
     },
@@ -142,44 +132,25 @@ const CategoriesList = ({
     }
   ]
 
-  useEffect(() => {
-    setTotal(data.total)
-  }, [data])
-
   return (
-    <div>
-      <Card>
-        <CardHeader title={t('categories')} />
-        <CustomDataGrid
-          toolbar={CategoriesTableHeader}
-          toolbarProps={{
-            value: search,
-            clearSearch: () => setSearch(''),
-            onChange: event => setSearch(event.target.value),
-            selectedRows: rowSelectionModel,
-            fetchData: fetchData,
-            canExport: canExport
-          }}
-          rows={data.items}
+      <Card item xs={12}>
+        <CardHeader title={t('sub_categories')} />
+        <CustomDataGrid 
+          rows={data}
           columns={columns}
-          total={total}
-          paginationModel={paginationModel}
-          setPaginationModel={setPaginationModel}
-          rowSelectionModel={rowSelectionModel}
-          setRowSelectionModel={setRowSelectionModel}
-          sortModel={sortModel}
-          setSortModel={setSortModel}
+          total={data.length}
+          paginationModel={{perPage: 12 , page: 1}}
+          multiSelection={false}
         />
-      </Card>
-      <Snackbar
+        <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={openDeleteSnackbar}
         onClose={handleCloseDeleteSnackbar}
         message={t('are_you_sure')}
         action={<SnackbarConfirmActions handleConfirm={handleDelete} handleClose={handleCloseDeleteSnackbar} />}
       />
-    </div>
+      </Card>
   )
 }
 
-export default CategoriesList
+export default SubCategoriesTable

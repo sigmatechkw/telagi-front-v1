@@ -15,10 +15,9 @@ import {nanoid} from "nanoid";
 import { Box, Checkbox, FormControlLabel, styled } from '@mui/material'
 import { fetchAllCategories } from './CategoriesServices';
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
-import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories';
+import CategoriesSelectForm from './CategoriesSelectForm';
 
-
-const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg, category_id}) => {
+const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg, category_id = ''}) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const [categories , setCategories] = useState([]);
@@ -84,7 +83,7 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
             <Grid container spacing={4} item md={9}>
-              <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <ImgStyled src={imgSrc} alt={t('category')} />
                   <div>
@@ -153,6 +152,8 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                   rules={{required: true}}
                   render={({field: {value, onChange}}) => (
                     <CustomTextField
+                      rows={4}
+                      multiline
                       fullWidth
                       value={value}
                       label={t('description_en')}
@@ -173,6 +174,8 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                   rules={{required: true}}
                   render={({field: {value, onChange}}) => (
                     <CustomTextField
+                      rows={4}
+                      multiline
                       fullWidth
                       value={value}
                       label={t('description_ar')}
@@ -193,6 +196,8 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                   rules={{required: true}}
                   render={({field: {value, onChange}}) => (
                     <CustomTextField
+                      rows={4}
+                      multiline
                       fullWidth
                       value={value}
                       label={t('long_description_en')}
@@ -206,13 +211,15 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <Controller
                   name='long_description_ar'
                   control={control}
                   rules={{required: true}}
                   render={({field: {value, onChange}}) => (
                     <CustomTextField
+                      rows={4}
+                      multiline
                       fullWidth
                       value={value}
                       label={t('long_description_ar')}
@@ -306,9 +313,11 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
                 </Button>
               </Grid>
             </Grid>
-            <Grid item md={3}>
-              <AdsSelectCategories category_id={category_id} setValue={setValue}/>
-            </Grid>
+
+              <Grid item md={3}>
+                <CategoriesSelectForm category_id={category_id} setValue={setValue}/>
+              </Grid>
+            
             </Grid>
         </form>
       </CardContent>

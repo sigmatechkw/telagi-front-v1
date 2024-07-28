@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
-import BlogsForm from 'src/components/blogs/BlogsForm'
 import { useSelector } from 'react-redux'
 import CategoriesForm from 'src/components/Categories/CategoriesForm'
 
@@ -52,14 +51,12 @@ const CategoryCreate = () => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.parent_id = data.category_id?.id;
+    data.parent_id = data.category_id;
     if(!categoryImg){ 
         delete data.image;
     }else{ 
         data.image = categoryImg;
     }
-
-    console.log(data);
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}categories`, data, {

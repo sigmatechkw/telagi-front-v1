@@ -129,6 +129,7 @@ const AttributesSetsList = ({
 
   useEffect(() => {
     setTotal(data.total)
+    console.log(data)
   }, [data])
 
   return (

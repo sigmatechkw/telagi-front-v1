@@ -79,7 +79,6 @@ const CategoriesEdit = ({ type, id }) => {
     setValue('long_description_ar', type.long_description_ar)
     setValue('image', type.image)
     setImgSrc(type.image);
-    // TODO: add category_id for edit
     setValue('category_id', type.parent?.id)
     setCategoryId(type.parent?.id)
     setValue('order', type.order)

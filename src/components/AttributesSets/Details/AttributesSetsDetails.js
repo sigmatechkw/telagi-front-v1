@@ -13,6 +13,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { deleteAttributesSets } from '../AttributesSetsServices';
 import Icon from '../../../@core/components/icon'
 import Box from '@mui/material/Box'
+import AttributesTable from './AttributesTable'
 
 const AttributesSetsDetails = ({ type }) => {
   const { t } = useTranslation()
@@ -81,6 +82,10 @@ const AttributesSetsDetails = ({ type }) => {
             </Button>
           </CardActions>
         </Card>
+
+        <Grid style={{marginTop: 20}}>
+          <AttributesTable data={type.attributes} />
+        </Grid>
       </Grid>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

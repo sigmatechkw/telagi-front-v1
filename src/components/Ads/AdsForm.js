@@ -21,6 +21,7 @@ import { fetchCountries } from '../Users/List/userListServices';
 import { fetchUsersInfinityQuery } from '../Users/List/userListServices';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import {styled } from '@mui/material'
+import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-datepicker'
 import { useTheme } from '@mui/material/styles'
 import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCustomInput'
@@ -30,7 +31,7 @@ import AdsAttributesSetsForm from './AdsForm/AdsAttributesSetsForm';
 
 const AdsForm = ({
   type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc,
-  adImg ,setAdImg ,imgsArr , setImgsArr , adsImgsArr ,setAdsImgsArr ,videoSrc , setVideoSrc , adVideo , setAdVideo
+  adImg ,setAdImg ,imgsArr , setImgsArr , adsImgsArr ,setAdsImgsArr ,videoSrc , setVideoSrc , adVideo , setAdVideo , category_id
 }) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
@@ -139,7 +140,6 @@ const AdsForm = ({
   
   const handleInputImagesChange = (event) => {
     const { files } = event.target;
-    console.log(files);
     if (files && files.length > 0) {
       const promises = [];
       
@@ -247,8 +247,11 @@ const AdsForm = ({
               <Grid item md={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   {imgsArr.map((image, index) => (
-                    <ImgStyled src={image} key={index} alt={t('upload_Photos')} />
+                    !image?.url ?
+                     <ImgStyled src={image} key={index} alt={t('upload_Photos')} /> :
+                     <ImgStyled src={image.url} key={index} alt={t('upload_Photos')} />
                   ))}
+                  
                   
                   <div>
                     <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-images'>
@@ -337,22 +340,25 @@ const AdsForm = ({
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <Controller
-                  name='expiration_date'
-                  control={control}
-                  render={({ field: { value } }) => (
-                    <DatePicker
-                      showTimeSelect
-                      selected={value ? value : new Date()}
-                      id='locale-time'
-                      dateFormat='MM/dd/yyyy h:mm aa'
-                      popperPlacement={popperPlacement} // Set the popperPlacement if needed
-                      onChange={newValue => setValue('expiration_date', newValue)}
-                      customInput={<PickersComponent label={'expiration_date'} />}
-                    />
-                  )}
-                /></Grid>
+                  <Controller
+                    name="expiration_date"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      const dateValue = value ? new Date(value) : new Date(); // Ensure value is a Date object
 
+                      return (
+                        <DatePicker
+                          showTimeSelect
+                          selected={dateValue}
+                          id="locale-time"
+                          dateFormat="MM/dd/yyyy h:mm aa"
+                          onChange={(newValue) => onChange(newValue)}
+                          customInput={<PickersComponent label={t('expiration_date')} />}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
                   name='price'
@@ -432,40 +438,48 @@ const AdsForm = ({
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name='featured_start_date'
-                  control={control}
-                  render={({ field: { value } }) => (
-                    <DatePicker
-                      showTimeSelect
-                      selected={value ? value : new Date()}
-                      id='locale-time'
-                      dateFormat='MM/dd/yyyy h:mm aa'
-                      popperPlacement={popperPlacement} 
-                      onChange={newValue => setValue('featured_start_date', newValue)}
-                      customInput={<PickersComponent label={t('featured_start_date')} />}
-                    />
-                  )}
-                /></Grid>
+                <Grid item xs={12} sm={6}>
+                  <Controller
+                    name="featured_start_date"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      const dateValue = value ? new Date(value) : new Date(); // Ensure value is a Date object
+
+                      return (
+                        <DatePicker
+                          showTimeSelect
+                          selected={dateValue}
+                          id="locale-time"
+                          dateFormat="MM/dd/yyyy h:mm aa"
+                          onChange={(newValue) => onChange(newValue)}
+                          customInput={<PickersComponent label={t('featured_start_date')} />}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
 
 
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name='featured_end_date'
-                  control={control}
-                  render={({ field: { value } }) => (
-                    <DatePicker
-                      showTimeSelect
-                      selected={value ? value : new Date()}
-                      id='locale-time'
-                      dateFormat='MM/dd/yyyy h:mm aa'
-                      popperPlacement={popperPlacement} // Set the popperPlacement if needed
-                      onChange={newValue => setValue('featured_end_date', newValue)}
-                      customInput={<PickersComponent label={t('featured_end_date')} />}
-                    />
-                  )}
-                /></Grid>
+                <Grid item xs={12} sm={6}>
+                  <Controller
+                    name="featured_end_date"
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      const dateValue = value ? new Date(value) : new Date(); // Ensure value is a Date object
+
+                      return (
+                        <DatePicker
+                          showTimeSelect
+                          selected={dateValue}
+                          id="locale-time"
+                          dateFormat="MM/dd/yyyy h:mm aa"
+                          onChange={(newValue) => onChange(newValue)}
+                          customInput={<PickersComponent label={t('featured_end_date')} />}
+                        />
+                      );
+                    }}
+                  />
+                </Grid>
 
                 <Grid item xs={12} sm={6}>
                 <Controller
@@ -518,33 +532,6 @@ const AdsForm = ({
                   )}
                 />
               </Grid>
-
-              <Grid item xs={12} sm={6}>
-              <Controller
-                name='category_id'
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { value, onChange } }) => (
-                  <CustomAutocomplete
-                    value={value}
-                    onChange={(e, newValue) => {
-                      if (newValue) {
-                        setValue('category_id', newValue)
-                        onChange(newValue)
-                      } else {
-                        setValue('category_id', null)
-                      }
-                    }}
-                    isOptionEqualToValue={(option, value) => option.id === value?.id}
-                    options={categories}
-                    getOptionLabel={option => option.name || ''}
-                    required
-                    renderInput={params => <CustomTextField {...params}
-                    label={t('category')} />}
-                  />
-                )}
-              />
-            </Grid>
 
               <Grid item xs={12} sm={6}>
               <Controller
@@ -699,11 +686,10 @@ const AdsForm = ({
               </Grid>
             </Grid>
             <Grid item md={3}>
-              <AdsSelectCategories setValue={setValue}/>
+              <AdsSelectCategories setValue={setValue} category_id={category_id}/>
             </Grid>
             </Grid>
            
-            
         </form>
       </CardContent>
     </>

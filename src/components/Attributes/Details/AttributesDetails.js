@@ -52,7 +52,7 @@ const AttributesDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.order}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('attribute_set')}:</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('attributes_sets')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.attribute_set?.name}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>

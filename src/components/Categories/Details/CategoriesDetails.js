@@ -13,6 +13,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { deleteCategories } from '../CategoriesServices'
 import Icon from '../../../@core/components/icon'
 import Box from '@mui/material/Box'
+import SubCategoriesTable from './SubCategoriesTable'
 
 const CategoryDetails = ({ type }) => {
   const { t } = useTranslation()
@@ -95,6 +96,10 @@ const CategoryDetails = ({ type }) => {
             </Button>
           </CardActions>
         </Card>
+
+        <Grid item xs={12} style={{marginTop: 20}}>
+          <SubCategoriesTable data={type.sub_categories} />
+        </Grid>
       </Grid>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
