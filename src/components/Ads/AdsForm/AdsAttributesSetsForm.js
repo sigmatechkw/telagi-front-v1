@@ -84,6 +84,7 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
     const findCurrentAttributeSetOption = () => {
       const data = AttributesSetsOptions.find(option => option.id === currentAttibuteSet.attribute_set_id);
       setCurrentAttibute(data?.attributes || []);
+
       return data;
     };
 
@@ -117,8 +118,10 @@ const AdsAttributesSetsForm = ({attr, errors, attributes, setValue, control, han
                     onChange={(e, newValue) => {
                       if (newValue) {
                         handleChangeAttributeSet(newValue)
+
                       } else {
                         handleChangeAttributeSet('')
+                        
                       }
                     }}
                     isOptionEqualToValue={(option, value) => option.id === value?.id}

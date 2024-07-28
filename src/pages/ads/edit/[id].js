@@ -116,11 +116,13 @@ const AdsEdit = ({ type, id }) => {
 
         if(dataAttribute.attribute_set_id != oldAttribute.attribute_set?.id){ 
           attributes.push(dataAttribute);
+
           return
         }
 
         if(dataAttribute.value != oldAttribute.attributes[0]?.id){ 
           attributes.push(dataAttribute);
+          
           return
         }
     });
