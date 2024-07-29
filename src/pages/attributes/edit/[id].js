@@ -42,10 +42,10 @@ const AttributesEdit = ({ type, id }) => {
 
     data.attribute_set_id = data.attribute_set_id.id;
 
-    if(!imgSrc){ 
+    if(!attributeSetImg){ 
         delete data.image;
     }else{ 
-        data.image = imgSrc;
+        data.image = attributeSetImg;
     }
 
     axios

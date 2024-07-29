@@ -20,7 +20,7 @@ const defaultValues = {
     category_id: "",
     order : "",
     active: false,
-    featured: ""
+    featured: false
 }
 
 const CategoriesEdit = ({ type, id }) => {
@@ -45,11 +45,11 @@ const CategoriesEdit = ({ type, id }) => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.parent_id = data.category_id?.id;
-    if(!imgSrc){ 
+    data.parent_id = data.category_id;
+    if(!categoryImg){ 
         delete data.image;
     }else{ 
-        data.image = imgSrc;
+        data.image = categoryImg;
     }
 
     axios

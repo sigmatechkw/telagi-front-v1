@@ -19,7 +19,7 @@ const defaultValues = {
     category_id: "",
     order : "",
     active: false,
-    featured: ""
+    featured: false
 }
 
 const CategoryCreate = () => {
@@ -52,6 +52,7 @@ const CategoryCreate = () => {
     setLoading(true)
 
     data.parent_id = data.category_id;
+
     if(!categoryImg){ 
         delete data.image;
     }else{ 
