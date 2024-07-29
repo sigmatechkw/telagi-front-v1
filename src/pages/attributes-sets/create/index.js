@@ -48,12 +48,12 @@ const AttributesSetsCreate = () => {
     setLoading(true)
     data.category_id = data.category_id;
     data.type = data.type?.id;
+
     if(!imgSrc){ 
         delete data.image;
     }else{ 
         data.image = imgSrc;
     }
-
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}attribute-sets`, data, {

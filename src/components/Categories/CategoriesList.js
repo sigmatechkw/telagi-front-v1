@@ -98,7 +98,7 @@ const CategoriesList = ({
       headerName: t('is_featured'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.featured ? (
+          {row.featured == 1 ? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
@@ -113,7 +113,7 @@ const CategoriesList = ({
       headerName: t('active'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.active ? (
+          {row.active == 1  ? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />

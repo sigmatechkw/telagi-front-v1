@@ -56,6 +56,12 @@ const AdsEdit = ({ type, id }) => {
     reset,
     formState: { errors }
   } = useForm({ defaultValues })
+
+    const testBase64 = src => {
+    const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+
+    return base64Regex.test(src)
+  }
   
 
   const onSubmit = data => {
@@ -115,13 +121,13 @@ const AdsEdit = ({ type, id }) => {
         const oldAttribute = type.ad_attributes.find((e) => e.attribute_set?.id == dataAttribute.attribute_set_id) || {};
 
         if(dataAttribute.attribute_set_id != oldAttribute.attribute_set?.id){ 
-          attributes.push(dataAttribute);
-
+          attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
+          
           return
         }
 
         if(dataAttribute.value != oldAttribute.attributes[0]?.id){ 
-          attributes.push(dataAttribute);
+          attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
           
           return
         }
