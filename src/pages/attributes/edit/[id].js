@@ -37,15 +37,21 @@ const AttributesEdit = ({ type, id }) => {
     formState: { errors }
   } = useForm({ defaultValues })
 
+  const testBase64 = src => {
+    const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+
+    return base64Regex.test(src)
+  }
+
   const onSubmit = data => {
     setLoading(true)
 
     data.attribute_set_id = data.attribute_set_id.id;
 
-    if(!attributeSetImg){ 
+    if(!testBase64(imgSrc)){ 
         delete data.image;
     }else{ 
-        data.image = attributeSetImg;
+        data.image = imgSrc;
     }
 
     axios

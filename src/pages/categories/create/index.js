@@ -42,21 +42,15 @@ const CategoryCreate = () => {
     formState: { errors }
   } = useForm({ defaultValues })
 
-  const testBase64 = src => {
-    const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
-
-    return base64Regex.test(src)
-  }
-
   const onSubmit = data => {
     setLoading(true)
 
     data.parent_id = data.category_id;
 
-    if(!categoryImg){ 
+    if(!imgSrc){ 
         delete data.image;
     }else{ 
-        data.image = categoryImg;
+        data.image = imgSrc;
     }
 
     axios

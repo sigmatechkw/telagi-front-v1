@@ -62,7 +62,7 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
     const { files } = file.target
     if (files && files.length !== 0) {
       reader.onload = () => {
-        setImgSrc(reader.result)
+        setImgSrc(reader.result);
       }
       reader.readAsDataURL(files[0])
       if (reader.result !== null) {

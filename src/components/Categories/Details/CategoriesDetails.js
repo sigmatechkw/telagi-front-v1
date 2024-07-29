@@ -68,7 +68,7 @@ const CategoryDetails = ({ type }) => {
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured')}:</Typography>
-              {type.featured ? (
+              {type.featured == 1 ? (
                 <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
               ) : (
                 <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
@@ -76,7 +76,7 @@ const CategoryDetails = ({ type }) => {
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_active')}:</Typography>
-              {type.active ? (
+              {type.active == 1 ? (
                 <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
               ) : (
                 <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
