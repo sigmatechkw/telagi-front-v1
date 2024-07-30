@@ -41,16 +41,17 @@ export const deleteUsers = async (ids) => {
 }
 
 export const fetchExpertStatistics = async (id) => {
-  try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}experts/${id}/statistics`, {
-      headers: {
-        'Authorization': getCookie('token'),
-        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
-      }
-    })
+  // try {
+  //   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}experts/${id}/statistics`, {
+  //     headers: {
+  //       'Authorization': getCookie('token'),
+  //       'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+  //     }
+  //   })
 
-    return response.data.data.items
-  } catch (err) {
-    toast.error(err.response?.data?.message)
-  }
+  //   return response.data.data.items
+  // } catch (err) {
+  //   toast.error(err.response?.data?.message)
+  // }
+  return {};
 }

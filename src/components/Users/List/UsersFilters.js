@@ -12,16 +12,11 @@ import MenuItem from "@mui/material/MenuItem";
 import {fetchCountries, fetchUsersRoles} from "./userListServices";
 import {EMPLOYMENT_STATUS, GENDER, MARITAL_STATUS} from "../../../constants/constants";
 
-const UsersFilters = ({ role, setRole, active,  setActive, employmentStatus, setEmploymentStatus, maritalStatus, setMaritalStatus, gender, setGender, country, setCountry, dreamsCount, setDreamsCount }) => {
+const UsersFilters = ({ role, setRole, active,  setActive, employmentStatus, setEmploymentStatus, maritalStatus, setMaritalStatus, gender, setGender, country, setCountry}) => {
   const {t} = useTranslation()
   const [roles, setRoles] = useState([])
   const [countries, setCountries] = useState([])
 
-  const [dreamsCountOptions, setDreamsCountOptions] = useState({
-    0: t('not_posted_any_dream'),
-    1: t('posted_only_one_dream'),
-    'more': t('posted_more_than_one_dream')
-  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -181,30 +176,6 @@ const UsersFilters = ({ role, setRole, active,  setActive, employmentStatus, set
                 {
                   Object.keys(GENDER).map(gender => (
                     <MenuItem key={gender} value={gender}>{GENDER[gender]}</MenuItem>
-                  ))
-                }
-              </CustomTextField>
-            </Grid>
-            <Grid item xs={12} md={3} lg={3}>
-              <CustomTextField
-                select
-                fullWidth
-                defaultValue={t('select_dreams_count')}
-                SelectProps={{
-                  value: dreamsCount,
-                  displayEmpty: true,
-                  onChange: (e) => setDreamsCount(e.target.value),
-                  endAdornment: (
-                    <IconButton sx={{ mx: 2 }} onClick={() => setDreamsCount('')}>
-                      <Icon icon={'tabler:circle-x'} />
-                    </IconButton>
-                  )
-                }}
-              >
-                <MenuItem value={''}>{t('select_dreams_count')}</MenuItem>
-                {
-                  Object.keys(dreamsCountOptions).map(option => (
-                    <MenuItem key={option} value={option}>{dreamsCountOptions[option]}</MenuItem>
                   ))
                 }
               </CustomTextField>

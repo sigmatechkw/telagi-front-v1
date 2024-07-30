@@ -28,7 +28,7 @@ export const fetchUsersStatistics = async (dateRange) => {
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
     })
-
+    
     return response.data.data.items
   } catch (err) {
     toast.error(err.response?.data?.message)

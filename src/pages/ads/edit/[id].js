@@ -118,23 +118,16 @@ const AdsEdit = ({ type, id }) => {
     const attributes = [];
     //check for the new or updated attributes
     data.attributes.forEach((dataAttribute) => { 
-        const oldAttribute = type.ad_attributes.find((e) => e.attribute_set?.id == dataAttribute.attribute_set_id) || {};
-
-        if(dataAttribute.attribute_set_id != oldAttribute.attribute_set?.id){ 
+        const oldAttributeSet = attributes.find((e) => e.attribute_set_id == dataAttribute.attribute_set_id);
+        if(oldAttributeSet) { 
+          oldAttributeSet.value.push(dataAttribute.value);
+        }else{ 
           attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
-          
-          return
-        }
-
-        if(dataAttribute.value != oldAttribute.attributes[0]?.id){ 
-          attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
-          
-          return
         }
     });
 
     data.attributes = attributes;
-
+    
     axios
       .put(`${process.env.NEXT_PUBLIC_API_KEY}ads/${id}`, data, {
         headers: {
@@ -181,8 +174,10 @@ const AdsEdit = ({ type, id }) => {
     let attributes = [];
     if(type.ad_attributes.length > 0) { 
       await type.ad_attributes.forEach((e) => { 
-        const attr = {id: nanoid(), attribute_set_id : e.attribute_set?.id , value : e.attributes[0]?.id};
-        attributes.push(attr);
+            e.attributes.forEach((attrItem) => { 
+              const attr = {id: nanoid(), attribute_set_id : e.attribute_set?.id , value : attrItem?.id};
+              attributes.push(attr);
+            })
       });
     }
     setValue('attributes', attributes)

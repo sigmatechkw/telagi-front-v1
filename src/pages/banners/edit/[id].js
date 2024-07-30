@@ -62,6 +62,7 @@ const BannersEdit = () => {
   const [deletedIosImgs, setDeletedIosImgs] = useState([])
 
   const [deletedAndroidImgs, setDeletedAndroidImgs] = useState([])
+  const [category_id , setCategoryId] = useState('');
 
   const {
     control,
@@ -143,6 +144,8 @@ const BannersEdit = () => {
             ...(type.id == 2 && { url: url }),
             ...(target_id?.id && { target_id: target_id.id }),
             active: +active,
+            category_id : data.category_id,
+
 
             ...(deletedSiteImgs.length > 0 && { deleted_images_site_ids: deletedSiteImgs }),
             ...(deletedIosImgs.length > 0 && { deleted_images_ios_ids: deletedIosImgs }),
@@ -271,6 +274,8 @@ const BannersEdit = () => {
           }
 
           setValue('type', filteredType)
+          setValue('category_id', res.data.data.items.category_id)
+          setCategoryId(res.data.data.items.category_id);
           setActive(res.data.data.items.active)
         })
         .catch(err => {
@@ -368,6 +373,7 @@ const BannersEdit = () => {
         setSelectedTargetType={setSelectedTargetType}
         setTargetItems={setTargetItems}
         setShowTargetItems={setShowTargetItems}
+        category_id={category_id}
       />
     </Card>
   )

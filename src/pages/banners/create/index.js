@@ -21,6 +21,7 @@ const defaultValues = {
   image_site: '',
   image_ios: '',
   image_android: '',
+  category_id : '',
   start_date: null,
   end_date: new Date().setDate(new Date().getDate() + 1),
   active: '',
@@ -128,7 +129,8 @@ const BannersCreate = () => {
 
             ...(type.id == 2 && { url: url }),
             ...(type.id == 1 && { target_type: target_type.id }),
-            active: +active
+            active: +active,
+            category_id : data.category_id
           },
 
           {
