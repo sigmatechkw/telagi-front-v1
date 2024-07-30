@@ -70,6 +70,8 @@ const UsersEdit = ({user, id}) => {
       delete data.password_confirmation
     }
 
+    console.log(data);
+
     axios
       .put(`${process.env.NEXT_PUBLIC_API_KEY}users/${id}`, data, {
         headers: {

@@ -70,7 +70,7 @@ const UsersStatistics = () => {
                 title={t('role')}
                 color={theme.palette.success.main}
                 labels={roles?.filter(role => role.id !== 1).map(role => t(role.name))}
-                values={[statistics.users, statistics.experts]}
+                values={[statistics.users]}
                 total={statistics.all_items}
               />
             </Grid>

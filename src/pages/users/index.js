@@ -50,7 +50,6 @@ const UsersList = () => {
   const [maritalStatus, setMaritalStatus] = useState('')
   const [gender, setGender] = useState('')
   const [country, setCountry] = useState('')
-  const [dreamsCount, setDreamsCount] = useState('')
 
   const renderClient = params => {
     const {row} = params
@@ -191,7 +190,6 @@ const UsersList = () => {
             employment_status: employmentStatus,
             marital_status: maritalStatus,
             country_id: country,
-            dreams_count: dreamsCount,
           }
         }
       })
@@ -214,7 +212,7 @@ const UsersList = () => {
     }
 
     return () => searchTimeout && clearTimeout(searchTimeout)
-  }, [paginationModel, searchValue, sortModel, role, active, employmentStatus, maritalStatus, gender, country, dreamsCount])
+  }, [paginationModel, searchValue, sortModel, role, active, employmentStatus, maritalStatus, gender, country])
 
   const handleSearch = value => {
     setSearchValue(value)
@@ -255,8 +253,6 @@ const UsersList = () => {
         setGender={setGender}
         country={country}
         setCountry={setCountry}
-        dreamsCount={dreamsCount}
-        setDreamsCount={setDreamsCount}
       />
       <Card>
         <CardHeader title={t('users')}/>

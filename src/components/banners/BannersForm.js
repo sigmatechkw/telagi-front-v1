@@ -19,6 +19,7 @@ import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCusto
 import 'react-datepicker/dist/react-datepicker.css' // Import the default styles for react-datepicker
 import { getCookie } from 'cookies-next'
 import { store } from 'src/store'
+import CategoriesSelectForm from '../Categories/CategoriesSelectForm'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   marginRight: theme.spacing(6),
@@ -79,6 +80,7 @@ const BannersForm = ({
   onSubmit,
   title,
   loading,
+  category_id = '',
   getValues
 }) => {
   const { t } = useTranslation()
@@ -297,7 +299,8 @@ const BannersForm = ({
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Grid item xs={6}>
+          <Grid container spacing={4} item md={9}>
+            <Grid  item xs={6}>
               <Controller
                 name='name'
                 control={control}
@@ -760,6 +763,11 @@ const BannersForm = ({
                 )}
               </Box>
             </Grid>
+          </Grid>
+
+          <Grid item md={3}>
+            <CategoriesSelectForm category_id={category_id} setValue={setValue}/>
+          </Grid>
 
             <Grid item xs={12}></Grid>
 
@@ -774,5 +782,7 @@ const BannersForm = ({
     </>
   )
 }
+
+
 
 export default BannersForm
