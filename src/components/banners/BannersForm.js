@@ -20,6 +20,7 @@ import 'react-datepicker/dist/react-datepicker.css' // Import the default styles
 import { getCookie } from 'cookies-next'
 import { store } from 'src/store'
 import CategoriesSelectForm from '../Categories/CategoriesSelectForm'
+import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   marginRight: theme.spacing(6),
@@ -766,7 +767,8 @@ const BannersForm = ({
           </Grid>
 
           <Grid item md={3}>
-            <CategoriesSelectForm category_id={category_id} setValue={setValue}/>
+            <h5>{t('category_notice')}</h5>
+            <AdsSelectCategories category_id={category_id} setValue={setValue}/>
           </Grid>
 
             <Grid item xs={12}></Grid>

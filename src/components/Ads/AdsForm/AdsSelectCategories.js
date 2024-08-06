@@ -95,7 +95,7 @@ export default function AdsSelectCategories({setValue , category_id}) {
   }, []);
 
   useEffect(() => { 
-    setSelectedNode(category_id);
+    setSelectedNode(parseInt(category_id));
   } , [category_id])
 
   const handleNodeSelect = (nodeId) => {

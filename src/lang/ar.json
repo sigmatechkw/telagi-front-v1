@@ -350,5 +350,7 @@
   "attribute" : "صفة",
   "attributes_create" : "انشاء صفة جديد",
   "attributes_edit" : "تعديل صفة",
-  "is_default" : "هل اساسي"
+  "is_default" : "هل اساسي",
+  "category_notice" : "تنبية: يتم اختيار مكان الاعلان"
+
 }
