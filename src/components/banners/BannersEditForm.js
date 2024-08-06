@@ -14,6 +14,7 @@ import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCusto
 import 'react-datepicker/dist/react-datepicker.css' // Import the default styles for react-datepicker
 import Icon from '../../@core/components/icon'
 import CategoriesSelectForm from '../Categories/CategoriesSelectForm'
+import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 50,
@@ -877,7 +878,8 @@ const BannersEditForm = ({
             </Grid>
 
             <Grid item md={3}>
-                <CategoriesSelectForm category_id={category_id} setValue={setValue}/>
+                <h5>{t('category_notice')}</h5>
+                <AdsSelectCategories category_id={category_id} setValue={setValue}/>
             </Grid>
 
             <Grid item xs={6}></Grid>

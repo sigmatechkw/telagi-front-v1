@@ -251,7 +251,6 @@ const BannersEdit = () => {
           setAndroidImgs(res.data.data.items.images_android)
           setIosImgs(res.data.data.items.images_ios)
 
-          console.log(res.data.data.items)
           const filteredType = allType?.filter(item => item.id == res.data.data.items.type)[0]
 
           setValue('start_date', formatToOriginalDate(start_date))

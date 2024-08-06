@@ -336,6 +336,8 @@
   "attribute" : "Attribute",
   "attributes_create" : "Create Attribute",
   "attributes_edit" : "Edit Attribute",
-  "is_default" : "Is Default"
+  "is_default" : "Is Default",
+  "category_notice" : "Notice: Choosing Banner Position"
+
 
 }
