@@ -69,12 +69,12 @@ const UsersStatistics = () => {
               <CustomPieChartCard
                 title={t('role')}
                 color={theme.palette.success.main}
-                labels={roles?.filter(role => role.id !== 1).map(role => t(role.name))}
+                labels={roles?.filter(role => role.id !== 1).map(role => t(role.name)) || {}}
                 values={[statistics.users]}
                 total={statistics.all_items}
               />
             </Grid>
-            <Grid item xs={12} md={4} lg={4}>
+            {/* <Grid item xs={12} md={4} lg={4}>
               <CustomPieChartCard
                 title={t('active')}
                 color={theme.palette.success.main}
@@ -82,7 +82,7 @@ const UsersStatistics = () => {
                 values={[statistics.active, statistics.in_active]}
                 total={statistics.all_items}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
       </Card>

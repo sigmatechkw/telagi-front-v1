@@ -158,7 +158,6 @@ const AdsForm = ({
       }
       
       Promise.all(promises).then((images) => {
-        console.log(images)
         setImgsArr(images);
         setAdsImgsArr(images);
       });

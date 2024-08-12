@@ -79,7 +79,7 @@ const AttributesSetsTableHeader = ({ selectedRows, onChange, value, clearSearch,
             }
           }}
         />
-        <Button onClick={() => router.push('/attributes-sets/create')} variant='contained' sx={{ '& svg': { mr: 2 } }}>
+        <Button onClick={() => router.push('/sets-attributes/create')} variant='contained' sx={{ '& svg': { mr: 2 } }}>
           <Icon fontSize='1.125rem' icon='tabler:plus' />
           {t('add')}
         </Button>

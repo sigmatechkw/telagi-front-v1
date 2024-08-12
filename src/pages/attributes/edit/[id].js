@@ -38,6 +38,10 @@ const AttributesEdit = ({ type, id }) => {
   } = useForm({ defaultValues })
 
   const testBase64 = src => {
+    if (!src || typeof src !== 'string') {
+      return false;
+    }
+
     const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
 
     return base64Regex.test(src)
@@ -48,10 +52,10 @@ const AttributesEdit = ({ type, id }) => {
 
     data.attribute_set_id = data.attribute_set_id.id;
 
-    if(!testBase64(imgSrc)){ 
-        delete data.image;
+    if(testBase64(imgSrc)){ 
+      data.image = imgSrc;
     }else{ 
-        data.image = imgSrc;
+      delete data.image;
     }
 
     axios
@@ -76,7 +80,7 @@ const AttributesEdit = ({ type, id }) => {
     setValue('name_en', type.name_en)
     setValue('name_ar', type.name_ar)
     setValue('image', type.image)
-    setImgSrc(type.image);
+    setImgSrc(type.image)
     setValue('attribute_set_id', type.attribute_set)
     setValue('order', type.order)
     setValue('active', type.active)

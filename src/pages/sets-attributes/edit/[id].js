@@ -39,6 +39,10 @@ const AttributesSetsEdit = ({ type, id }) => {
   } = useForm({ defaultValues })
 
   const testBase64 = src => {
+    if (!src || typeof src !== 'string') {
+      return false;
+    }
+
     const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
 
     return base64Regex.test(src)
@@ -65,7 +69,7 @@ const AttributesSetsEdit = ({ type, id }) => {
       .then(res => {
         setLoading(false)
         toast.success(t('success'))
-        router.push(`/attributes-sets/details/${id}`)
+        router.push(`/sets-attributes/details/${id}`)
         reset()
       })
       .catch(error => {

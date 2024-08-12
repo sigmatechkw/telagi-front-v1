@@ -74,7 +74,7 @@ const AttributesSetsDetails = ({ type }) => {
             </Box>
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant='tonal' sx={{ mr: 2 }} onClick={() => router.push(`/attributes-sets/edit/${type.id}`)}>
+            <Button variant='tonal' sx={{ mr: 2 }} onClick={() => router.push(`/sets-attributes/edit/${type.id}`)}>
               {t('edit')}
             </Button>
             <Button color='error' variant='tonal' onClick={handleClickDeleteButton}>
