@@ -64,7 +64,7 @@ const AttributesSetsCreate = () => {
       .then(res => {
         setLoading(false)
         toast.success(t('success'))
-        router.push('/attributes-sets')
+        router.push('/sets-attributes')
         reset()
       })
       .catch(error => {

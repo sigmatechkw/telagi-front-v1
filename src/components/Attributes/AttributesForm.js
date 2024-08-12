@@ -29,7 +29,7 @@ const AttributesForm = ({
   imgSrc,
   setImgSrc,
   attributeImg,
-  setAttributeImg
+  setAttributeSet
 }) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
@@ -94,13 +94,13 @@ const AttributesForm = ({
       }
       reader.readAsDataURL(files[0])
       if (reader.result !== null) {
-        setAttributeImg(reader.result)
+        setAttributeSet(reader.result)
       }
     }
   }
 
   const handleInputImageReset = () => {
-    setAttributeImg('')
+    setAttributeSet('')
     setImgSrc('')
   }
 

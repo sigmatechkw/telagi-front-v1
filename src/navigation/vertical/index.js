@@ -18,7 +18,7 @@ const navigation = () => {
         },
         {
           title: i18n.t('attributes_sets'),
-          path: '/attributes-sets',
+          path: '/sets-attributes',
           icon: 'tabler:list-details',
         },
         {

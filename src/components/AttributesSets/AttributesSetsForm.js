@@ -31,13 +31,15 @@ const AttributesSetsForm = ({
   setImgSrc,
   attributeSetImg,
   setAttributeSet,
-  category_id = ''
+  category_id = '',
 }) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const [categories, setCategories] = useState([])
   const [attributeTypes, setAttributeTypes] = useState([])
   const { t, i18n } = useTranslation()
+
+
 
   useEffect(() => {
     getCategories()
@@ -190,8 +192,10 @@ const AttributesSetsForm = ({
                   name='type'
                   control={control}
                   rules={{ required: true }}
+
                   render={({ field: { value, onChange } }) => (
                     <CustomAutocomplete
+                      value={value}
                       onChange={(e, newValue) => {
                         if (newValue) {
                           setValue('type', newValue)

@@ -8,12 +8,12 @@ const AttributesSetsRowOptions = ({ id, handleClickDeleteButton }) => {
 
   const handleView = (e) => {
     e.stopPropagation()
-    router.push(`/attributes-sets/details/${id}`)
+    router.push(`/sets-attributes/details/${id}`)
   }
 
   const handleEdit = (e) => {
     e.stopPropagation()
-    router.push(`/attributes-sets/edit/${id}`)
+    router.push(`/sets-attributes/edit/${id}`)
   }
 
   const handleDelete = (e) => {

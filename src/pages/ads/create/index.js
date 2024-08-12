@@ -82,8 +82,6 @@ const AdsCreate = () => {
       data.images = imgsArr;
     }
 
-    console.log(data)
-
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}ads`, data, {
         headers: {
