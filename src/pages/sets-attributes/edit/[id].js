@@ -16,7 +16,7 @@ const defaultValues = {
   category_id: "",
   order : "",
   type: "",
-  active: false,
+  active: true,
 }
 
 const AttributesSetsEdit = ({ type, id }) => {
