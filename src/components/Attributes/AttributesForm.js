@@ -230,6 +230,29 @@ const AttributesForm = ({
             <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
               <FormControl>
                 <Controller
+                  name='is_default'
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      label={t('is_default')}
+                      sx={errors.active ? { color: 'error.main' } : null}
+                      control={
+                        <Checkbox
+                          {...field}
+                          checked={field.value}
+                          name='validation-basic-is_default'
+                          sx={errors.active ? { color: 'error.main' } : null}
+                        />
+                      }
+                    />
+                  )}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
+              <FormControl>
+                <Controller
                   name='active'
                   control={control}
                   render={({ field }) => (

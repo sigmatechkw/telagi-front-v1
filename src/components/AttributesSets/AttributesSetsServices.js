@@ -49,6 +49,8 @@ export const fetchAttributesSetsInfinityQuery = async ({ pageParam = 1, queryKey
         page: pageParam,
         search: searchTerm,
         paginate : 1,
+        active : 1,
+        selection : 1
       },
       headers: {
         Authorization: getCookie('token'),

@@ -16,7 +16,7 @@ const defaultValues = {
   attribute_set_id: "",
   order : "",
   is_default: false,
-  active: false,
+  active: true,
 }
 
 const AttributesEdit = ({ type, id }) => {
