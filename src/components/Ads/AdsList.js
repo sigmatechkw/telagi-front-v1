@@ -130,7 +130,7 @@ const AdsList = ({
       headerName: t('is_sold'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.sold ? (
+          {row.sold == 1 ? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
@@ -145,7 +145,7 @@ const AdsList = ({
       headerName: t('is_featured'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.featured ? (
+          {row.featured == 1 ? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
@@ -160,7 +160,7 @@ const AdsList = ({
       headerName: t('active'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.active ? (
+          {row.active == 1? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
