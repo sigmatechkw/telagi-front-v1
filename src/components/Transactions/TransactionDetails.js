@@ -32,8 +32,8 @@ const TransactionDetails = ({data}) => {
                 <Typography sx={{color: 'text.secondary'}}>{data.id}</Typography>
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
-                <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('dream')}:</Typography>
-                <Link href={`/dreams/${data.payable_id}`} target={'_blank'} className={'link'}>{data.payable_id}</Link>
+                <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('ad')}:</Typography>
+                <Link href={`/ads/${data.payable_id}`} target={'_blank'} className={'link'}>{data.payable_id}</Link>
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('user')}:</Typography>

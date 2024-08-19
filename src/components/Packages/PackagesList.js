@@ -74,22 +74,22 @@ const PackagesList = ({ data, search, setSearch, paginationModel, setPaginationM
     {
       flex: 0.175,
       minWidth: 120,
-      field: 'balance',
-      headerName: t('balance'),
+      field: 'expiration_period',
+      headerName: t('expiration_period'),
       renderCell: ({row}) => (
         <Typography variant='body2' sx={{color: 'text.primary'}}>
-          {row.balance}
+          {row.expiration_period}
         </Typography>
       )
     },
     {
       flex: 0.175,
       minWidth: 120,
-      field: 'discount',
-      headerName: t('discount'),
+      field: 'featured_period',
+      headerName: t('featured_period'),
       renderCell: ({row}) => (
         <Typography variant='body2' sx={{color: 'text.primary'}}>
-          {row.discount}
+          {row.featured_period}
         </Typography>
       )
     },

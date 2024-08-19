@@ -239,7 +239,7 @@ const UsersList = () => {
 
   return (
     <div>
-      <UsersStatistics />
+      {/* <UsersStatistics /> */}
       <UsersFilters
         role={role}
         setRole={setRole}

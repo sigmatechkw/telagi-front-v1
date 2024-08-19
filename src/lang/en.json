@@ -315,6 +315,7 @@
   "is_sold" : "Is Sold",
   "is_featured" : "Is Featured",
   "expiration_period" : "Expiration Period",
+  "featured_period" : "Featured Period",
   "featured_start_date" : "Featured Start Date",
   "featured_end_date" : "Featured End Date",
   "is_liked" : "Is Liked",
@@ -337,7 +338,8 @@
   "attributes_create" : "Create Attribute",
   "attributes_edit" : "Edit Attribute",
   "is_default" : "Is Default",
-  "category_notice" : "Notice: Choosing Banner Position"
+  "category_notice" : "Notice: Choosing Banner Position",
+  "expiration_date" : "Expiration Date"
 
 
 }

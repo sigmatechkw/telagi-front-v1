@@ -328,6 +328,7 @@
   "is_sold" : "مباع ام لا",
   "is_featured" : "هل مقدمة ام لا",
   "expiration_period" : "مده الانتهاء",
+  "featured_period" : "الفترة المميزة",
   "featured_start_date" : "تاريخ بدء العرض المميز",
   "featured_end_date" : "تاريخ انتهاء العرض المميز",
   "is_liked" : "هل محبوب",
@@ -351,6 +352,6 @@
   "attributes_create" : "انشاء صفة جديد",
   "attributes_edit" : "تعديل صفة",
   "is_default" : "هل اساسي",
-  "category_notice" : "تنبية: يتم اختيار مكان الاعلان"
-
+  "category_notice" : "تنبية: يتم اختيار مكان الاعلان",
+  "expiration_date" : "تاريخ الانتهاء"
 }

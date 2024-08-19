@@ -22,8 +22,6 @@ const PushMessagesCreate = () => {
   const [pushMessageImg, setPushMessageImg] = useState('')
   const [imgSrc, setImgSrc] = useState('/images/avatars/15.png')
   const [selectedUsers, setSelectedUsers] = useState([])
-  const [selectedExperts, setSelectedExperts] = useState([])
-  const [enableSelectExpert, setEnableSelectExpert] = useState(false)
   const [enableSelectUser, setEnableSelectUsers] = useState(false)
 
   const {
@@ -83,8 +81,6 @@ const PushMessagesCreate = () => {
   return (
     <Card>
       <PushMessagesForm
-        selectedExperts={selectedExperts}
-        setSelectedExperts={setSelectedExperts}
         imgSrc={imgSrc}
         setImgSrc={setImgSrc}
         pushMessageImg={pushMessageImg}
@@ -99,8 +95,6 @@ const PushMessagesCreate = () => {
         errors={errors}
         title={t('push_messages')}
         loading={loading}
-        enableSelectExpert={enableSelectExpert}
-        setEnableSelectExpert={setEnableSelectExpert}
         enableSelectUser={enableSelectUser}
         setEnableSelectUsers={setEnableSelectUsers}
       />
