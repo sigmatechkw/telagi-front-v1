@@ -49,8 +49,6 @@ const ResetButtonStyled = styled(Button)(({ theme }) => ({
 
 const PushMessagesForm = ({
   type = 'create',
-  selectedExperts,
-  setSelectedExperts,
   selectedUsers,
   imgSrc,
   setImgSrc,
@@ -64,8 +62,6 @@ const PushMessagesForm = ({
   pushMessageImg,
   setPushMessageImg,
   setSelectedUsers,
-  enableSelectExpert,
-  setEnableSelectExpert,
   enableSelectUser,
   setEnableSelectUsers
 }) => {
@@ -161,15 +157,6 @@ const PushMessagesForm = ({
     ); */
   }
 
-  const handleSelectedExperts = (e, v) => {
-    setSelectedExperts(v.map(user => user.id))
-
-    /*  fetchUsers(
-      false,
-      v.map((i) => i.id)
-    ); */
-  }
-
   const handleSelectAllUsers = e => {
     if (e.target.checked) {
       //setSelectedUsers(data.map(user => user.id))
@@ -177,17 +164,6 @@ const PushMessagesForm = ({
     } else {
       setEnableSelectUsers(false)
       //setSelectedUsers([])
-    }
-  }
-
-  const handleSelectAllExperts = e => {
-    if (e.target.checked) {
-      console.log(dataExperts)
-      //setSelectedExperts(dataExperts.map(user => user.id))
-      setEnableSelectExpert(true)
-    } else {
-      setEnableSelectExpert(false)
-      //setSelectedExperts([])
     }
   }
 
@@ -230,13 +206,6 @@ const PushMessagesForm = ({
                   sx={{ '& .MuiTypography-root': { textTransform: 'capitalize', color: 'text.secondary' } }}
                   control={<Checkbox size='small' />}
                 />
-
-                <FormControlLabel
-                  onChange={e => handleSelectAllExperts(e)}
-                  label={t('Send To All Experts')}
-                  sx={{ '& .MuiTypography-root': { textTransform: 'capitalize', color: 'text.secondary' } }}
-                  control={<Checkbox size='small' />}
-                />
               </Box>
 
               {!enableSelectUser && (
@@ -246,19 +215,6 @@ const PushMessagesForm = ({
                   label={t('users')}
                   items={users.length != 0 ? users : data ? data : []}
                   placeholder={t('users')}
-                  required
-                />
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              {!enableSelectExpert && (
-                <MultiAutocomplete
-                  handleUsersSearch={handleUsersSearch}
-                  handleChange={handleSelectedExperts}
-                  label={t('experts')}
-                  items={experts.length != 0 ? experts : dataExperts ? dataExperts : []}
-                  placeholder={t('experts')}
                   required
                 />
               )}

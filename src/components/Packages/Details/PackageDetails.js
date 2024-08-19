@@ -54,12 +54,12 @@ const PackageDetails = ({ packageDetails }) => {
               <Typography sx={{color: 'text.secondary'}}>{packageDetails.price} {t('kwd')}</Typography>
             </Box>
             <Box sx={{display: 'flex', mb: 3}}>
-              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('balance')}:</Typography>
-              <Typography sx={{color: 'text.secondary'}}>{packageDetails.balance} {t('kwd')}</Typography>
+              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('expiration_period')}:</Typography>
+              <Typography sx={{color: 'text.secondary'}}>{packageDetails.expiration_period}</Typography>
             </Box>
             <Box sx={{display: 'flex', mb: 3}}>
-              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('discount')}:</Typography>
-              <Typography sx={{color: 'text.secondary'}}>{packageDetails.discount} {t('kwd')}</Typography>
+              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('featured_period')}:</Typography>
+              <Typography sx={{color: 'text.secondary'}}>{packageDetails.featured_period}</Typography>
             </Box>
             <Box sx={{display: 'flex', mb: 3}}>
               <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('order')}:</Typography>

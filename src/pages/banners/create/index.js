@@ -22,7 +22,7 @@ const defaultValues = {
   image_ios: '',
   image_android: '',
   category_id : '',
-  start_date: null,
+  start_date: new Date().setDate(new Date().getDate()),
   end_date: new Date().setDate(new Date().getDate() + 1),
   active: '',
   order: '',

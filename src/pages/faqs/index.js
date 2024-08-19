@@ -214,9 +214,9 @@ const FAQs = () => {
     <div>
       <Card>
         <CardHeader title={t('faqs')}/>
-        <Grid sx={{marginBlock: 1}} item xs={12} md={6}>
+        {/* <Grid sx={{marginBlock: 1}} item xs={12} md={6}>
           <FaqsActiveChart dateRange={dateRange} setDateRange={setDateRange} />
-        </Grid>
+        </Grid> */}
       </Card>
       <Card>
         {/*<CardHeader title={t('faqs')}/>*/}

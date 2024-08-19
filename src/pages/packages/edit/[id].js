@@ -16,7 +16,8 @@ const defaultValues = {
   description_en: '',
   description_ar: '',
   price: '',
-  balance: '',
+  expiration_period : '',
+  featured_period : '',
   order: '',
   active: false,
 }

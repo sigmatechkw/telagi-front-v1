@@ -108,22 +108,6 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.user?.first_name}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_favorite')}:</Typography>
-              {type.is_favorite ? (
-                <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
-              ) : (
-                <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
-              )}
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_liked')}:</Typography>
-              {type.is_liked ? (
-                <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
-              ) : (
-                <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
-              )}
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured')}:</Typography>
               {type.featured == 1 ? (
                 <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
