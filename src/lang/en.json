@@ -339,7 +339,10 @@
   "attributes_edit" : "Edit Attribute",
   "is_default" : "Is Default",
   "category_notice" : "Notice: Choosing Banner Position",
-  "expiration_date" : "Expiration Date"
+  "expiration_date" : "Expiration Date",
+  "favorites" : "Favorites",
+  "user_phone" : "User Phone"
+
 
 
 }

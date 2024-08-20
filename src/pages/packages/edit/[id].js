@@ -78,6 +78,8 @@ const PackagesEdit = ({packageDetails, id}) => {
     setValue('description_ar', packageDetails.description_ar)
     setValue('price', packageDetails.price)
     setValue('balance', packageDetails.balance)
+    setValue('expiration_period', packageDetails.expiration_period)
+    setValue('featured_period', packageDetails.featured_period)
     setValue('order', packageDetails.order)
     setValue('active', packageDetails.active)
   }

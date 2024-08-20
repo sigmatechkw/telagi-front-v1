@@ -51,33 +51,9 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.title}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_period')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.expiration_period}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_date')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.expiration_date}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('country')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.country?.name}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('category')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>
                 {type.category?.name}
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('views')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.views}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
@@ -86,7 +62,30 @@ const AdsDetails = ({ type }) => {
                 {type.price} {t('kwd')}
               </Typography>
             </Box>
-
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('user')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.user?.first_name}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('user_phone')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.user?.phone}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_period')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>
+                {type.expiration_period}
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('created_at')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.created_at}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_date')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>
+                {type.expiration_date}
+              </Typography>
+            </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured_start_date')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.featured_start_date}</Typography>
@@ -96,16 +95,14 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.featured_end_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('status')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type.status}</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('views')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>
+                {type.views}
+              </Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('likes')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type.likes}</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('user')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type.user?.first_name}</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('favorites')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.favorites}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured')}:</Typography>
@@ -131,10 +128,7 @@ const AdsDetails = ({ type }) => {
                 <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
               )}
             </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('created_at')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type.created_at}</Typography>
-            </Box>
+
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant='tonal' sx={{ mr: 2 }} onClick={() => router.push(`/ads/edit/${type.id}`)}>

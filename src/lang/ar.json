@@ -353,5 +353,7 @@
   "attributes_edit" : "تعديل صفة",
   "is_default" : "هل اساسي",
   "category_notice" : "تنبية: يتم اختيار مكان الاعلان",
-  "expiration_date" : "تاريخ الانتهاء"
+  "expiration_date" : "تاريخ الانتهاء",
+  "favorites" : "المفضلة",
+  "user_phone" : "رقم هاتف المستخدم"
 }

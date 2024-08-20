@@ -118,6 +118,10 @@ const BannersEdit = () => {
       target_id,
       ...rest
     } = data
+    
+    console.log(deletedSiteImgs)
+    console.log(deletedIosImgs)
+    console.log(deletedAndroidImgs)
 
     if (new Date(startDate) > new Date(endDate)) {
       setLoading(false)
