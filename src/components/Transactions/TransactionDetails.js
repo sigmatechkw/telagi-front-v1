@@ -33,7 +33,7 @@ const TransactionDetails = ({data}) => {
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('ad')}:</Typography>
-                <Link href={`/ads/${data.payable_id}`} target={'_blank'} className={'link'}>{data.payable_id}</Link>
+                <Link href={`/ads/details/${data.payable_id}`} target={'_blank'} className={'link'}>{data.payable_id}</Link>
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('user')}:</Typography>

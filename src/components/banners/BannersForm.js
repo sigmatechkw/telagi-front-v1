@@ -355,7 +355,7 @@ const BannersForm = ({
             </Grid>
 
             {currentType == 2 && (
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Controller
                   name='url'
                   control={control}

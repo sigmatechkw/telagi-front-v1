@@ -276,12 +276,15 @@ const BannersEditForm = ({
   const handleInputImageReset = type => {
     if (type == 'site') {
       setSiteImgSrc('')
+      setDeletedSiteImgs([...deletedSiteImgs, getValues('image_site_id')])
     } else if (type == 'ios') {
       setIosImage('')
       setIosImgSrc('')
+      setDeletedIosImgs([...deletedIosImgs, getValues('image_ios_id')])
     } else {
       setAndroidImage('')
       setAndroidImageSrc('')
+      setDeletedAndroidImgs([...deletedAndroidImgs, getValues('image_android_id')])
     }
   }
 
@@ -289,12 +292,18 @@ const BannersEditForm = ({
     if (!type) {
       setSiteImgs([])
       setSiteImgsSrc([])
+      const ids = getValues('images_site').map(item => item.id);
+      setDeletedSiteImgs([...deletedSiteImgs, ...ids])
     } else if (type == 'ios') {
       setIosImgs([])
       setIosImgsSrc([])
+      const ids = getValues('images_ios').map(item => item.id);
+      setDeletedIosImgs([...deletedIosImgs, ...ids])
     } else if (type == 'android') {
       setAndroidImgs([])
       setAndroidImgsSrc([])
+      const ids = getValues('images_android').map(item => item.id);
+      setDeletedAndroidImgs([...deletedAndroidImgs, ...ids])
     }
   }
 
@@ -353,7 +362,7 @@ const BannersEditForm = ({
               </Grid>
 
               {currentType == 2 && (
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <Controller
                     name='url'
                     control={control}

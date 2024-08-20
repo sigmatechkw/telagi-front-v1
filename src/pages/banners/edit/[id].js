@@ -118,6 +118,7 @@ const BannersEdit = () => {
       target_id,
       ...rest
     } = data
+    
 
     if (new Date(startDate) > new Date(endDate)) {
       setLoading(false)

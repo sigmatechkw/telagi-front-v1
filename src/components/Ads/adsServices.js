@@ -5,20 +5,30 @@ import toast from "react-hot-toast";
 
 const state = store.getState()
 
-export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'desc', perPage = 10, isActive = '', isExpired = '' , isSold = '', isFeatured = '', setRows, setLoading) => {
+export const fetchAds = async (page = 1, search, sortKey = '', sortType = 'desc', perPage = 10, isActive = '', isExpired = '' , isSold = '', isFeatured = '', setRows, setLoading) => {
   let params = {
     paginate: 1,
     page: page + 1,
     perPage,
   }
   
-  const filters = { 
-    active : isActive,
-    expired : isExpired,
-    sold: isSold,
-    featured: isFeatured
+  let filters = { }
+
+  if(isActive !== ''){ 
+    filters.active = isActive
   }
 
+  if(isExpired !== ''){ 
+    filters.expired = isExpired
+  }
+
+  if(isSold !== ''){ 
+    filters.sold = isSold
+  }
+  
+  if(isFeatured !== ''){ 
+    filters.featured = isFeatured
+  }
 
   if (search) {
     params.search = search
@@ -32,8 +42,12 @@ export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'des
     params.sortType = sortType
   }
 
+  if (Object.keys(filters).length === 0) {
+    filters = null;
+  }
+
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}all-ads`, {filters},{
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}all-ads`, filters === null ? null : {filters}, {
       params,
       headers: {
         'Authorization': getCookie('token'),
