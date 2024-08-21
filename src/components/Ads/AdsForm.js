@@ -387,32 +387,6 @@ const AdsForm = ({
 
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name='phone'
-                  control={control}
-                  rules={
-                    {
-                      required: false,
-                      pattern: /^([0-9]+([.][0-9]*)?|[.][0-9]+)$/
-                    }
-                  }
-                  render={({field: {value, onChange}}) => (
-                    <CustomTextField
-                      fullWidth
-                      type='number'
-                      steps={1}
-                      value={value}
-                      label={t('phone')}
-                      onChange={onChange}
-                      error={Boolean(errors.phone)}
-                      aria-describedby='validation-basic-phone'
-                      {...(errors.phone && {helperText: t('phone')})}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <Controller
                   name='views'
                   control={control}
                   rules={
@@ -479,58 +453,6 @@ const AdsForm = ({
                     }}
                   />
                 </Grid>
-
-                <Grid item xs={12} sm={6}>
-                <Controller
-                  name='status'
-                  control={control}
-                  rules={
-                    {
-                      required: false,
-                      pattern: /^([0-9]+([.][0-9]*)?|[.][0-9]+)$/
-                    }
-                  }
-                  render={({field: {value, onChange}}) => (
-                    <CustomTextField
-                      fullWidth
-                      type='number'
-                      steps={1}
-                      value={value}
-                      label={t('status')}
-                      onChange={onChange}
-                      error={Boolean(errors.status)}
-                      aria-describedby='validation-basic-status'
-                      {...(errors.status && {helperText: t('status')})}
-                    />
-                  )}
-                />
-              </Grid>
-
-                <Grid item xs={12} sm={6}>
-                <Controller
-                  name='country_id'
-                  control={control}
-                  rules={{ required: false }}
-                  render={({ field: { value, onChange } }) => (
-                    <CustomAutocomplete
-                      value={value}
-                      onChange={(e, newValue) => {
-                        if (newValue) {
-                          setValue('country_id', newValue)
-                          onChange(newValue)
-                        } else {
-                          setValue('country_id', null)
-                        }
-                      }}
-                      isOptionEqualToValue={(option, value) => option.id === value?.id}
-                      options={countries}
-                      getOptionLabel={option => option.name || ''}
-                      renderInput={params => <CustomTextField {...params}
-                      label={t('country')} />}
-                    />
-                  )}
-                />
-              </Grid>
 
               <Grid item xs={12} sm={6}>
               <Controller

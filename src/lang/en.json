@@ -341,7 +341,9 @@
   "category_notice" : "Notice: Choosing Banner Position",
   "expiration_date" : "Expiration Date",
   "favorites" : "Favorites",
-  "user_phone" : "User Phone"
+  "user_phone" : "User Phone",
+  "approved" : "Approved",
+  "is_approved" : "Is Approved"
 
 
 

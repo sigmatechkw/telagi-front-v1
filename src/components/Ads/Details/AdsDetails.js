@@ -121,6 +121,14 @@ const AdsDetails = ({ type }) => {
               )}
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_approved')}:</Typography>
+              {type.approved ? (
+                <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
+              ) : (
+                <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
+              )}
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_active')}:</Typography>
               {type.active == 1 ? (
                 <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
