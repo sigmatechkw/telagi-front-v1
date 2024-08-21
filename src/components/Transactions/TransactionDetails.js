@@ -38,7 +38,7 @@ const TransactionDetails = ({data}) => {
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('user')}:</Typography>
-                <Link href={`/users/${data.user?.id}`} target={'_blank'} className={'link'}>{data.user?.full_name} ---- {data.user?.deleted_at ? <Badge color="error" badgeContent={t('deleted')} /> : <Badge color="error" badgeContent={t('delete')} />              }</Link>
+                <Link href={data.user.deleted_at ? `/users/${data.user?.id}`: `#`} target={'_blank'} className={'link'}>{data.user?.full_name}  {data.user?.deleted_at ? <span>---- <Badge color="error" badgeContent={t('deleted')} /></span>  : ""}</Link>
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('amount')}:</Typography>
