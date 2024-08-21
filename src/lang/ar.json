@@ -357,5 +357,6 @@
   "favorites" : "المفضلة",
   "user_phone" : "رقم هاتف المستخدم",
   "approved" : "مقبولة",
-  "is_approved" : "هل مقبول"
+  "is_approved" : "هل مقبول",
+  "deleted" : "محذوف"
 }

@@ -6,6 +6,7 @@ import Icon from "../../@core/components/icon";
 import {useTranslation} from "react-i18next";
 import {CardContent, Typography} from '@mui/material';
 import Link from "next/link";
+import { Badge } from '@mui/material';
 
 
 const TransactionDetails = ({data}) => {
@@ -37,7 +38,7 @@ const TransactionDetails = ({data}) => {
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('user')}:</Typography>
-                <Link href={`/users/${data.user?.id}`} target={'_blank'} className={'link'}>{data.user?.full_name}</Link>
+                <Link href={`/users/${data.user?.id}`} target={'_blank'} className={'link'}>{data.user?.full_name} ---- {data.user?.deleted_at ? <Badge color="error" badgeContent={t('deleted')} /> : <Badge color="error" badgeContent={t('delete')} />              }</Link>
               </Box>
               <Box sx={{display: 'flex', mb: 3}}>
                 <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('amount')}:</Typography>
