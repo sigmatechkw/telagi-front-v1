@@ -156,6 +156,21 @@ const AdsList = ({
     {
       flex: 0.1,
       minWidth: 100,
+      field: 'approved',
+      headerName: t('approved'),
+      renderCell: ({ row }) => (
+        <Typography variant='body2' sx={{ color: 'text.primary' }}>
+          {row.approved? (
+            <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
+          ) : (
+            <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
+          )}
+        </Typography>
+      )
+    },
+    {
+      flex: 0.1,
+      minWidth: 100,
       field: 'active',
       headerName: t('active'),
       renderCell: ({ row }) => (

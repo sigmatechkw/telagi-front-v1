@@ -355,5 +355,7 @@
   "category_notice" : "تنبية: يتم اختيار مكان الاعلان",
   "expiration_date" : "تاريخ الانتهاء",
   "favorites" : "المفضلة",
-  "user_phone" : "رقم هاتف المستخدم"
+  "user_phone" : "رقم هاتف المستخدم",
+  "approved" : "مقبولة",
+  "is_approved" : "هل مقبول"
 }
