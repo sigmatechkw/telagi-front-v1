@@ -343,7 +343,8 @@
   "favorites" : "Favorites",
   "user_phone" : "User Phone",
   "approved" : "Approved",
-  "is_approved" : "Is Approved"
+  "is_approved" : "Is Approved",
+  "deleted" : "Deleted"
 
 
 
