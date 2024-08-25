@@ -50,11 +50,8 @@ const PushMessagesCreate = () => {
           ...data,
           ...(imgSrc && imgSrc != '/images/avatars/15.png' && { image: imgSrc }),
 
-          ...((!enableSelectUser || !enableSelectExpert) && { users: [...selectedUsers, ...selectedExperts] }),
+          ...((!enableSelectUser ) && { users: [...selectedUsers] }),
           ...(enableSelectUser && { all_users: true }),
-
-          //...(!enableSelectExpert && { experts: selectedExperts }),
-          ...(enableSelectExpert && { all_experts: true })
         },
         {
           headers: {
