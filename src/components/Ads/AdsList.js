@@ -97,7 +97,7 @@ const AdsList = ({
       headerName: t('phone'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.phone}
+          {row.user?.phone}
         </Typography>
       )
     },
