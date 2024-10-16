@@ -86,20 +86,18 @@ const RoleList = ({
       headerName: t('name'),
 
       renderCell: ({ row }) => (
-        <Link href={`/users/${row.id}`} target={'_blank'} className={'link text-white'} sx={{ color: 'text.primary' }}>
-          <Typography variant='body2' sx={{ color: 'text.primary' }}>
-            {row.name}
-          </Typography>
-        </Link>
+        <Typography variant='body2' sx={{ color: 'text.primary' }}>
+          {row.name}
+        </Typography>
       )
     },
-    {
-      flex: 0.3,
-      minWidth: 120,
-      field: 'control',
-      headerName: t('control'),
-      renderCell: ({ row }) => <RowOptions id={row.id} editable={row.editable} />
-    }
+    // {
+    //   flex: 0.3,
+    //   minWidth: 120,
+    //   field: 'control',
+    //   headerName: t('control'),
+    //   renderCell: ({ row }) => <RowOptions id={row.id} editable={row.editable} />
+    // }
   ]
 
   const handleSearch = value => {
