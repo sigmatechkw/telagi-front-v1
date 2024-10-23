@@ -79,6 +79,7 @@ export default function CategoriesSelectForm({ setValue, category_id }) {
   const { t, i18n } = useTranslation();
   
   const [selectedNode, setSelectedNode] = useState('');
+  
   const getCategories = async () => {
     const data = await fetchAllCategories();
     setCategories(data);
