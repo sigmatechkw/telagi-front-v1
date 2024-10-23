@@ -66,7 +66,7 @@ const AttributesTable = ({
       headerName: t('attributes_sets'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.attribute_set?.name}
+          {row.attribute_set}
         </Typography>
       )
     },

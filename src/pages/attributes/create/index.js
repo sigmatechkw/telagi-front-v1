@@ -25,6 +25,7 @@ const AttributesCreate = () => {
   const [imgSrc, setImgSrc] = useState('')
   const [attributeImg, setAttributeImg] = useState('')
   const [content, setContent] = useState('')
+  const [deleteImage , setDeleteImage] = useState(false);
 
   const auth = useSelector(state => state.auth)
 
@@ -92,6 +93,7 @@ const AttributesCreate = () => {
         loading={loading}
         content={content}
         setContent={setContent}
+        setDeleteImage={setDeleteImage}
       />
     </Card>
   )

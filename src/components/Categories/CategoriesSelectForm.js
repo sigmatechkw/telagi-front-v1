@@ -76,9 +76,10 @@ const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
 
 export default function CategoriesSelectForm({ setValue, category_id }) {
   const [categories, setCategories] = useState([]);
-  const [selectedNode, setSelectedNode] = useState('');
   const { t, i18n } = useTranslation();
-
+  
+  const [selectedNode, setSelectedNode] = useState('');
+  
   const getCategories = async () => {
     const data = await fetchAllCategories();
     setCategories(data);
@@ -93,7 +94,11 @@ export default function CategoriesSelectForm({ setValue, category_id }) {
   } , [category_id])
 
   const handleNodeSelect = (nodeId) => {
-    setSelectedNode((prevNode) => (prevNode === nodeId ? null : nodeId));
+    if(selectedNode == nodeId) { 
+      nodeId = null
+    }
+
+    setSelectedNode((prevNode) => (prevNode == nodeId ? null : nodeId));
     setValue('category_id', nodeId);
   };
 

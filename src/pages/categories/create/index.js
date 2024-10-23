@@ -29,6 +29,7 @@ const CategoryCreate = () => {
   const [imgSrc, setImgSrc] = useState('')
   const [categoryImg, setCategoryImg] = useState('')
   const [content, setContent] = useState('')
+  const [deleteImage , setDeleteImage] = useState(false);
 
   const auth = useSelector(state => state.auth)
 
@@ -90,6 +91,7 @@ const CategoryCreate = () => {
         loading={loading}
         content={content}
         setContent={setContent}
+        setDeleteImage={setDeleteImage}
       />
     </Card>
   )

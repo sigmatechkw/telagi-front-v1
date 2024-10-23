@@ -17,7 +17,7 @@ import { fetchAllCategories } from './CategoriesServices';
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
 import CategoriesSelectForm from './CategoriesSelectForm';
 
-const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg, category_id = ''}) => {
+const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc , categoryImg , setCategoryImg, category_id = '' , setDeleteImage = ''}) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const [categories , setCategories] = useState([]);
@@ -72,6 +72,7 @@ const CategoriesForm = ({type = 'create', errors, control, watch, setValue, onSu
   }
 
   const handleInputImageReset = () => {
+    setDeleteImage(true);
     setCategoryImg('')
     setImgSrc('')
   }

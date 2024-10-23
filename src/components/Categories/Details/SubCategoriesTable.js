@@ -8,21 +8,23 @@ import Snackbar from '@mui/material/Snackbar'
 import Icon from '../../../@core/components/icon'
 import SnackbarConfirmActions from 'src/components/Shared/SnackbarConfirmActions'
 import { deleteCategories } from '../CategoriesServices'
-import CategoriesRowOptions from '../CategoriesRowOptions'
+import {useRouter} from "next/router";
+import IconButton from "@mui/material/IconButton";
 
 const SubCategoriesTable = ({
   data,
-  fetchData,
 }) => {
   const { t } = useTranslation()
   const [selectedRowId, setSelectedRowId] = useState(null)
   const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
 
+  const router = useRouter()
+
+
   const handleDelete = () => {
     deleteCategories([selectedRowId]).then(res => {
       setSelectedRowId(null)
       setOpenDeleteSnackbar(false)
-      fetchData()
     })
   }
 
@@ -34,6 +36,11 @@ const SubCategoriesTable = ({
   const handleCloseDeleteSnackbar = () => {
     setSelectedRowId(null)
     setOpenDeleteSnackbar(false)
+  }
+
+  const handleView = (e) => {
+    e.stopPropagation()
+    router.push(`/categories/details/${id}`)
   }
 
   const columns = [
@@ -128,7 +135,11 @@ const SubCategoriesTable = ({
       sortable: false,
       field: 'actions',
       headerName: t('actions'),
-      renderCell: ({ row }) => <CategoriesRowOptions id={row.id} handleClickDeleteButton={handleClickDeleteButton} />
+      renderCell: ({ row }) => <IconButton
+      color="secondary"
+      onClick={handleView}>
+      <Icon icon='tabler:eye' fontSize={20}/>
+    </IconButton>
     }
   ]
 
