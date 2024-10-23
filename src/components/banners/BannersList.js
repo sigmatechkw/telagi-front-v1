@@ -105,7 +105,7 @@ const BannersList = ({
     {
       flex: 0.3,
       minWidth: 80,
-      field: 'type',
+      field: 'type_name',
       headerName: t('type')
     },
     {

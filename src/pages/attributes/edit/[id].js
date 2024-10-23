@@ -13,6 +13,7 @@ const defaultValues = {
   name_en: "",
   name_ar: "",
   image: "",
+  image_id : "",
   attribute_set_id: "",
   order : "",
   is_default: false,
@@ -27,6 +28,8 @@ const AttributesEdit = ({ type, id }) => {
   const [loading, setLoading] = useState(false)
   const [imgSrc, setImgSrc] = useState('')
   const [attributeSetImg, setAttributeSet] = useState('')
+  const [deleteImage , setDeleteImage] = useState(false);
+
 
   const {
     control,
@@ -58,6 +61,10 @@ const AttributesEdit = ({ type, id }) => {
       delete data.image;
     }
 
+    if(deleteImage) { 
+      data.deleted_images_ids = [data.image_id];
+    }
+
     axios
       .put(`${process.env.NEXT_PUBLIC_API_KEY}attributes/${id}`, data, {
         headers: {
@@ -85,6 +92,7 @@ const AttributesEdit = ({ type, id }) => {
     setValue('order', type.order)
     setValue('active', type.active)
     setValue('is_default', type.is_default)
+    setValue('image_id' , type.image_id)
   }
 
   useEffect(() => {
@@ -108,6 +116,7 @@ const AttributesEdit = ({ type, id }) => {
         errors={errors}
         title={t('attributes_edit')}
         loading={loading}
+        setDeleteImage={setDeleteImage}
       />
     </Card>
   )

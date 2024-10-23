@@ -45,6 +45,8 @@
   "name_ar": "Name in arabic",
   "description_en": "Description in english",
   "description_ar": "Description in arabic",
+  "long_description_en": "Long Description in english",
+  "long_description_ar": "Long Description in arabic",
   "first_name": "First name",
   "last_name": "Last name",
   "email": "Email",
@@ -80,6 +82,7 @@
   "transactions": "Transactions",
   "title": "Title",
   "description": "Description",
+  "long_description": "Long Description",
   "type": "Type",
   "status": "Status",
   "user": "User",
@@ -314,6 +317,7 @@
   "is_expired" : "Is Expired",
   "is_sold" : "Is Sold",
   "is_featured" : "Is Featured",
+  "featured" : "Featured",
   "expiration_period" : "Expiration Period",
   "featured_period" : "Featured Period",
   "featured_start_date" : "Featured Start Date",
@@ -344,8 +348,8 @@
   "user_phone" : "User Phone",
   "approved" : "Approved",
   "is_approved" : "Is Approved",
-  "deleted" : "Deleted"
-
+  "deleted" : "Deleted",
+  "parent_category" : "Parent Category"
 
 
 }

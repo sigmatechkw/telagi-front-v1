@@ -82,6 +82,7 @@
   "transactions": "عمليات الدفع",
   "title": "العنوان",
   "description": "الوصف",
+  "long_description": "الوصف الطويل",
   "type": "النوع",
   "status": "الحالة",
   "user": "المستخدم",
@@ -327,6 +328,7 @@
   "is_expired" : "منتهي الصلاحية ام لا",
   "is_sold" : "مباع ام لا",
   "is_featured" : "هل مقدمة ام لا",
+  "featured" : "مقدمة",
   "expiration_period" : "مده الانتهاء",
   "featured_period" : "الفترة المميزة",
   "featured_start_date" : "تاريخ بدء العرض المميز",
@@ -358,5 +360,7 @@
   "user_phone" : "رقم هاتف المستخدم",
   "approved" : "مقبولة",
   "is_approved" : "هل مقبول",
-  "deleted" : "محذوف"
+  "deleted" : "محذوف",
+  "parent_category" : "القسم الاب"
+
 }

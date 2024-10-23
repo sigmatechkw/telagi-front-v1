@@ -29,7 +29,8 @@ const AttributesForm = ({
   imgSrc,
   setImgSrc,
   attributeImg,
-  setAttributeSet
+  setAttributeSet,
+  setDeleteImage = ''
 }) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
@@ -100,6 +101,7 @@ const AttributesForm = ({
   }
 
   const handleInputImageReset = () => {
+    setDeleteImage(true)
     setAttributeSet('')
     setImgSrc('')
   }

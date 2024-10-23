@@ -17,6 +17,7 @@ const defaultValues = {
     long_description_en: "",
     long_description_ar: "",
     image: "",
+    image_id: "",
     category_id: "",
     order : "",
     active: false,
@@ -32,6 +33,7 @@ const CategoriesEdit = ({ type, id }) => {
   const [imgSrc, setImgSrc] = useState('')
   const [categoryImg, setCategoryImg] = useState('')
   const [category_id , setCategoryId] = useState('')
+  const [deleteImage , setDeleteImage] = useState(false);
 
   const {
     control,
@@ -57,6 +59,10 @@ const CategoriesEdit = ({ type, id }) => {
         delete data.image;
     }else{ 
         data.image = imgSrc;
+    }
+
+    if(deleteImage) { 
+      data.deleted_images_ids = [data.image_id];
     }
 
     axios
@@ -91,6 +97,7 @@ const CategoriesEdit = ({ type, id }) => {
     setValue('order', type.order)
     setValue('active', type.active == 1? true : false)
     setValue('featured', type.featured  == 1? true : false)
+    setValue('image_id' , type.image_id)
   }
 
   useEffect(() => {
@@ -115,6 +122,7 @@ const CategoriesEdit = ({ type, id }) => {
         errors={errors}
         title={t('category_edit')}
         loading={loading}
+        setDeleteImage={setDeleteImage}
       />
     </Card>
   )
