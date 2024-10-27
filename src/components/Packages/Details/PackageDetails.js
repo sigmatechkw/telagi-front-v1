@@ -13,6 +13,8 @@ import Snackbar from "@mui/material/Snackbar";
 import {deletePackages} from "../packagesServices";
 import Icon from "../../../@core/components/icon";
 import Box from "@mui/material/Box";
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 
 const PackageDetails = ({ packageDetails }) => {
   const {t} = useTranslation()
@@ -40,6 +42,19 @@ const PackageDetails = ({ packageDetails }) => {
       <Grid item xs={12}>
         <Card>
           <Typography variant={'h3'} sx={{ px: 3, pt: 3 }}>{t('package')}</Typography>
+
+          
+          <CardContent sx={{ pt: 13.5, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+              {packageDetails.image && (
+                <CustomAvatar
+                  src={packageDetails.image}
+                  variant='rounded'
+                  alt={packageDetails.name}
+                  sx={{ width: 100, height: 100, mb: 4 }}
+                />
+              )}
+            </CardContent>
+
           <CardContent>
             <Box sx={{display: 'flex', mb: 3}}>
               <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('name')}:</Typography>
