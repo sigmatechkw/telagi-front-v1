@@ -20,6 +20,7 @@ const defaultValues = {
   featured_period : '',
   order: '',
   active: false,
+  image : ''
 }
 
 const PackagesCreate = () => {
@@ -27,6 +28,8 @@ const PackagesCreate = () => {
   const lang = useSelector(state => state.lang)
   const {t} = useTranslation()
   const router = useRouter();
+  const [imgSrc, setImgSrc] = useState('')
+  const [packageImg, setPackageImg] = useState('')
   const [loading, setLoading] = useState(false)
 
   const {
@@ -51,6 +54,12 @@ const PackagesCreate = () => {
       ar: data.description_ar
     }
 
+    if(!imgSrc){ 
+      delete data.image;
+    }else{ 
+        data.image = imgSrc;
+    }
+
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}packages`, data, {
         headers: {
@@ -73,7 +82,7 @@ const PackagesCreate = () => {
 
   return (
     <Card>
-      <PackagesForm type={'create'} onSubmit={handleSubmit(onSubmit)} control={control} watch={watch} setValue={setValue} errors={errors} title={t('package_create')} loading={loading} />
+      <PackagesForm type={'create'} onSubmit={handleSubmit(onSubmit)} control={control} watch={watch} setValue={setValue} errors={errors} title={t('package_create')} loading={loading} imgSrc={imgSrc} setImgSrc={setImgSrc} packageImg={packageImg} setPackageImg={setPackageImg} />
     </Card>
   );
 };

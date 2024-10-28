@@ -20,6 +20,7 @@ const defaultValues = {
   featured_period : '',
   order: '',
   active: false,
+  image : ''
 }
 
 const PackagesEdit = ({packageDetails, id}) => {
@@ -28,6 +29,8 @@ const PackagesEdit = ({packageDetails, id}) => {
   const {t} = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [imgSrc, setImgSrc] = useState('')
+  const [packageImg, setPackageImg] = useState('')
 
   const {
     control,
@@ -37,6 +40,16 @@ const PackagesEdit = ({packageDetails, id}) => {
     reset,
     formState: { errors },
   } = useForm({ defaultValues });
+
+  const testBase64 = src => {
+    if (!src || typeof src !== 'string') {
+      return false;
+    }
+
+    const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+
+    return base64Regex.test(src)
+  }
 
   const onSubmit = (data) => {
     setLoading(true)
@@ -49,6 +62,12 @@ const PackagesEdit = ({packageDetails, id}) => {
     data.description = {
       en: data.description_en,
       ar: data.description_ar
+    }
+
+    if(testBase64(imgSrc)){ 
+      data.image = imgSrc;
+    }else{ 
+      delete data.image;
     }
 
     axios
@@ -82,6 +101,8 @@ const PackagesEdit = ({packageDetails, id}) => {
     setValue('featured_period', packageDetails.featured_period)
     setValue('order', packageDetails.order)
     setValue('active', packageDetails.active)
+    setValue('image', packageDetails.image)
+    setImgSrc(packageDetails.image)
   }
 
   useEffect(() => {
@@ -92,7 +113,7 @@ const PackagesEdit = ({packageDetails, id}) => {
 
   return (
     <Card>
-      <PackagesForm type={'edit'} onSubmit={handleSubmit(onSubmit)} control={control} watch={watch} setValue={setValue} errors={errors} title={t('package_edit')} loading={loading} />
+      <PackagesForm type={'edit'} onSubmit={handleSubmit(onSubmit)} control={control} watch={watch} setValue={setValue} errors={errors} title={t('package_edit')} loading={loading} imgSrc={imgSrc} setImgSrc={setImgSrc} packageImg={packageImg} setPackageImg={setPackageImg} />
     </Card>
   );
 };

@@ -11,9 +11,54 @@ import CardHeader from '@mui/material/CardHeader'
 import {useTranslation} from "react-i18next";
 import CircularProgress from "@mui/material/CircularProgress";
 import {useSelector} from "react-redux";
+import { styled } from '@mui/material';
+import { Box } from '@mui/system';
 
-const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading}) => {
-  const {t, i18n} = useTranslation()
+const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading ,  imgSrc, setImgSrc, packageImg, setPackageImg}) => {
+  const {t, i18n} = useTranslation();
+
+  const ImgStyled = styled('img')(({ theme }) => ({
+    width: 100,
+    height: 100,
+    marginRight: theme.spacing(6),
+    borderRadius: theme.shape.borderRadius
+  }))
+
+  const ButtonStyled = styled(Button)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }))
+
+  const ResetButtonStyled = styled(Button)(({ theme }) => ({
+    marginLeft: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginLeft: 0,
+      textAlign: 'center',
+      marginTop: theme.spacing(2)
+    }
+  }))
+
+  const handleInputImageChange = file => {
+    const reader = new FileReader()
+    const { files } = file.target
+    if (files && files.length !== 0) {
+      reader.onload = () => {
+        setImgSrc(reader.result)
+      }
+      reader.readAsDataURL(files[0])
+      if (reader.result !== null) {
+        setPackageImg(reader.result)
+      }
+    }
+  }
+
+  const handleInputImageReset = () => {
+    setPackageImg('')
+    setImgSrc('')
+  }
 
   return (
     <>
@@ -21,6 +66,29 @@ const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubm
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <ImgStyled src={imgSrc} alt={t('package')} />
+                <div>
+                  <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+                    {t('upload_Photo')}
+                    <input
+                      hidden
+                      type='file'
+                      value={packageImg}
+                      accept='image/*'
+                      onChange={handleInputImageChange}
+                      id='account-settings-upload-image'
+                    />
+                  </ButtonStyled>
+                  <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
+                    {t('Reset')}
+                  </ResetButtonStyled>
+                </div>
+              </Box>
+            </Grid>
+
             <Grid item xs={12} sm={6}>
               <Controller
                 name='name_en'
