@@ -69,6 +69,14 @@ const AttributesSetsDetails = ({ type }) => {
               )}
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('is_required')}:</Typography>
+              {type.required ? (
+                <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
+              ) : (
+                <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
+              )}
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('created_at')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.created_at}</Typography>
             </Box>

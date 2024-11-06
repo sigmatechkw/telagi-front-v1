@@ -361,6 +361,7 @@
   "approved" : "مقبولة",
   "is_approved" : "هل مقبول",
   "deleted" : "محذوف",
-  "parent_category" : "القسم الاب"
+  "parent_category" : "القسم الاب",
+  "is_required" : "هل مطلوب"
 
 }

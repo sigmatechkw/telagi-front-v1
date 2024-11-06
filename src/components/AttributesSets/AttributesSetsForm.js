@@ -219,6 +219,29 @@ const AttributesSetsForm = ({
               <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
                 <FormControl>
                   <Controller
+                    name='required'
+                    control={control}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        label={t('required')}
+                        sx={errors.required ? { color: 'error.main' } : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-required'
+                            sx={errors.required ? { color: 'error.main' } : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+              
+              <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
+                <FormControl>
+                  <Controller
                     name='active'
                     control={control}
                     render={({ field }) => (

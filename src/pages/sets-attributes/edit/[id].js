@@ -18,6 +18,7 @@ const defaultValues = {
   order : "",
   type: "",
   active: true,
+  required: true,
 }
 
 const AttributesSetsEdit = ({ type, id }) => {
@@ -93,6 +94,7 @@ const AttributesSetsEdit = ({ type, id }) => {
     setCategoryId(type.category?.id)
     setValue('order', type.order)
     setValue('active', type.active)
+    setValue('required', type.required)
     setValue('type', type.type_data)
     setValue('image_id' , type.image_id)
   }
