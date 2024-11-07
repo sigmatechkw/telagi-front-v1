@@ -37,7 +37,6 @@ const AttributesForm = ({
   const [searchAttributesSetsTerm, setSearchAttributesSetsTerm] = useState('');
   const { t, i18n } = useTranslation()
 
-
   const {
     data : attributesSets,
     fetchNextPage : fetchAttributesSetsNextPage,

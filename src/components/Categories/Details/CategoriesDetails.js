@@ -98,7 +98,7 @@ const CategoryDetails = ({ type }) => {
         </Card>
 
         <Grid item xs={12} style={{marginTop: 20}}>
-          <SubCategoriesTable data={type.sub_categories} />
+          <SubCategoriesTable data={type.sub_categories}/>
         </Grid>
       </Grid>
       <Snackbar

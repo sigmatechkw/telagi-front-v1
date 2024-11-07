@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getOnlineUsersStatistics} from "../components/Home/homeServices";
 import CustomLoader from "../components/Shared/CustomLoader";
 import Box from "@mui/material/Box";
-import OnlineUsersStatistics from "../components/Home/OnlineUsersStatistics";
+import HomeStatistics from "src/components/Home/HomeStatistics";
 
 const Home = () => {
   const {isPending, data, error, isFetching} = useQuery({
@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <Box>
-      <OnlineUsersStatistics data={data} />
+      <HomeStatistics data={data} />
     </Box>
   )
 }

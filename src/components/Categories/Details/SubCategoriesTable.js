@@ -21,10 +21,11 @@ const SubCategoriesTable = ({
   const router = useRouter()
 
 
-  const handleDelete = () => {
-    deleteCategories([selectedRowId]).then(res => {
+  const handleDelete = async () => {
+    await deleteCategories([selectedRowId]).then(res => {
       setSelectedRowId(null)
       setOpenDeleteSnackbar(false)
+      window.location.reload();
     })
   }
 
@@ -38,8 +39,11 @@ const SubCategoriesTable = ({
     setOpenDeleteSnackbar(false)
   }
 
-  const handleView = (e) => {
-    e.stopPropagation()
+  const handleEdit = (id) => {
+    router.push(`/categories/edit/${id}`)
+  }
+
+  const handleView = (id) => {
     router.push(`/categories/details/${id}`)
   }
 
@@ -135,11 +139,24 @@ const SubCategoriesTable = ({
       sortable: false,
       field: 'actions',
       headerName: t('actions'),
-      renderCell: ({ row }) => <IconButton
-      color="secondary"
-      onClick={handleView}>
-      <Icon icon='tabler:eye' fontSize={20}/>
-    </IconButton>
+      renderCell: ({ row }) => 
+        <>
+        <IconButton
+          color="secondary"
+          onClick={() => handleView(row.id)}>
+          <Icon icon='tabler:eye' fontSize={20}/>
+        </IconButton>
+        <IconButton
+          color="warning"
+          onClick={() => handleEdit(row.id)}>
+          <Icon icon='tabler:edit' fontSize={20}/>
+        </IconButton>
+        <IconButton
+          color="error"
+          onClick={() => handleClickDeleteButton(row.id)}>
+          <Icon icon='tabler:trash' fontSize={20}/>
+        </IconButton>
+      </>
     }
   ]
 

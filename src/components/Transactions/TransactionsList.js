@@ -43,7 +43,7 @@ const TransactionsList = ({
       field: 'user',
       headerName: t('user'),
       renderCell: ({row}) => (
-        <Link href={`/users/${row.user?.id}`} target={'_blank'} className={'link'}>{row.user?.full_name}</Link>
+        row?.user?.deleted_at ? <>{row.user?.full_name}</> : <Link href={`/users/${row.user?.id}`} target={'_blank'} className={'link'}>{row.user?.full_name}</Link>
       )
     },
     {

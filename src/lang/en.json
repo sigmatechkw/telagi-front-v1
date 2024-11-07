@@ -349,7 +349,8 @@
   "approved" : "Approved",
   "is_approved" : "Is Approved",
   "deleted" : "Deleted",
-  "parent_category" : "Parent Category"
+  "parent_category" : "Parent Category",
+  "is_required" : "Is Required"
 
 
 }

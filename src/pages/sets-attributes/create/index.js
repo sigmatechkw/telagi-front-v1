@@ -16,6 +16,7 @@ const defaultValues = {
     order : "",
     type: "",
     active: true,
+    required : true
 }
 
 const AttributesSetsCreate = () => {
