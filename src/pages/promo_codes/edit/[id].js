@@ -17,7 +17,7 @@ const defaultValues = {
   code: '',
   start_date: null,
   end_date: null,
-  min_order_amount: '',
+  min_package_amount: '',
   max_applied_amount: '',
   amount: '',
   applied_users_type: '',

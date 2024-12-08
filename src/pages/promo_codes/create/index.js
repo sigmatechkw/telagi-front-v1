@@ -17,7 +17,7 @@ const defaultValues = {
   start_date: new Date(),
   end_date: new Date().setDate(new Date().getDate() + 1),
   first_order_only: '',
-  min_order_amount: '',
+  min_package_amount: '',
   max_applied_amount: '',
   amount: '',
   applied_users_type: ''

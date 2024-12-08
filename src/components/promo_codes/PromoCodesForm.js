@@ -201,7 +201,7 @@ const PromoCodesForm = ({
 
             <Grid item xs={6}>
               <Controller
-                name='min_order_amount'
+                name='min_package_amount'
                 control={control}
                 rules={{ required: false }}
                 render={({ field: { value, onChange } }) => (
@@ -212,10 +212,10 @@ const PromoCodesForm = ({
                     inputProps={{ min: 1 }}
                     onKeyDown={handleKeyDown}
                     onPaste={handlePaste}
-                    label={t('min order amount')}
+                    label={t('min package amount')}
                     onChange={onChange}
-                    error={Boolean(errors.min_order_amount)}
-                    aria-describedby='validation-basic-min_order_amount'
+                    error={Boolean(errors.min_package_amount)}
+                    aria-describedby='validation-basic-min_package_amount'
                   />
                 )}
               />

@@ -28,7 +28,7 @@ const PromoCodesDetails = ({ data }) => {
     description_en,
     first_order_only,
     max_applied_amount,
-    min_order_amount,
+    min_package_amount,
     amount
   } = data
   const router = useRouter()
@@ -171,9 +171,9 @@ const PromoCodesDetails = ({ data }) => {
                   <Icon icon='tabler:math-min' />
                   <Box sx={{ display: 'flex' }}>
                     <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
-                      {t('min order amount')}:
+                      {t('min package amount')}:
                     </Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{min_order_amount}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{min_package_amount}</Typography>
                   </Box>
                 </Box>
 

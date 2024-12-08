@@ -243,34 +243,6 @@ const AdsForm = ({
                   </Box>
               </Grid>
 
-              <Grid item md={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {imgsArr.map((image, index) => (
-                    !image?.url ?
-                     <ImgStyled src={image} key={index} alt={t('upload_Photos')} /> :
-                     <ImgStyled src={image.url} key={index} alt={t('upload_Photos')} />
-                  ))}
-                  
-                  
-                  <div>
-                    <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-images'>
-                      {t('upload_Photos')}
-                      <input
-                        hidden
-                        type='file'
-                        accept='image/*'
-                        onChange={handleInputImagesChange}
-                        multiple
-                        id='account-settings-upload-images'
-                      />
-                    </ButtonStyled>
-                    <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImagesReset}>
-                      {t('Reset')}
-                    </ResetButtonStyled>
-                  </div>
-                </Box>
-              </Grid>
-
               <Grid item xs={12} sm={6}>
                 <Controller
                   name='title'
@@ -507,6 +479,29 @@ const AdsForm = ({
                             checked={field.value}
                             name='validation-basic-active'
                             sx={errors.active ? {color: 'error.main'} : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sx={{pt: theme => `${theme.spacing(2)} !important`}}>
+                <FormControl>
+                  <Controller
+                    name='approved'
+                    control={control}
+                    render={({field}) => (
+                      <FormControlLabel
+                        label={t('approved')}
+                        sx={errors.approved ? {color: 'error.main'} : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-approved'
+                            sx={errors.approved ? {color: 'error.main'} : null}
                           />
                         }
                       />

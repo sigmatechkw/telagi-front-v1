@@ -18,6 +18,7 @@ const defaultValues = {
     views: "",
     active: false,
     sold: false,
+    approved: false,
     featured: false,
     featured_start_date: false,
     featured_end_date: false,
@@ -26,7 +27,6 @@ const defaultValues = {
     category_id: false,
     user_id: false,
     image : "",
-    images: [],
     video : "",
     attributes : []
  }
