@@ -14,7 +14,6 @@ const defaultValues = {
     image: "",
     attribute_set_id: "",
     order : "",
-    is_default: false,
     active: true,
 }
 

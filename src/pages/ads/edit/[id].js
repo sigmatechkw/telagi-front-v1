@@ -20,6 +20,7 @@ const defaultValues = {
     views: "",
     active: false,
     sold: false,
+    approved: false,
     featured: false,
     featured_start_date: false,
     featured_end_date: false,
@@ -28,7 +29,6 @@ const defaultValues = {
     category_id: false,
     user_id: false,
     image : "",
-    images: [],
     video : "",
     attributes : []
 }
@@ -156,6 +156,7 @@ const AdsEdit = ({ type, id }) => {
     setValue('views', type.views)
     setValue('active', type.active == 1? true: false )
     setValue('sold', type.sold == 1? true: false)
+    setValue('approved', type.approved == 1? true: false)
     setValue('featured', type.featured == 1? true: false)
     setValue('featured_start_date', type.featured_start_date)
     setValue('featured_end_date', type.featured_end_date)
