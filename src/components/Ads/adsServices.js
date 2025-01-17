@@ -68,7 +68,7 @@ export const deleteAds = async (ids) => {
   }
 
   try {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}all-ads`, data, {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}ads/delete`, data, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
