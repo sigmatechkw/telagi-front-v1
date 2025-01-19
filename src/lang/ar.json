@@ -362,6 +362,7 @@
   "is_approved" : "هل مقبول",
   "deleted" : "محذوف",
   "parent_category" : "القسم الاب",
-  "is_required" : "هل مطلوب"
+  "is_required" : "هل مطلوب",
+  "sold" : "مباع"
 
 }
