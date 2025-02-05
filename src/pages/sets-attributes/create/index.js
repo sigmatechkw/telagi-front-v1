@@ -12,7 +12,7 @@ const defaultValues = {
     name_en: "",
     name_ar: "",
     image: "",
-    category_id: "",
+    category_ids: "",
     order : "",
     type: "",
     active: true,
@@ -49,7 +49,7 @@ const AttributesSetsCreate = () => {
 
   const onSubmit = data => {
     setLoading(true)
-    data.category_id = data.category_id;
+    data.category_ids = data.category_ids;
     data.type = data.type?.id;
 
     if(!imgSrc){ 

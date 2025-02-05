@@ -14,6 +14,7 @@ import { deleteAttributesSets } from '../AttributesSetsServices';
 import Icon from '../../../@core/components/icon'
 import Box from '@mui/material/Box'
 import AttributesTable from './AttributesTable'
+import AttributesSetsCategoriesTable from './AttributesSetsCategoriesTable'
 
 const AttributesSetsDetails = ({ type }) => {
   const { t } = useTranslation()
@@ -53,10 +54,6 @@ const AttributesSetsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.order}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('category')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type.category?.name}</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('type')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.type_data?.name}</Typography>
             </Box>
@@ -94,6 +91,11 @@ const AttributesSetsDetails = ({ type }) => {
         <Grid style={{marginTop: 20}}>
           <AttributesTable data={type.attributes} />
         </Grid>
+
+        <Grid style={{marginTop: 20}}>
+          <AttributesSetsCategoriesTable data={type.categories} />
+        </Grid>
+
       </Grid>
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
