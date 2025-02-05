@@ -146,14 +146,14 @@ const NotificationDropdown = props => {
 
   const handleNotificationClick = (notification) => {
     handleDropdownClose()
-    if (notification.target_type === 10) {
-      router.push(`/dream-reports/${notification.target}`)
-    } else if (notification.target_type === 3) {
-      router.push(`/dreams/${notification.target}`)
+    if (notification.target_type === 1) {
+      // router.push(`/dream-reports/${notification.target}`)
     } else if (notification.target_type === 2) {
-      router.push(`/blogs/${notification.target}`)
-    } else if (notification.target_type === 11) {
-      router.push(`/chats?id=${notification.target}`)
+      router.push(`/packages/${notification.target}`)
+    } else if (notification.target_type === 3) {
+      // router.push(`/blogs/${notification.target}`)
+    } else if (notification.target_type === 5) {
+      router.push(`/ads/${notification.target}`)
     }
   }
 
@@ -233,7 +233,7 @@ const NotificationDropdown = props => {
                             borderRadius: '50%',
                             backgroundColor: theme.palette.background.default
                           }}>
-                            <Icon icon={'tabler:zzz'} fontSize={'1.5rem'}/>
+                            <Icon icon={'tabler:ad-circle'} fontSize={'1.5rem'}/>
                           </Box>
                           <Box sx={{
                             mr: 4,
