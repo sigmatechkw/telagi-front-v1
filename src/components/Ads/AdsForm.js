@@ -28,7 +28,6 @@ import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCusto
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete';
 import AdsSelectCategories from './AdsForm/AdsSelectCategories';
 import AdsAttributesSetsForm from './AdsForm/AdsAttributesSetsForm';
-import { object } from 'yup';
 
 
 const AdsForm = ({
