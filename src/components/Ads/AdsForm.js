@@ -257,11 +257,11 @@ const AdsForm = ({
 
               <Grid item md={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ border: `1px solid ${theme.palette.secondary.another}`, p: 3, borderRadius: '5px' }}>
-                  {imgsArr.map((img) => { 
+                  {imgsArr.map((img , index) => { 
                     if (typeof img === "object" && img !== null) {
-                      return <ImgStyled src={img.url} alt={t('upload_Photo')} />;
+                      return <ImgStyled key={index} src={img.url} alt={t('upload_Photo')} />;
                     }else{ 
-                      return <ImgStyled src={img} alt={t('upload_Photo')} />;
+                      return <ImgStyled key={index} src={img} alt={t('upload_Photo')} />;
                     }
                   })}
                   <ButtonStyled component='label' variant='contained' htmlFor='site-images'>
