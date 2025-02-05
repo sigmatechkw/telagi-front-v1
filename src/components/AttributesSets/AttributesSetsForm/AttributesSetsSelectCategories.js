@@ -106,6 +106,7 @@ export default function AttributesSetsSelectCategories({ setValue, category_ids 
         ? prevNodes.filter((id) => id !== nodeId)
         : [...prevNodes, nodeId];
       setValue('category_ids', newSelection);
+      
       return newSelection;
     });
   };
