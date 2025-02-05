@@ -352,7 +352,8 @@
   "deleted" : "Deleted",
   "parent_category" : "Parent Category",
   "is_required" : "Is Required",
-  "sold" : "Sold"
-
+  "sold" : "Sold",
+  
+  "upload_images" : ""
 
 }

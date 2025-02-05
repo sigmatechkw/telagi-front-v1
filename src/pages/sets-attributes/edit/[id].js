@@ -29,7 +29,7 @@ const AttributesSetsEdit = ({ type, id }) => {
   const [loading, setLoading] = useState(false)
   const [imgSrc, setImgSrc] = useState('')
   const [attributeSetImg, setAttributeSet] = useState('')
-  const [category_id , setCategoryId] = useState('')
+  const [category_ids , setCategoriesIds] = useState([])
   const [deleteImage , setDeleteImage] = useState(false);
 
   const {
@@ -90,8 +90,7 @@ const AttributesSetsEdit = ({ type, id }) => {
     setValue('name_ar', type.name_ar)
     setValue('image', type.image)
     setImgSrc(type.image);
-    setValue('category_id', type.category?.id)
-    setCategoryId(type.category?.id)
+    setCategoriesIds(type.categories)
     setValue('order', type.order)
     setValue('active', type.active)
     setValue('required', type.required)
@@ -111,7 +110,7 @@ const AttributesSetsEdit = ({ type, id }) => {
         type={'edit'}
         imgSrc={imgSrc}
         setImgSrc={setImgSrc}
-        category_id={category_id}
+        category_ids={category_ids}
         attributeSetImg={attributeSetImg}
         setAttributeSet={setAttributeSet}
         onSubmit={handleSubmit(onSubmit)}

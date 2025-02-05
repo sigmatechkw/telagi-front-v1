@@ -363,6 +363,8 @@
   "deleted" : "محذوف",
   "parent_category" : "القسم الاب",
   "is_required" : "هل مطلوب",
-  "sold" : "مباع"
+  "sold" : "مباع",
+  "upload_images" : "رفع الصور"
+
 
 }

@@ -68,8 +68,8 @@ const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubm
           <Grid container spacing={4}>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <ImgStyled src={imgSrc} alt={t('package')} />
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <div>
                   <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
                     {t('upload_Photo')}

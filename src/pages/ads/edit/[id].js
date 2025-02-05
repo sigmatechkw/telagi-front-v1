@@ -71,6 +71,9 @@ const AdsEdit = ({ type, id }) => {
     data.category_id = data.category_id;
     data.user_id = data.user_id?.id;
 
+    console.log(data)
+    
+    console.log(type);
     if(!imgSrc){ 
       delete data.image;
     }else{ 
@@ -169,8 +172,8 @@ const AdsEdit = ({ type, id }) => {
     setImgSrc(type.image);
     setValue('images', type.images)
     setImgsArr(type.images)
-    setValue('video', type.video)
-    setVideoSrc(type.video)
+    setValue('video', type.video[0]?.url)
+    setVideoSrc(type.video[0]?.url)
 
     let attributes = [];
     if(type.ad_attributes.length > 0) { 

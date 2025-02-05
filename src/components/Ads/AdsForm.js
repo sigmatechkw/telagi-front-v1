@@ -28,6 +28,8 @@ import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCusto
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete';
 import AdsSelectCategories from './AdsForm/AdsSelectCategories';
 import AdsAttributesSetsForm from './AdsForm/AdsAttributesSetsForm';
+import { object } from 'yup';
+
 
 const AdsForm = ({
   type = 'create', errors, control, watch, setValue, onSubmit, title, loading , imgSrc , setImgSrc,
@@ -89,6 +91,14 @@ const AdsForm = ({
     marginRight: theme.spacing(6),
     borderRadius: theme.shape.borderRadius
   }))
+
+  const VideoStyled = styled('video')(({ theme }) => ({
+    width: 100,
+    height: 100,
+    marginRight: theme.spacing(6),
+    borderRadius: theme.shape.borderRadius,
+    objectFit: 'cover' 
+  }));
 
   const ButtonStyled = styled(Button)(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
@@ -199,7 +209,7 @@ const AdsForm = ({
           <Grid container spacing={4}>
           <Grid container spacing={4} item xs={6} md={9}>
 
-            <Grid item md={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+              <Grid item md={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <ImgStyled src={imgSrc} alt={t('upload_Photo')} />
                   <div>
@@ -223,7 +233,9 @@ const AdsForm = ({
 
               <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <ImgStyled src={videoSrc} alt={t('upload_video')} />
+                    <VideoStyled controls>
+                      <source src={videoSrc} type="video/mp4" alt={t('upload_video')} />
+                    </VideoStyled>
                     <div>
                       <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-video'>
                         {t('upload_video')}
@@ -241,6 +253,36 @@ const AdsForm = ({
                       </ResetButtonStyled>
                     </div>
                   </Box>
+              </Grid>
+
+              <Grid item md={12} sx={{ display: 'flex', justifyContent: 'between', alignItems: 'end' }}>
+                <Box sx={{ border: `1px solid ${theme.palette.secondary.another}`, p: 3, borderRadius: '5px' }}>
+                  {imgsArr.map((img) => { 
+                    if (typeof img === "object" && img !== null) {
+                      return <ImgStyled src={img.url} alt={t('upload_Photo')} />;
+                    }else{ 
+                      return <ImgStyled src={img} alt={t('upload_Photo')} />;
+                    }
+                  })}
+                  <ButtonStyled component='label' variant='contained' htmlFor='site-images'>
+                    {t('upload_images')}
+                    <input
+                      hidden
+                      multiple
+                      type='file'
+                      accept='image/png, image/jpeg'
+                      onChange={handleInputImagesChange}
+                      id='site-images'
+                    />
+                  </ButtonStyled>
+                  <ResetButtonStyled
+                    color='secondary'
+                    variant='tonal'
+                    onClick={() => handleInputImagesReset(false)}
+                  >
+                    {t('Reset')}
+                  </ResetButtonStyled>
+                </Box>
               </Grid>
 
               <Grid item xs={12} sm={6}>

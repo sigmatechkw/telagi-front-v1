@@ -16,7 +16,7 @@ import { Box, Checkbox, FormControlLabel, styled } from '@mui/material'
 import { fetchAllCategories } from 'src/components/Categories/CategoriesServices'
 import { fetchAttributesSetsTypes } from './AttributesSetsServices'
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
-import AdsSelectCategories from '../Ads/AdsForm/AdsSelectCategories'
+import AttributesSetsSelectCategories from './AttributesSetsForm/AttributesSetsSelectCategories'
 
 const AttributesSetsForm = ({
   type = 'create',
@@ -31,7 +31,7 @@ const AttributesSetsForm = ({
   setImgSrc,
   attributeSetImg,
   setAttributeSet,
-  category_id = '',
+  category_ids = [],
   setDeleteImage = ''
 }) => {
   const auth = useSelector(state => state.auth)
@@ -39,8 +39,6 @@ const AttributesSetsForm = ({
   const [categories, setCategories] = useState([])
   const [attributeTypes, setAttributeTypes] = useState([])
   const { t, i18n } = useTranslation()
-
-
 
   useEffect(() => {
     getCategories()
@@ -275,7 +273,7 @@ const AttributesSetsForm = ({
             </Grid>
 
             <Grid item md={3}>
-              <AdsSelectCategories setValue={setValue} category_id={category_id}/>
+              <AttributesSetsSelectCategories setValue={setValue} category_ids={category_ids}/>
             </Grid>
 
           </Grid>
