@@ -53,6 +53,7 @@ const AdsEdit = ({ type, id }) => {
     watch,
     handleSubmit,
     setValue,
+    getValues,
     reset,
     formState: { errors }
   } = useForm({ defaultValues })
@@ -63,7 +64,6 @@ const AdsEdit = ({ type, id }) => {
     return base64Regex.test(src)
   }
   
-
   const onSubmit = data => {
     setLoading(true)
 
@@ -71,9 +71,11 @@ const AdsEdit = ({ type, id }) => {
     data.category_id = data.category_id;
     data.user_id = data.user_id?.id;
 
-    console.log(data)
+    data.active = data.active ? 1 : 0;
+    data.sold = data.sold ? 1 : 0;
+    data.approved = data.approved ? 1 : 0;
+    data.featured = data.featured ? 1 : 0;
     
-    console.log(type);
     if(!imgSrc){ 
       delete data.image;
     }else{ 
@@ -87,11 +89,11 @@ const AdsEdit = ({ type, id }) => {
     if(!videoSrc){ 
       delete data.video;
     }else{ 
-      if(type.video == videoSrc){
-        delete data.video;
+      delete data.video;
+      if(getValues('video')?.url == videoSrc){
       }else{ 
         data.video = videoSrc;
-        data.deleted_videos_ids = type.video?.id;
+        data.deleted_videos_ids = [getValues('video')?.id];
       }
     }
 
@@ -118,22 +120,26 @@ const AdsEdit = ({ type, id }) => {
       delete data.featured_end_date
     }
 
-    const attributes = [];
     //check for the new or updated attributes
+    const attributes = [];
     data.attributes.forEach((dataAttribute) => { 
         const oldAttributeSet = attributes.find((e) => e.attribute_set_id == dataAttribute.attribute_set_id);
         if(oldAttributeSet) { 
           oldAttributeSet.value.push(dataAttribute.value);
         }else{ 
-          attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
         }
+        attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
     });
-
+  
     data.attributes = attributes;
+
+    console.log(data);
     
     axios
-      .put(`${process.env.NEXT_PUBLIC_API_KEY}ads/${id}`, data, {
+      .post(`${process.env.NEXT_PUBLIC_API_KEY}update-ads/${id}`, data, {
         headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
           Authorization: auth.token
         }
       })
@@ -172,8 +178,8 @@ const AdsEdit = ({ type, id }) => {
     setImgSrc(type.image);
     setValue('images', type.images)
     setImgsArr(type.images)
-    setValue('video', type.video[0]?.url)
-    setVideoSrc(type.video[0]?.url)
+    setValue('video', type.video[0])
+    setAdVideo(type.video[0]?.url)
 
     let attributes = [];
     if(type.ad_attributes.length > 0) { 
