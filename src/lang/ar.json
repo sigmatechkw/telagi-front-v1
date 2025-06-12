@@ -329,6 +329,7 @@
   "is_sold" : "مباع ام لا",
   "is_featured" : "هل مقدمة ام لا",
   "featured" : "مقدمة",
+  "home_period" : "مده الصفحة الرئيسية",
   "expiration_period" : "مده الانتهاء",
   "featured_period" : "الفترة المميزة",
   "featured_start_date" : "تاريخ بدء العرض المميز",

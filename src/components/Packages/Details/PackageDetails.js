@@ -43,7 +43,7 @@ const PackageDetails = ({ packageDetails }) => {
         <Card>
           <Typography variant={'h3'} sx={{ px: 3, pt: 3 }}>{t('package')}</Typography>
 
-          
+
           <CardContent sx={{ pt: 13.5, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
               {packageDetails.image && (
                 <CustomAvatar
@@ -67,6 +67,10 @@ const PackageDetails = ({ packageDetails }) => {
             <Box sx={{display: 'flex', mb: 3}}>
               <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('price')}:</Typography>
               <Typography sx={{color: 'text.secondary'}}>{packageDetails.price} {t('kwd')}</Typography>
+            </Box>
+            <Box sx={{display: 'flex', mb: 3}}>
+              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('home_period')}:</Typography>
+              <Typography sx={{color: 'text.secondary'}}>{packageDetails.home_period}</Typography>
             </Box>
             <Box sx={{display: 'flex', mb: 3}}>
               <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('expiration_period')}:</Typography>

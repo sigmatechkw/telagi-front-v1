@@ -74,6 +74,17 @@ const PackagesList = ({ data, search, setSearch, paginationModel, setPaginationM
     {
       flex: 0.175,
       minWidth: 120,
+      field: 'home_period',
+      headerName: t('home_period'),
+      renderCell: ({row}) => (
+        <Typography variant='body2' sx={{color: 'text.primary'}}>
+          {row.home_period}
+        </Typography>
+      )
+    },
+    {
+      flex: 0.175,
+      minWidth: 120,
       field: 'expiration_period',
       headerName: t('expiration_period'),
       renderCell: ({row}) => (

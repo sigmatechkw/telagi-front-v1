@@ -16,6 +16,7 @@ const defaultValues = {
   description_en: '',
   description_ar: '',
   price: '',
+  home_period: '',
   expiration_period : '',
   featured_period : '',
   order: '',
@@ -64,9 +65,9 @@ const PackagesEdit = ({packageDetails, id}) => {
       ar: data.description_ar
     }
 
-    if(testBase64(imgSrc)){ 
+    if(testBase64(imgSrc)){
       data.image = imgSrc;
-    }else{ 
+    }else{
       delete data.image;
     }
 
@@ -97,6 +98,7 @@ const PackagesEdit = ({packageDetails, id}) => {
     setValue('description_ar', packageDetails.description_ar)
     setValue('price', packageDetails.price)
     setValue('balance', packageDetails.balance)
+    setValue('home_period', packageDetails.home_period)
     setValue('expiration_period', packageDetails.expiration_period)
     setValue('featured_period', packageDetails.featured_period)
     setValue('order', packageDetails.order)

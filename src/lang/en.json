@@ -319,6 +319,7 @@
   "is_sold" : "Is Sold",
   "is_featured" : "Is Featured",
   "featured" : "Featured",
+  "home_period" : "Home Period",
   "expiration_period" : "Expiration Period",
   "featured_period" : "Featured Period",
   "featured_start_date" : "Featured Start Date",
@@ -353,7 +354,7 @@
   "parent_category" : "Parent Category",
   "is_required" : "Is Required",
   "sold" : "Sold",
-  
+
   "upload_images" : ""
 
 }

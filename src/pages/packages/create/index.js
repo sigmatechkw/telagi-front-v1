@@ -16,6 +16,7 @@ const defaultValues = {
   description_en: '',
   description_ar: '',
   price: '',
+  home_period: '',
   expiration_period : '',
   featured_period : '',
   order: '',
@@ -54,9 +55,9 @@ const PackagesCreate = () => {
       ar: data.description_ar
     }
 
-    if(!imgSrc){ 
+    if(!imgSrc){
       delete data.image;
-    }else{ 
+    }else{
         data.image = imgSrc;
     }
 

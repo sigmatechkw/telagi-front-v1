@@ -213,6 +213,31 @@ const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubm
 
             <Grid item xs={12} sm={6}>
               <Controller
+                name='home_period'
+                control={control}
+                rules={
+                  {
+                    pattern: /^\d+$/
+                  }
+                }
+                render={({field: {value, onChange}}) => (
+                  <CustomTextField
+                    fullWidth
+                    type='number'
+                    steps={1}
+                    value={value}
+                    label={t('home_period')}
+                    onChange={onChange}
+                    error={Boolean(errors.home_period)}
+                    aria-describedby='validation-basic-home_period'
+                    {...(errors.home_period && {helperText: t('number_validation')})}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
                 name='expiration_period'
                 control={control}
                 rules={
