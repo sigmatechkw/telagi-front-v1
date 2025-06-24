@@ -15,6 +15,7 @@ const defaultValues = {
     category_ids: "",
     order : "",
     type: "",
+    only_numbers: false,
     active: true,
     required : true
 }
@@ -52,9 +53,9 @@ const AttributesSetsCreate = () => {
     data.category_ids = data.category_ids;
     data.type = data.type?.id;
 
-    if(!imgSrc){ 
+    if(!imgSrc){
         delete data.image;
-    }else{ 
+    }else{
         data.image = imgSrc;
     }
 

@@ -17,6 +17,7 @@ const defaultValues = {
   category_id: "",
   order : "",
   type: "",
+  only_numbers: false,
   active: true,
   required: true,
 }
@@ -57,13 +58,13 @@ const AttributesSetsEdit = ({ type, id }) => {
     data.category_id = data.category_id;
     data.type = data.type?.id;
 
-    if(!testBase64(imgSrc)){ 
+    if(!testBase64(imgSrc)){
         delete data.image;
-    }else{ 
+    }else{
         data.image = imgSrc;
     }
 
-    if(deleteImage) { 
+    if(deleteImage) {
       data.deleted_images_ids = [data.image_id];
     }
 
@@ -92,6 +93,7 @@ const AttributesSetsEdit = ({ type, id }) => {
     setImgSrc(type.image);
     setCategoriesIds(type.categories)
     setValue('order', type.order)
+    setValue('only_numbers', type.only_numbers)
     setValue('active', type.active)
     setValue('required', type.required)
     setValue('type', type.type_data)

@@ -355,6 +355,7 @@
   "is_required" : "Is Required",
   "sold" : "Sold",
 
-  "upload_images" : ""
+  "upload_images" : "",
+  "only_numbers": "Only Numbers"
 
 }

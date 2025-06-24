@@ -888,7 +888,7 @@ const BannersEditForm = ({
 
             <Grid item md={3}>
                 <h5>{t('category_notice')}</h5>
-                <AdsSelectCategories category_id={category_id} setValue={setValue}/>
+                <AdsSelectCategories category_id={category_id} setValue={setValue} usedIn={'banners'}/>
             </Grid>
 
             <Grid item xs={6}></Grid>

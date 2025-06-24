@@ -39,13 +39,13 @@ function CloseSquare(props) {
   );
 }
 
-const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
+const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect, usedIn }) => {
   const isLeaf = !node.sub_categories || node.sub_categories.length === 0;
   const isChecked = selectedNode === node.id;
 
   const handleCheck = (event) => {
     event.stopPropagation(); // Prevent tree item selection on checkbox click
-    if (isLeaf) {
+    if (isLeaf || usedIn === 'banners') {
       onNodeSelect(node.id);
     }
   };
@@ -56,7 +56,7 @@ const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
       label={
         <>
           {node.name}
-          {isLeaf && (
+          {(isLeaf || usedIn === 'banners') && (
             <Checkbox
               checked={isChecked}
               onChange={handleCheck}
@@ -74,13 +74,14 @@ const RecursiveTreeItem = ({ node, selectedNode, onNodeSelect }) => {
           node={child}
           selectedNode={selectedNode}
           onNodeSelect={onNodeSelect}
+          usedIn={usedIn}
         />
       ))}
     </CustomTreeItem>
   );
 };
 
-export default function AdsSelectCategories({setValue , category_id}) {
+export default function AdsSelectCategories({setValue , category_id, usedIn = 'ads'}) {
   const [categories, setCategories] = useState([]);
   const [selectedNode, setSelectedNode] = useState(category_id);
   const {t, i18n} = useTranslation()
@@ -94,7 +95,7 @@ export default function AdsSelectCategories({setValue , category_id}) {
     getCategories();
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     setSelectedNode(parseInt(category_id));
   } , [category_id])
 
@@ -121,6 +122,7 @@ export default function AdsSelectCategories({setValue , category_id}) {
             node={category}
             selectedNode={selectedNode}
             onNodeSelect={handleNodeSelect}
+            usedIn={usedIn}
           />
         ))}
       </SimpleTreeView>

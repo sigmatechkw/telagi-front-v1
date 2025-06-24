@@ -204,7 +204,7 @@ const AttributesSetsForm = ({
                           setValue('type', null)
                         }
                       }}
-                      
+
                       isOptionEqualToValue={(option, value) => option.id === value?.id}
                       options={attributeTypes}
                       getOptionLabel={option => option.name || ''}
@@ -212,6 +212,29 @@ const AttributesSetsForm = ({
                     />
                   )}
                 />
+              </Grid>
+
+              <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
+                <FormControl>
+                  <Controller
+                    name='only_numbers'
+                    control={control}
+                    render={({ field }) => (
+                      <FormControlLabel
+                        label={t('only_numbers')}
+                        sx={errors.only_numbers ? { color: 'error.main' } : null}
+                        control={
+                          <Checkbox
+                            {...field}
+                            checked={field.value}
+                            name='validation-basic-only_numbers'
+                            sx={errors.only_numbers ? { color: 'error.main' } : null}
+                          />
+                        }
+                      />
+                    )}
+                  />
+                </FormControl>
               </Grid>
 
               <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
@@ -236,7 +259,7 @@ const AttributesSetsForm = ({
                   />
                 </FormControl>
               </Grid>
-              
+
               <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
                 <FormControl>
                   <Controller

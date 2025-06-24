@@ -365,7 +365,8 @@
   "parent_category" : "القسم الاب",
   "is_required" : "هل مطلوب",
   "sold" : "مباع",
-  "upload_images" : "رفع الصور"
+  "upload_images" : "رفع الصور",
+  "only_numbers": "أرقام فقط"
 
 
 }
