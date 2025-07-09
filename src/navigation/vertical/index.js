@@ -29,12 +29,28 @@ const navigation = () => {
       ]
     },
     {
-      title:  i18n.t('categories'),
+      title: i18n.t('categories'),
       path: '/categories',
       icon: 'tabler:category',
     },
     {
-      title:  i18n.t('packages'),
+      title: i18n.t('commercial_ads'),
+      icon: 'tabler:ad',
+      children: [
+        {
+          title: i18n.t('commercial_ads'),
+          path: '/commercial-ads',
+          icon: 'tabler:ad',
+        },
+        {
+          title: i18n.t('commercial_categories'),
+          path: '/commercial-categories',
+          icon: 'tabler:category',
+        },
+      ]
+    },
+    {
+      title: i18n.t('packages'),
       path: '/packages',
       icon: 'tabler:packages',
     },
