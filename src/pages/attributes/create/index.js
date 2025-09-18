@@ -13,6 +13,7 @@ const defaultValues = {
     name_ar: "",
     image: "",
     attribute_set_id: "",
+    parent_attribute_id : "",
     order : "",
     active: true,
 }
@@ -48,6 +49,7 @@ const AttributesCreate = () => {
     setLoading(true)
 
     data.attribute_set_id = data.attribute_set_id.id;
+    data.parent_attribute_id = data.parent_attribute_id.id;
 
     if(!imgSrc){ 
         delete data.image;
