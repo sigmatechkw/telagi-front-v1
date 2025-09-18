@@ -16,6 +16,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { Box, Checkbox, FormControlLabel, styled } from '@mui/material'
 import { fetchAttributesSetsInfinityQuery } from '../AttributesSets/AttributesSetsServices'
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
+import { fetchAttributesInfinityQuery } from './AttributesServices'
 
 const AttributesForm = ({
   type = 'create',
@@ -35,6 +36,7 @@ const AttributesForm = ({
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
   const [searchAttributesSetsTerm, setSearchAttributesSetsTerm] = useState('');
+  const [searchAttributesTerm, setSearchAttributesTerm] = useState('');
   const { t, i18n } = useTranslation()
 
   const {
@@ -59,7 +61,30 @@ const AttributesForm = ({
     }
   };
 
-  const AttributesSetsOptions = attributesSets?.pages.flatMap((page) => page.items) || [];  
+  const AttributesSetsOptions = attributesSets?.pages.flatMap((page) => page.items) || []; 
+  
+  const {
+    data : attributes,
+    fetchNextPage : fetchAttributesNextPage,
+    hasNextPage : attributesHasNextPage,
+    isFetching : attributesIsFetching,
+    isFetchingNextPage : attributesIsFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['fetchAttributesInfinityQuery', searchAttributesTerm],
+    queryFn: fetchAttributesInfinityQuery,
+    getNextPageParam: (lastPage) => lastPage?.current_page + 1,
+     getNextPageParam: (lastPage, allPages) => {
+      return lastPage.current_page < lastPage.last_page ? lastPage?.current_page + 1 : undefined;
+    },
+  });
+
+  const loadMoreAttributes = () => {
+    if (attributesHasNextPage) {
+      fetchAttributesNextPage();
+    }
+  };
+
+  const AttributesOptions = attributes?.pages.flatMap((page) => page.items) || []; 
 
   const ImgStyled = styled('img')(({ theme }) => ({
     width: 100,
@@ -223,6 +248,42 @@ const AttributesForm = ({
                     getOptionLabel={option => option.name || ''}
                     renderInput={params => <CustomTextField required  {...params}
                      label={t('attributes_sets')} />}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name='parent_attribute_id'
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { value, onChange } }) => (
+                  <CustomAutocomplete
+                    value={value}
+                    loading={attributesIsFetching || attributesIsFetchingNextPage}
+                    ListboxProps={{
+                      onScroll: (event) => {
+                        const listboxNode = event.currentTarget;
+                        if (listboxNode.scrollTop + listboxNode.clientHeight >= listboxNode.scrollHeight) {
+                          loadMoreAttributes();
+                        }
+                      },
+                    }}
+                    onInputChange={(e , val) => setSearchAttributesTerm(val)}
+                    onChange={(e, newValue) => {
+                      if (newValue) {
+                        setValue('parent_attribute_id', newValue)
+                        onChange(newValue)
+                      } else {
+                        setValue('parent_attribute_id', null)
+                      }
+                    }}
+                    isOptionEqualToValue={(option, value) => option.id === value?.id}
+                    options={AttributesOptions}
+                    getOptionLabel={option => option.name || ''}
+                    renderInput={params => <CustomTextField  {...params}
+                     label={t('attributes')} />}
                   />
                 )}
               />

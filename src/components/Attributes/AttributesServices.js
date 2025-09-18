@@ -40,6 +40,28 @@ export const fetchAttributes = async (page = 1, search, sortKey = 'id', sortType
   }
 }
 
+export const fetchAttributesInfinityQuery = async ({ pageParam = 1, queryKey }) => {
+  try { 
+    const [_, searchTerm] = queryKey;
+
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}all-attributes`, {
+      params: {
+        page: pageParam,
+        search: searchTerm,
+        paginate : 1,
+        active : 1,
+      },
+      headers: {
+        Authorization: getCookie('token'),
+        'Accepted-Language': getCookie('lang') ?? 'en'
+      }
+    })
+    
+    return response.data.data;
+  }catch(err){ 
+    toast.error(err.response?.data?.message)
+  }
+}
 
 export const deleteAttributes = async (ids) => {
   let data = {

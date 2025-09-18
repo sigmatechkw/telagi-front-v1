@@ -15,6 +15,7 @@ const defaultValues = {
   image: "",
   image_id : "",
   attribute_set_id: "",
+  parent_attribute_id : "",
   order : "",
   active: true,
 }
@@ -53,6 +54,7 @@ const AttributesEdit = ({ type, id }) => {
     setLoading(true)
 
     data.attribute_set_id = data.attribute_set_id.id;
+    data.parent_attribute_id = data.parent_attribute_id.id;
 
     if(testBase64(imgSrc)){ 
       data.image = imgSrc;
@@ -88,6 +90,7 @@ const AttributesEdit = ({ type, id }) => {
     setValue('image', type.image)
     setImgSrc(type.image)
     setValue('attribute_set_id', type.attribute_set)
+    setValue('parent_attribute_id', type.parent_attribute)
     setValue('order', type.order)
     setValue('active', type.active)
     setValue('is_default', type.is_default)
