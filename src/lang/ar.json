@@ -382,5 +382,7 @@
   "title_ar": "العنوان بالعربية",
   "select_commercial_category": "اختر القسم التجاري",
   "upload_images": "رفع الصور",
-  "only_numbers": "أرقام فقط"
+  "only_numbers": "أرقام فقط",
+  "save_and_add_another": "حفظ و إضافة المزيد",
+  "parent_attribute" : "الصفة الاب"
 }

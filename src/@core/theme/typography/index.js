@@ -1,8 +1,10 @@
 import i18n from "i18next";
 
+const lang = i18n?.language || 'en';
+
 const typography = {
   fontFamily: [
-    ...(i18n.language.includes('ar') ? ['Changa'] : []),
+    ...(lang.includes('ar') ? ['Changa'] : []),
     'Public Sans',
     'sans-serif',
     '-apple-system',
