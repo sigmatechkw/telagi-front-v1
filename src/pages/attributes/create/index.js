@@ -45,7 +45,7 @@ const AttributesCreate = () => {
     return base64Regex.test(src)
   }
 
-  const onSubmit = data => {
+  const onSubmit = (data, type = 'save') => {
     setLoading(true)
 
     data.attribute_set_id = data.attribute_set_id.id;
@@ -66,8 +66,10 @@ const AttributesCreate = () => {
       .then(res => {
         setLoading(false)
         toast.success(t('success'))
-        router.push('/attributes')
-        reset()
+        if(type !== 'add_another'){
+            router.push('/attributes')
+            reset()
+        }
       })
       .catch(error => {
         console.log(error)

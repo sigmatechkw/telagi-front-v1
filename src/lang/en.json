@@ -372,5 +372,7 @@
   "title_ar": "Title in arabic",
   "select_commercial_category": "Select commercial category",
   "upload_images": "",
-  "only_numbers": "Only Numbers"
+  "only_numbers": "Only Numbers",
+  "save_and_add_another": "Save and Add Another",
+  "parent_attribute" : "Parent Attribute"
 }

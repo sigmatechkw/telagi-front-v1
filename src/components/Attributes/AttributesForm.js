@@ -283,7 +283,7 @@ const AttributesForm = ({
                     options={AttributesOptions}
                     getOptionLabel={option => option.name || ''}
                     renderInput={params => <CustomTextField  {...params}
-                     label={t('attributes')} />}
+                     label={t('parent_attribute')} />}
                   />
                 )}
               />
@@ -316,10 +316,19 @@ const AttributesForm = ({
               <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} spacing={4}>
               <Button type='submit' variant='contained' disabled={loading}>
                 {loading ? <CircularProgress size={'1.5rem'} /> : t('save')}
               </Button>
+              {type === 'create' && (
+                <Button
+                  sx={{ ml: 2 }}
+                  variant='contained'
+                  onClick={() => onSubmit("add_another")}
+                >
+                  {t('save_and_add_another')}
+                </Button>
+              )}
             </Grid>
           </Grid>
         </form>
