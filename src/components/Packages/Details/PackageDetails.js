@@ -73,6 +73,14 @@ const PackageDetails = ({ packageDetails }) => {
               <Typography sx={{color: 'text.secondary'}}>{packageDetails.home_period}</Typography>
             </Box>
             <Box sx={{display: 'flex', mb: 3}}>
+              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('inside_period')}:</Typography>
+              <Typography sx={{color: 'text.secondary'}}>{packageDetails.inside_period}</Typography>
+            </Box>
+            <Box sx={{display: 'flex', mb: 3}}>
+              <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('top_categories_period')}:</Typography>
+              <Typography sx={{color: 'text.secondary'}}>{packageDetails.top_categories_period}</Typography>
+            </Box>
+            <Box sx={{display: 'flex', mb: 3}}>
               <Typography sx={{mr: 2, fontWeight: 500, color: 'text.secondary'}}>{t('expiration_period')}:</Typography>
               <Typography sx={{color: 'text.secondary'}}>{packageDetails.expiration_period}</Typography>
             </Box>

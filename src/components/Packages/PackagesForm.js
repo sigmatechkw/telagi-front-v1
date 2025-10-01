@@ -238,6 +238,56 @@ const PackagesForm = ({type = 'create', errors, control, watch, setValue, onSubm
 
             <Grid item xs={12} sm={6}>
               <Controller
+                name='inside_period'
+                control={control}
+                rules={
+                  {
+                    pattern: /^\d+$/
+                  }
+                }
+                render={({field: {value, onChange}}) => (
+                  <CustomTextField
+                    fullWidth
+                    type='number'
+                    steps={1}
+                    value={value}
+                    label={t('inside_period')}
+                    onChange={onChange}
+                    error={Boolean(errors.inside_period)}
+                    aria-describedby='validation-basic-inside_period'
+                    {...(errors.inside_period && {helperText: t('number_validation')})}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name='top_categories_period'
+                control={control}
+                rules={
+                  {
+                    pattern: /^\d+$/
+                  }
+                }
+                render={({field: {value, onChange}}) => (
+                  <CustomTextField
+                    fullWidth
+                    type='number'
+                    steps={1}
+                    value={value}
+                    label={t('top_categories_period')}
+                    onChange={onChange}
+                    error={Boolean(errors.top_categories_period)}
+                    aria-describedby='validation-basic-top_categories_period'
+                    {...(errors.top_categories_period && {helperText: t('number_validation')})}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
                 name='expiration_period'
                 control={control}
                 rules={

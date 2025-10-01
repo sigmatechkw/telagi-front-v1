@@ -384,5 +384,7 @@
   "upload_images": "رفع الصور",
   "only_numbers": "أرقام فقط",
   "save_and_add_another": "حفظ و إضافة المزيد",
-  "parent_attribute" : "الصفة الاب"
+  "parent_attribute" : "الصفة الاب",
+  "inside_period" : "مده الصفحة الداخلية",
+  "top_categories_period": "مده الأقسام العلوية"
 }
