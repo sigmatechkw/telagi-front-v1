@@ -374,5 +374,7 @@
   "upload_images": "",
   "only_numbers": "Only Numbers",
   "save_and_add_another": "Save and Add Another",
-  "parent_attribute" : "Parent Attribute"
+  "parent_attribute" : "Parent Attribute",
+  "inside_period" : "Inside Page Period",
+  "top_categories_period": "Top Categories Period"
 }

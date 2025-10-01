@@ -17,6 +17,8 @@ const defaultValues = {
   description_ar: '',
   price: '',
   home_period: '',
+  inside_period : '',
+  top_categories_period : '',
   expiration_period : '',
   featured_period : '',
   order: '',

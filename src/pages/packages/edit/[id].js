@@ -17,6 +17,8 @@ const defaultValues = {
   description_ar: '',
   price: '',
   home_period: '',
+  inside_period : '',
+  top_categories_period : '',
   expiration_period : '',
   featured_period : '',
   order: '',
@@ -99,6 +101,8 @@ const PackagesEdit = ({packageDetails, id}) => {
     setValue('price', packageDetails.price)
     setValue('balance', packageDetails.balance)
     setValue('home_period', packageDetails.home_period)
+    setValue('inside_period', packageDetails.inside_period)
+    setValue('top_categories_period', packageDetails.top_categories_period)
     setValue('expiration_period', packageDetails.expiration_period)
     setValue('featured_period', packageDetails.featured_period)
     setValue('order', packageDetails.order)
