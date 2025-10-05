@@ -53,8 +53,8 @@ const AttributesEdit = ({ type, id }) => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.attribute_set_id = data.attribute_set_id.id;
-    data.parent_attribute_id = data.parent_attribute_id.id;
+    data.attribute_set_id = data?.attribute_set_id?.id;
+    data.parent_attribute_id = data?.parent_attribute_id?.id;
 
     if(testBase64(imgSrc)){ 
       data.image = imgSrc;
