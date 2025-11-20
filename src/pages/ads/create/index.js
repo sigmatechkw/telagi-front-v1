@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AdsForm from 'src/components/Ads/AdsForm'
+import FormValidationSchema from 'src/views/forms/form-validation/FormValidationSchema'
 
 const defaultValues = {
     title: "",
@@ -22,6 +23,9 @@ const defaultValues = {
     featured: false,
     featured_start_date: false,
     featured_end_date: false,
+    home_end_date: false,
+    inside_end_date: false,
+    top_categories_end_date : false,
     status: false,
     country_id: false,
     category_id: false,

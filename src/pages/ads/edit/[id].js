@@ -24,6 +24,9 @@ const defaultValues = {
     featured: false,
     featured_start_date: false,
     featured_end_date: false,
+    home_end_date: false,
+    inside_end_date: false,
+    top_categories_end_date : false,
     status: false,
     country_id: false,
     category_id: false,
@@ -169,6 +172,9 @@ const AdsEdit = ({ type, id }) => {
     setValue('featured', type.featured == 1? true: false)
     setValue('featured_start_date', type.featured_start_date)
     setValue('featured_end_date', type.featured_end_date)
+    setValue('home_end_date', type.home_end_date)
+    setValue('inside_end_date', type.inside_end_date)
+    setValue('top_categories_end_date', type.top_categories_end_date)
     setValue('status', type.status)
     setValue('country_id', type.country)
     setValue('category_id', type.category?.id)

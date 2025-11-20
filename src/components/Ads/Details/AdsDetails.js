@@ -95,6 +95,18 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.featured_end_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('home_end_date')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.home_end_date}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('inside_end_date')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.inside_end_date}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('top_categories_end_date')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.top_categories_end_date}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('views')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>
                 {type.views}
