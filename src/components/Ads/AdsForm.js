@@ -478,6 +478,70 @@ const AdsForm = ({
 
               <Grid item xs={12} sm={6}>
                 <Controller
+                  name='home_end_date'
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    const dateValue = value ? new Date(value) : new Date() // Ensure value is a Date object
+
+                    return (
+                      <DatePicker
+                        showTimeSelect
+                        selected={dateValue}
+                        id='locale-time'
+                        dateFormat='MM/dd/yyyy h:mm aa'
+                        onChange={newValue => onChange(newValue)}
+                        customInput={<PickersComponent label={t('home_end_date')} />}
+                      />
+                    )
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='inside_end_date'
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    const dateValue = value ? new Date(value) : new Date() // Ensure value is a Date object
+
+                    return (
+                      <DatePicker
+                        showTimeSelect
+                        selected={dateValue}
+                        id='locale-time'
+                        dateFormat='MM/dd/yyyy h:mm aa'
+                        onChange={newValue => onChange(newValue)}
+                        customInput={<PickersComponent label={t('inside_end_date')} />}
+                      />
+                    )
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='top_categories_end_date'
+                  control={control}
+                  render={({ field: { onChange, value } }) => {
+                    const dateValue = value ? new Date(value) : new Date() // Ensure value is a Date object
+
+                    return (
+                      <DatePicker
+                        showTimeSelect
+                        selected={dateValue}
+                        id='locale-time'
+                        dateFormat='MM/dd/yyyy h:mm aa'
+                        onChange={newValue => onChange(newValue)}
+                        customInput={<PickersComponent label={t('top_categories_end_date')} />}
+                      />
+                    )
+                  }}
+                />
+              </Grid>
+              
+
+              <Grid item xs={12} sm={6}>
+                <Controller
                   name='user_id'
                   control={control}
                   rules={{ required: true }}

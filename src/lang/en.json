@@ -376,5 +376,8 @@
   "save_and_add_another": "Save and Add Another",
   "parent_attribute" : "Parent Attribute",
   "inside_period" : "Inside Page Period",
-  "top_categories_period": "Top Categories Period"
+  "top_categories_period": "Top Categories Period",
+  "home_end_date" : "Home End Date",
+  "inside_end_date" : "Inside End Date",
+  "top_categories_end_date" : "Top Categories End Date"
 }

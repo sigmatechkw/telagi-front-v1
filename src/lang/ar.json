@@ -386,5 +386,8 @@
   "save_and_add_another": "حفظ و إضافة المزيد",
   "parent_attribute" : "الصفة الاب",
   "inside_period" : "مده الصفحة الداخلية",
-  "top_categories_period": "مده الأقسام العلوية"
+  "top_categories_period": "مده الأقسام العلوية",
+  "home_end_date" : "تاريخ انتهاء الرئيسية",
+  "inside_end_date" : "تاريخ انتهاء الداخل",
+  "top_categories_end_date" : "تاريخ انتهاء الفئات العليا"
 }
