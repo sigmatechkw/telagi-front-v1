@@ -1,12 +1,12 @@
 // ** React Imports
-import {useState, Fragment, useEffect} from 'react'
+import { useState, Fragment, useEffect, useRef } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import {styled, useTheme} from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import MuiMenu from '@mui/material/Menu'
 import MuiMenuItem from '@mui/material/MenuItem'
@@ -23,18 +23,18 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Util Import
-import {getInitials} from 'src/@core/utils/get-initials'
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {fetchNotifications} from "./notificationsServices";
-import CustomLoader from "../Shared/CustomLoader";
-import axios from "axios";
-import {getCookie} from "cookies-next";
-import toast from "react-hot-toast";
-import {useTranslation} from "react-i18next";
-import {useRouter} from "next/router";
+import { getInitials } from 'src/@core/utils/get-initials'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { fetchNotifications, readNotification, readNotifications } from './notificationsServices'
+import CustomLoader from '../Shared/CustomLoader'
+import axios from 'axios'
+import { getCookie } from 'cookies-next'
+import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
 
 // ** Styled Menu component
-const Menu = styled(MuiMenu)(({theme}) => ({
+const Menu = styled(MuiMenu)(({ theme }) => ({
   '& .MuiMenu-paper': {
     width: 380,
     overflow: 'hidden',
@@ -57,7 +57,7 @@ const Menu = styled(MuiMenu)(({theme}) => ({
 }))
 
 // ** Styled MenuItem component
-const MenuItem = styled(MuiMenuItem)(({theme}) => ({
+const MenuItem = styled(MuiMenuItem)(({ theme }) => ({
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),
   '&:not(:last-of-type)': {
@@ -94,57 +94,67 @@ const MenuItemSubtitle = styled(Typography)({
   textOverflow: 'ellipsis'
 })
 
-const ScrollWrapper = ({children, hidden}) => {
+const ScrollWrapper = ({ children, hidden }) => {
   if (hidden) {
-    return <Box sx={{maxHeight: 349, overflowY: 'auto', overflowX: 'hidden'}}>{children}</Box>
+    return <Box sx={{ maxHeight: 349, overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
   } else {
-    return <PerfectScrollbar options={{wheelPropagation: false, suppressScrollX: true}}>{children}</PerfectScrollbar>
+    return <PerfectScrollbar options={{ wheelPropagation: false, suppressScrollX: true }}>{children}</PerfectScrollbar>
   }
 }
 
 const NotificationDropdown = props => {
   // ** Props
-  const {settings} = props
+  const { settings } = props
 
   const theme = useTheme()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const router = useRouter()
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
+  const lastNotificationId = useRef(null)
 
   // ** Hook
   const hidden = useMediaQuery(theme => theme.breakpoints.down('lg'))
 
   // ** Vars
-  const {direction} = settings
+  const { direction } = settings
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['fetchNotifications'],
     queryFn: fetchNotifications,
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage?.current_page,
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.current_page < lastPage.last_page ? lastPage?.current_page : undefined;
+      return lastPage.current_page < lastPage.last_page ? lastPage?.current_page : undefined
     },
+    refetchInterval: 10000,
+    refetchIntervalInBackground: true
   })
+
+  useEffect(() => {
+    if (data?.pages?.[0]?.items?.length > 0) {
+      const latestNotification = data.pages[0].items[0]
+      if (latestNotification.id !== lastNotificationId.current) {
+        if (latestNotification.read == 0) {
+          console.log(latestNotification.read)
+          const audio = new Audio('/sounds/notification-sound.mp3')
+          audio.play().catch(e => console.error('Audio play failed', e))
+        }
+      }
+      lastNotificationId.current = latestNotification.id
+    }
+  }, [data])
 
   const handleDropdownOpen = event => {
     setAnchorEl(event.currentTarget)
+    readNotifications()
   }
 
   const handleDropdownClose = () => {
     setAnchorEl(null)
   }
 
-  const handleNotificationClick = (notification) => {
+  const handleNotificationClick = notification => {
     handleDropdownClose()
     if (notification.target_type === 1) {
       // router.push(`/dream-reports/${notification.target}`)
@@ -157,10 +167,10 @@ const NotificationDropdown = props => {
     }
   }
 
-  const RenderAvatar = ({notification}) => {
-    const {avatarAlt, avatarImg, avatarIcon, avatarText, avatarColor} = notification
+  const RenderAvatar = ({ notification }) => {
+    const { avatarAlt, avatarImg, avatarIcon, avatarText, avatarColor } = notification
     if (avatarImg) {
-      return <Avatar alt={avatarAlt} src={avatarImg}/>
+      return <Avatar alt={avatarAlt} src={avatarImg} />
     } else if (avatarIcon) {
       return (
         <Avatar skin='light' color={avatarColor}>
@@ -185,89 +195,97 @@ const NotificationDropdown = props => {
           // invisible={!data?.items?.length}
           invisible={true}
           sx={{
-            '& .MuiBadge-badge': {top: 4, right: 4, boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}`}
+            '& .MuiBadge-badge': { top: 4, right: 4, boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}` }
           }}
         >
-          <Icon fontSize='1.625rem' icon='tabler:bell'/>
+          <Icon fontSize='1.625rem' icon='tabler:bell' />
         </Badge>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleDropdownClose}
-        anchorOrigin={{vertical: 'bottom', horizontal: direction === 'ltr' ? 'right' : 'left'}}
-        transformOrigin={{vertical: 'top', horizontal: direction === 'ltr' ? 'right' : 'left'}}
+        anchorOrigin={{ vertical: 'bottom', horizontal: direction === 'ltr' ? 'right' : 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: direction === 'ltr' ? 'right' : 'left' }}
       >
         <MenuItem
           disableRipple
           disableTouchRipple
-          sx={{cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important'}}
+          sx={{ cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important' }}
         >
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-            <Typography variant='h5' sx={{cursor: 'text'}}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <Typography variant='h5' sx={{ cursor: 'text' }}>
               {t('notifications')}
             </Typography>
             {/*<CustomChip skin='light' size='small' color='primary' label={`${notifications.length} New`} />*/}
           </Box>
         </MenuItem>
         <ScrollWrapper hidden={hidden}>
-          {
-            status === 'loading' || status === 'pending' ? (
-              <CustomLoader/>
-            ) : status === 'error' ? (
-              <MenuItem disableRipple disableTouchRipple>{error.message}</MenuItem>
-            ) : (
-              data?.pages.length > 0 ?
-                data?.pages.map((page, index) => (
-                  page?.items.length > 0 ?
-                    page.items.map((notification, index) => (
-                      <MenuItem key={index} sx={{display: 'flex', flexDirection: 'column'}} disableRipple disableTouchRipple onClick={() => handleNotificationClick(notification)}>
-                        <Box sx={{width: '100%', display: 'flex', alignItems: 'center'}}>
-                          {/*<RenderAvatar notification={notification} />*/}
-                          <Box sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            p: 3,
-                            mx: 1,
-                            borderRadius: '50%',
-                            backgroundColor: theme.palette.background.default
-                          }}>
-                            <Icon icon={'tabler:ad-circle'} fontSize={'1.5rem'}/>
-                          </Box>
-                          <Box sx={{
-                            mr: 4,
-                            ml: 2.5,
-                            flex: '1 1',
-                            display: 'flex',
-                            overflow: 'hidden',
-                            flexDirection: 'column'
-                          }}>
-                            <MenuItemTitle>{notification.title}</MenuItemTitle>
-                            <MenuItemSubtitle variant='body2'>{notification.body}</MenuItemSubtitle>
-                            {/*<MenuItemSubtitle variant='body2' sx={{display: 'flex', justifyContent: 'end', mt: 2}}>{notification.created_at}</MenuItemSubtitle>*/}
-                          </Box>
-                        </Box>
-                        <Box sx={{display: 'flex', justifyContent: 'end', mt: 2, width: '100%'}}>
-                          <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                            {notification.created_at}
-                          </Typography>
-                        </Box>
-                      </MenuItem>
-                    ))
-                  : (
-                    <MenuItem key={index} disableRipple disableTouchRipple>
-                      {t('no_notifications')}
-                    </MenuItem>
-                  )
+          {status === 'loading' || status === 'pending' ? (
+            <CustomLoader />
+          ) : status === 'error' ? (
+            <MenuItem disableRipple disableTouchRipple>
+              {error.message}
+            </MenuItem>
+          ) : data?.pages.length > 0 ? (
+            data?.pages.map((page, index) =>
+              page?.items.length > 0 ? (
+                page.items.map((notification, index) => (
+                  <MenuItem
+                    key={index}
+                    sx={{ display: 'flex', flexDirection: 'column' }}
+                    disableRipple
+                    disableTouchRipple
+                    onClick={() => handleNotificationClick(notification)}
+                  >
+                    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                      {/*<RenderAvatar notification={notification} />*/}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          p: 3,
+                          mx: 1,
+                          borderRadius: '50%',
+                          backgroundColor: theme.palette.background.default
+                        }}
+                      >
+                        <Icon icon={'tabler:ad-circle'} fontSize={'1.5rem'} />
+                      </Box>
+                      <Box
+                        sx={{
+                          mr: 4,
+                          ml: 2.5,
+                          flex: '1 1',
+                          display: 'flex',
+                          overflow: 'hidden',
+                          flexDirection: 'column'
+                        }}
+                      >
+                        <MenuItemTitle>{notification.title}</MenuItemTitle>
+                        <MenuItemSubtitle variant='body2'>{notification.body}</MenuItemSubtitle>
+                        {/*<MenuItemSubtitle variant='body2' sx={{display: 'flex', justifyContent: 'end', mt: 2}}>{notification.created_at}</MenuItemSubtitle>*/}
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2, width: '100%' }}>
+                      <Typography variant='body2' sx={{ color: 'text.disabled' }}>
+                        {notification.created_at}
+                      </Typography>
+                    </Box>
+                  </MenuItem>
                 ))
-              : (
-                <MenuItem disableRipple disableTouchRipple>
+              ) : (
+                <MenuItem key={index} disableRipple disableTouchRipple>
                   {t('no_notifications')}
                 </MenuItem>
               )
             )
-          }
+          ) : (
+            <MenuItem disableRipple disableTouchRipple>
+              {t('no_notifications')}
+            </MenuItem>
+          )}
         </ScrollWrapper>
         <MenuItem
           disableRipple
@@ -280,7 +298,12 @@ const NotificationDropdown = props => {
             borderTop: theme => `1px solid ${theme.palette.divider}`
           }}
         >
-          <Button fullWidth variant='contained' onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
+          <Button
+            fullWidth
+            variant='contained'
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+          >
             {t('load_more')}
           </Button>
         </MenuItem>
