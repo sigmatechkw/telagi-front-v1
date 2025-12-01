@@ -149,11 +149,11 @@ const NotificationDropdown = props => {
     if (notification.target_type === 1) {
       // router.push(`/dream-reports/${notification.target}`)
     } else if (notification.target_type === 2) {
-      router.push(`/packages/${notification.target}`)
+      router.push(`/packages/details/${notification.target}`)
     } else if (notification.target_type === 3) {
       // router.push(`/blogs/${notification.target}`)
     } else if (notification.target_type === 5) {
-      router.push(`/ads/${notification.target}`)
+      router.push(`/ads/details/${notification.target}`)
     }
   }
 
