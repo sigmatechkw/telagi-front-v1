@@ -21,12 +21,12 @@ const defaultValues = {
     sold: false,
     approved: false,
     featured: false,
-    featured_start_date: false,
-    featured_end_date: false,
-    home_end_date: false,
-    inside_end_date: false,
-    top_categories_end_date : false,
-    status: false,
+    featured_start_date: new Date(),
+    featured_end_date: new Date(),
+    home_end_date: new Date(),
+    inside_end_date: new Date(),
+    top_categories_end_date : new Date(),
+    status: "",
     country_id: false,
     category_id: false,
     user_id: false,
@@ -46,6 +46,7 @@ const AdsCreate = () => {
   const [videoSrc, setVideoSrc] = useState('')
   const [adVideo, setAdVideo] = useState('')
   const [content, setContent] = useState('')
+  const [category_id , setCategoryId] = useState('')
 
   const auth = useSelector(state => state.auth)
 
@@ -63,8 +64,9 @@ const AdsCreate = () => {
     setLoading(true)
 
     data.country_id = data.country_id?.id;
-    data.category_id = data.category_id?.id;
+    data.category_id = data.category_id;
     data.user_id = data.user_id?.id;
+    data.status = data.status?.id;
 
     data.image = imgSrc;    
 
@@ -85,6 +87,20 @@ const AdsCreate = () => {
     }else{ 
       data.images = imgsArr;
     }
+
+    //check for the new or updated attributes
+    const attributes = [];
+    data.attributes.forEach((dataAttribute) => { 
+        const oldAttributeSet = attributes.find((e) => e.attribute_set_id == dataAttribute.attribute_set_id);
+        if(oldAttributeSet) { 
+          oldAttributeSet.value.push(dataAttribute.value);
+        }else{ 
+        }
+        attributes.push({attribute_set_id : dataAttribute.attribute_set_id , value : [dataAttribute.value]});
+    });
+  
+    data.attributes = attributes;
+
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}ads`, data, {
         headers: {
@@ -130,6 +146,7 @@ const AdsCreate = () => {
         loading={loading}
         content={content}
         setContent={setContent}
+        category_id={category_id}
       />
     </Card>
   )

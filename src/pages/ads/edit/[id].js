@@ -135,8 +135,6 @@ const AdsEdit = ({ type, id }) => {
     });
   
     data.attributes = attributes;
-
-    console.log(data);
     
     axios
       .post(`${process.env.NEXT_PUBLIC_API_KEY}update-ads/${id}`, data, {

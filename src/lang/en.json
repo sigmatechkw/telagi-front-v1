@@ -371,7 +371,7 @@
   "title_en": "Title in english",
   "title_ar": "Title in arabic",
   "select_commercial_category": "Select commercial category",
-  "upload_images": "",
+  "upload_images": "Upload Images",
   "only_numbers": "Only Numbers",
   "save_and_add_another": "Save and Add Another",
   "parent_attribute" : "Parent Attribute",
@@ -379,5 +379,6 @@
   "top_categories_period": "Top Categories Period",
   "home_end_date" : "Home End Date",
   "inside_end_date" : "Inside End Date",
-  "top_categories_end_date" : "Top Categories End Date"
+  "top_categories_end_date" : "Top Categories End Date",
+  "not_paid" : "Not Paid"
 }
