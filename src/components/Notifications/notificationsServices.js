@@ -8,7 +8,7 @@ const state = store.getState()
 export const fetchNotifications = async (page) => {
   let params = {
     paginate: 1,
-    page: page.pageParam + 1
+    page: page.pageParam + 1,
   }
 
   try {
@@ -28,3 +28,24 @@ export const fetchNotifications = async (page) => {
     // setLoading(false)
   }
 }
+
+export const readNotifications = async () => {
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications-read`, 
+    {
+      all_notifications: true
+    }, 
+    {
+      headers: {
+        'Authorization': getCookie('token'),
+        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+      }
+    })
+
+    return response.data.data
+  } catch (err) {
+    toast.error(err.response?.data?.message)
+    // setLoading(false)
+  }
+}
+
