@@ -389,5 +389,6 @@
   "top_categories_period": "مده الأقسام العلوية",
   "home_end_date" : "تاريخ انتهاء الرئيسية",
   "inside_end_date" : "تاريخ انتهاء الداخل",
-  "top_categories_end_date" : "تاريخ انتهاء الفئات العليا"
+  "top_categories_end_date" : "تاريخ انتهاء الفئات العليا",
+  "not_paid" : "غير مدفوع"
 }

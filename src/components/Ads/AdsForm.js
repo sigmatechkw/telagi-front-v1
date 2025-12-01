@@ -385,6 +385,7 @@ const AdsForm = ({
                   }}
                 />
               </Grid>
+
               <Grid item xs={12} sm={6}>
                 <Controller
                   name='price'
@@ -571,6 +572,36 @@ const AdsForm = ({
                       getOptionLabel={option => option.first_name || ''}
                       required
                       renderInput={params => <CustomTextField {...params} label={t('user')} />}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name='status'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange } }) => (
+                    <CustomAutocomplete
+                      value={value}
+                      onChange={(e, newValue) => {
+                        if (newValue) {
+                          setValue('status', newValue)
+                          onChange(newValue)
+                        } else {
+                          setValue('status', null)
+                        }
+                      }}
+                      isOptionEqualToValue={(option, value) => option.id === value?.id}
+                      options={[
+                        { id: 0, name: t('not_paid') },
+                        { id: 1, name: t('paid') },
+                        { id: 2, name: t('draft') },
+                      ]}
+                      getOptionLabel={option => option.name || ''}
+                      required
+                      renderInput={params => <CustomTextField {...params} label={t('status')} />}
                     />
                   )}
                 />
