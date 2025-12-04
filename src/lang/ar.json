@@ -390,5 +390,7 @@
   "home_end_date" : "تاريخ انتهاء الرئيسية",
   "inside_end_date" : "تاريخ انتهاء الداخل",
   "top_categories_end_date" : "تاريخ انتهاء الفئات العليا",
-  "not_paid" : "غير مدفوع"
+  "not_paid" : "غير مدفوع",
+  "phone_secondary" : "رقم هاتف ثاني",
+  "whatsapp_secondary" : "واتساب ثاني"
 }

@@ -16,6 +16,9 @@ const defaultValues = {
     expiration_date: "",
     price : "",
     phone: "",
+    phone_secondary: "",
+    whatsapp: "",
+    whatsapp_secondary: "",
     views: "",
     active: false,
     sold: false,
@@ -67,8 +70,9 @@ const AdsCreate = () => {
     data.category_id = data.category_id;
     data.user_id = data.user_id?.id;
     data.status = data.status?.id;
+    data.country_id = 1;
 
-    data.image = imgSrc;    
+    data.image = imgSrc;
 
     if(!imgSrc){ 
       delete data.image;

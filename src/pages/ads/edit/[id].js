@@ -17,6 +17,9 @@ const defaultValues = {
     expiration_date: "",
     price : "",
     phone: "",
+    phone_secondary: "",
+    whatsapp: "",
+    whatsapp_secondary: "",
     views: "",
     active: false,
     sold: false,
@@ -70,7 +73,7 @@ const AdsEdit = ({ type, id }) => {
   const onSubmit = data => {
     setLoading(true)
 
-    data.country_id = data.country_id?.id;
+    data.country_id = data.country_id?.id ? data.country_id?.id : 1;
     data.category_id = data.category_id;
     data.user_id = data.user_id?.id;
 
@@ -163,6 +166,9 @@ const AdsEdit = ({ type, id }) => {
     setValue('expiration_date', type.expiration_date)
     setValue('price', type.price)
     setValue('phone', type.phone)
+    setValue('phone_secondary', type.phone_secondary)
+    setValue('whatsapp', type.whatsapp)
+    setValue('whatsapp_secondary', type.whatsapp_secondary)
     setValue('views', type.views)
     setValue('active', type.active == 1? true: false )
     setValue('sold', type.sold == 1? true: false)
