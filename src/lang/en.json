@@ -380,5 +380,7 @@
   "home_end_date" : "Home End Date",
   "inside_end_date" : "Inside End Date",
   "top_categories_end_date" : "Top Categories End Date",
-  "not_paid" : "Not Paid"
+  "not_paid" : "Not Paid",
+  "phone_secondary" : "Phone Secondary",
+  "whatsapp_secondary" : "WhatsApp Secondary"
 }
