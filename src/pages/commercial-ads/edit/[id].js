@@ -15,6 +15,8 @@ const defaultValues = {
   title_ar: "",
   phone: "",
   whatsapp: "",
+  phone_secondary: "",
+  whatsapp_secondary: "",
   start_date: "",
   end_date: "",
   commercial_category_id: null,
@@ -58,7 +60,9 @@ const CommercialAdEdit = () => {
         setValue('title_en', data.title_en || '')
         setValue('title_ar', data.title_ar || '')
         setValue('phone', data.phone || '')
+        setValue('phone_secondary', data.phone_secondary || '')
         setValue('whatsapp', data.whatsapp || '')
+        setValue('whatsapp_secondary', data.whatsapp_secondary || '')
         setValue('start_date', data.start_date || '')
         setValue('end_date', data.end_date || '')
 

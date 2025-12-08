@@ -225,6 +225,25 @@ const CommercialAdsForm = ({ type = 'create', errors, control, watch, setValue, 
 
             <Grid item xs={12} sm={6}>
               <Controller
+                name='phone_secondary'
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { value, onChange } }) => (
+                  <CustomTextField
+                    fullWidth
+                    value={value}
+                    label={t('phone_secondary')}
+                    onChange={onChange}
+                    error={Boolean(errors.phone_secondary)}
+                    aria-describedby='validation-basic-phone_secondary'
+                    {...(errors.phone_secondary && { helperText: t('required') })}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
                 name='whatsapp'
                 control={control}
                 rules={{ required: true }}
@@ -238,6 +257,25 @@ const CommercialAdsForm = ({ type = 'create', errors, control, watch, setValue, 
                     error={Boolean(errors.whatsapp)}
                     aria-describedby='validation-basic-whatsapp'
                     {...(errors.whatsapp && { helperText: t('required') })}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name='whatsapp_secondary'
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { value, onChange } }) => (
+                  <CustomTextField
+                    fullWidth
+                    value={value}
+                    label={t('whatsapp_secondary')}
+                    onChange={onChange}
+                    error={Boolean(errors.whatsapp_secondary)}
+                    aria-describedby='validation-basic-whatsapp_secondary'
+                    {...(errors.whatsapp_secondary && { helperText: t('required') })}
                   />
                 )}
               />

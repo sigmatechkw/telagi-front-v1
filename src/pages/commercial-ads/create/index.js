@@ -13,6 +13,8 @@ const defaultValues = {
   title_ar: "",
   phone: "",
   whatsapp: "",
+  phone_secondary: "",
+  whatsapp_secondary: "",
   start_date: "",
   end_date: "",
   commercial_category_id: null,
