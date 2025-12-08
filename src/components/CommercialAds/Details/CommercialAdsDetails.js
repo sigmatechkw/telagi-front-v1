@@ -90,8 +90,16 @@ const CommercialAdsDetails = ({ ad }) => {
               <Typography sx={{ color: 'text.secondary' }}>{ad.phone}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('phone_secondary')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{ad.phone_secondary}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('whatsapp')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{ad.whatsapp}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', mb: 3 }}>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('whatsapp_secondary')}:</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{ad.whatsapp_secondary}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('views')}:</Typography>

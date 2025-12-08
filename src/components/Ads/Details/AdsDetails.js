@@ -75,16 +75,8 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type?.phone}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('phone_secondary')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type?.phone_secondary}</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('whatsapp')}:</Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type?.whatsapp}</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('whatsapp_secondary')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>{type?.whatsapp_secondary}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_period')}:</Typography>
