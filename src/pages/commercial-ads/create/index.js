@@ -15,6 +15,8 @@ const defaultValues = {
   whatsapp: "",
   phone_secondary: "",
   whatsapp_secondary: "",
+  phone_third: "",
+  whatsapp_third: "",
   start_date: "",
   end_date: "",
   commercial_category_id: null,
