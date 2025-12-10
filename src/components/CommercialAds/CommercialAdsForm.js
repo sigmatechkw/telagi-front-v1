@@ -223,6 +223,7 @@ const CommercialAdsForm = ({ type = 'create', errors, control, watch, setValue, 
               />
             </Grid>
 
+
             <Grid item xs={12} sm={6}>
               <Controller
                 name='phone_secondary'
@@ -237,6 +238,25 @@ const CommercialAdsForm = ({ type = 'create', errors, control, watch, setValue, 
                     error={Boolean(errors.phone_secondary)}
                     aria-describedby='validation-basic-phone_secondary'
                     {...(errors.phone_secondary && { helperText: t('required') })}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name='phone_third'
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { value, onChange } }) => (
+                  <CustomTextField
+                    fullWidth
+                    value={value}
+                    label={t('phone_third')}
+                    onChange={onChange}
+                    error={Boolean(errors.phone_third)}
+                    aria-describedby='validation-basic-phone_third'
+                    {...(errors.phone_third && { helperText: t('required') })}
                   />
                 )}
               />
@@ -276,6 +296,25 @@ const CommercialAdsForm = ({ type = 'create', errors, control, watch, setValue, 
                     error={Boolean(errors.whatsapp_secondary)}
                     aria-describedby='validation-basic-whatsapp_secondary'
                     {...(errors.whatsapp_secondary && { helperText: t('required') })}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name='whatsapp_third'
+                control={control}
+                rules={{ required: false }}
+                render={({ field: { value, onChange } }) => (
+                  <CustomTextField
+                    fullWidth
+                    value={value}
+                    label={t('whatsapp_third')}
+                    onChange={onChange}
+                    error={Boolean(errors.whatsapp_third)}
+                    aria-describedby='validation-basic-whatsapp_third'
+                    {...(errors.whatsapp_third && { helperText: t('required') })}
                   />
                 )}
               />

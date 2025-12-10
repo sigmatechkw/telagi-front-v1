@@ -382,5 +382,7 @@
   "top_categories_end_date" : "Top Categories End Date",
   "not_paid" : "Not Paid",
   "phone_secondary" : "Phone Secondary",
-  "whatsapp_secondary" : "WhatsApp Secondary"
+  "whatsapp_secondary" : "WhatsApp Secondary",
+  "phone_third" : "Phone Third",
+  "whatsapp_third" : "WhatsApp Third"
 }
