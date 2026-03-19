@@ -24,8 +24,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Util Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { fetchNotifications, readNotification, readNotifications } from './notificationsServices'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { fetchNotifications, readNotification, readNotifications, unReadNotification } from './notificationsServices'
 import CustomLoader from '../Shared/CustomLoader'
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
@@ -131,6 +131,11 @@ const NotificationDropdown = props => {
     refetchIntervalInBackground: true
   })
 
+  const { data: unReadNotificationCount } = useQuery({
+    queryKey: ['unReadNotificationCount'],
+    queryFn: unReadNotification
+  })
+
   useEffect(() => {
     if (data?.pages?.[0]?.items?.length > 0) {
       const latestNotification = data.pages[0].items[0]
@@ -191,11 +196,19 @@ const NotificationDropdown = props => {
       <IconButton color='inherit' aria-haspopup='true' onClick={handleDropdownOpen} aria-controls='customized-menu'>
         <Badge
           color='error'
-          variant='dot'
-          // invisible={!data?.items?.length}
-          invisible={true}
+          badgeContent={unReadNotificationCount}
+          invisible={!unReadNotificationCount}
           sx={{
-            '& .MuiBadge-badge': { top: 4, right: 4, boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}` }
+            '& .MuiBadge-badge': {
+              top: 6,
+              right: 6,
+              fontSize: '10px',
+              height: 14,
+              minWidth: 14,
+              padding: '0 4px',
+              borderRadius: '8px',
+              boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}`
+            }
           }}
         >
           <Icon fontSize='1.625rem' icon='tabler:bell' />

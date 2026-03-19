@@ -49,3 +49,20 @@ export const readNotifications = async () => {
   }
 }
 
+export const unReadNotification = async () => {
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications/unread-count`, 
+    {
+      headers: {
+        'Authorization': getCookie('token'),
+        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+      }
+    })
+
+    return response.data.data?.count
+  } catch (err) {
+    toast.error(err.response?.data?.message)
+  }
+}
+
+
