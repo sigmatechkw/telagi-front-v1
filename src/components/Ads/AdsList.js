@@ -214,7 +214,6 @@ const AdsList = ({
         <AdsRowOptions
           id={row.id}
           handleClickDeleteButton={handleClickDeleteButton}
-          handleChangeApproved={handleChangeApproved}
         />
       )
     }

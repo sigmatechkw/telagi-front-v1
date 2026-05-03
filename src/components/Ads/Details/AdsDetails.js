@@ -10,17 +10,20 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import SnackbarConfirmActions from '../../Shared/SnackbarConfirmActions'
 import Snackbar from '@mui/material/Snackbar'
-import { deleteAds } from '../adsServices'
+import { deleteAds, updateAdApproved } from '../adsServices'
 import Icon from '../../../@core/components/icon'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
+import { IconButton } from '@mui/material'
+import { useQueryClient } from '@tanstack/react-query'
 
-const AdsDetails = ({ type }) => {
+const AdsDetails = ({ type, refetch }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
+  const queryClient = useQueryClient()
 
   const handleDelete = () => {
     deleteAds([type.id]).then(res => {
@@ -38,13 +41,40 @@ const AdsDetails = ({ type }) => {
     setOpenDeleteSnackbar(false)
   }
 
+  const handleChangeApproved = async (row) => {
+    await updateAdApproved(row?.id, { approved: row.approved == 1 ? false : true })
+    await refetch()
+  }
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          <Typography variant={'h3'} sx={{ px: 3, pt: 3 }}>
-            {t('ads')}
-          </Typography>
+          <Box display='flex' justifyContent='space-between' alignItems='center' px={3} pt={3}>
+            <Typography variant={'h3'} sx={{ px: 3, pt: 3 }}>
+              {t('ads')}
+            </Typography>
+
+            <Button
+              variant='outlined'
+              onClick={() => {
+                handleChangeApproved(type)
+              }}
+            >
+              {type.approved ? (
+                <>
+                  {t('approved')}
+                  <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
+                </>
+              ) : (
+                <>
+                  {t('rejected')}
+                  <Icon icon='tabler:xbox-x' color='red' fontSize='2rem' />
+                </>
+              )}
+            </Button>
+          </Box>
+
           <CardContent>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('title')}:</Typography>
@@ -52,9 +82,7 @@ const AdsDetails = ({ type }) => {
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('category')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.category?.name}
-              </Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.category?.name}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('price')}:</Typography>
@@ -79,10 +107,10 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type?.whatsapp}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_period')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.expiration_period}
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                {t('expiration_period')}:
               </Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.expiration_period}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('created_at')}:</Typography>
@@ -90,16 +118,18 @@ const AdsDetails = ({ type }) => {
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('expiration_date')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.expiration_date}
-              </Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.expiration_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured_start_date')}:</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                {t('featured_start_date')}:
+              </Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.featured_start_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('featured_end_date')}:</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                {t('featured_end_date')}:
+              </Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.featured_end_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
@@ -111,14 +141,14 @@ const AdsDetails = ({ type }) => {
               <Typography sx={{ color: 'text.secondary' }}>{type.inside_end_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
-              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('top_categories_end_date')}:</Typography>
+              <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                {t('top_categories_end_date')}:
+              </Typography>
               <Typography sx={{ color: 'text.secondary' }}>{type.top_categories_end_date}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('views')}:</Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
-                {type.views}
-              </Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{type.views}</Typography>
             </Box>
             <Box sx={{ display: 'flex', mb: 3 }}>
               <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('favorites')}:</Typography>
@@ -156,7 +186,6 @@ const AdsDetails = ({ type }) => {
                 <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
               )}
             </Box>
-
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant='tonal' sx={{ mr: 2 }} onClick={() => router.push(`/ads/edit/${type.id}`)}>
