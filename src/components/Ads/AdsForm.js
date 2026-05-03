@@ -28,6 +28,8 @@ import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCusto
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
 import AdsSelectCategories from './AdsForm/AdsSelectCategories'
 import AdsAttributesSetsForm from './AdsForm/AdsAttributesSetsForm'
+import { updateAdApproved } from './adsServices'
+import Icon from '../../@core/components/icon'
 
 const AdsForm = ({
   type = 'create',
@@ -50,7 +52,9 @@ const AdsForm = ({
   setVideoSrc,
   adVideo,
   setAdVideo,
-  category_id
+  category_id,
+  getValues,
+  refetch
 }) => {
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
@@ -152,11 +156,11 @@ const AdsForm = ({
     const { files } = file.target
     if (files && files.length !== 0) {
       reader.onload = () => {
-        const fileDataUrl = reader.result;
-        setVideoSrc(files[0]);     
-        setAdVideo(fileDataUrl);
-      };
-      reader.readAsDataURL(files[0]);
+        const fileDataUrl = reader.result
+        setVideoSrc(files[0])
+        setAdVideo(fileDataUrl)
+      }
+      reader.readAsDataURL(files[0])
     }
   }
 
@@ -219,9 +223,37 @@ const AdsForm = ({
     )
   }
 
+  const handleChangeApproved = async row => {
+    await updateAdApproved(row?.id, { approved: row.approved == 1 ? false : true })
+    await refetch()
+  }
+
   return (
     <>
-      <CardHeader title={title} />
+      <Box display='flex' justifyContent='space-between' alignItems='center' px={3} pt={3}>
+        <CardHeader title={title} />
+
+        {type == 'edit' && (
+          <Button
+            variant='outlined'
+            onClick={() => {
+              handleChangeApproved({ id: getValues('id'), approved: getValues('approved') })
+            }}
+          >
+            {watch('approved') ? (
+              <>
+                {t('approved')}
+                <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
+              </>
+            ) : (
+              <>
+                {t('rejected')}
+                <Icon icon='tabler:xbox-x' color='red' fontSize='2rem' />
+              </>
+            )}
+          </Button>
+        )}
+      </Box>
       <CardContent>
         <form onSubmit={onSubmit}>
           <Grid container spacing={4}>
@@ -587,7 +619,6 @@ const AdsForm = ({
                   }}
                 />
               </Grid>
-              
 
               <Grid item xs={12} sm={6}>
                 <Controller
@@ -645,7 +676,7 @@ const AdsForm = ({
                       options={[
                         { id: 0, name: t('not_paid') },
                         { id: 1, name: t('paid') },
-                        { id: 2, name: t('draft') },
+                        { id: 2, name: t('draft') }
                       ]}
                       getOptionLabel={option => option.name || ''}
                       required
