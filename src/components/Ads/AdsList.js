@@ -7,11 +7,11 @@ import SnackbarConfirmActions from '../Shared/SnackbarConfirmActions'
 import { useTranslation } from 'react-i18next'
 import Typography from '@mui/material/Typography'
 import Icon from '../../@core/components/icon'
-import { deleteAds } from './adsServices'
+import { deleteAds, updateAdApproved } from './adsServices'
 import AdsListTableHeader from './AdsListTableHeader'
 import AdsRowOptions from './AdsRowOptions'
 import AdsFilters from './AdsFilters'
-
+import { IconButton } from '@mui/material'
 
 const AdsList = ({
   data,
@@ -54,6 +54,12 @@ const AdsList = ({
   const handleCloseDeleteSnackbar = () => {
     setSelectedRowId(null)
     setOpenDeleteSnackbar(false)
+  }
+
+  const handleChangeApproved = async (e, row) => {
+    e.stopPropagation()
+    await updateAdApproved(row?.id, { approved: row.approved == 1 ? false : true })
+    fetchData()
   }
 
   const columns = [
@@ -160,10 +166,14 @@ const AdsList = ({
       headerName: t('approved'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.approved? (
-            <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
+          {row.approved ? (
+            <IconButton color='secondary' onClick={(e) => handleChangeApproved(e, row)}>
+              <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
+            </IconButton>
           ) : (
-            <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
+            <IconButton color='secondary' onClick={(e) => handleChangeApproved(e, row)}>
+              <Icon icon='tabler:xbox-x' color='red' fontSize='2rem' />
+            </IconButton>
           )}
         </Typography>
       )
@@ -175,7 +185,7 @@ const AdsList = ({
       headerName: t('active'),
       renderCell: ({ row }) => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.active == 1? (
+          {row.active == 1 ? (
             <Icon icon='tabler:circle-check' color='green' fontSize='2rem' />
           ) : (
             <Icon icon='tabler:xbox-x' fontSize='2rem' color='red' />
@@ -196,11 +206,17 @@ const AdsList = ({
     },
     {
       flex: 0.175,
-      minWidth: 150,
+      minWidth: 200,
       sortable: false,
       field: 'actions',
       headerName: t('actions'),
-      renderCell: ({ row }) => <AdsRowOptions id={row.id} handleClickDeleteButton={handleClickDeleteButton} />
+      renderCell: ({ row }) => (
+        <AdsRowOptions
+          id={row.id}
+          handleClickDeleteButton={handleClickDeleteButton}
+          handleChangeApproved={handleChangeApproved}
+        />
+      )
     }
   ]
 
@@ -210,10 +226,16 @@ const AdsList = ({
 
   return (
     <div>
-      <AdsFilters isActive={isActive} setIsActive={setIsActive} 
-      isExpired={isExpired} setIsExpired={setIsExpired}
-       isSold={isSold} setIsSold={setIsSold}
-       isFeatured={isFeatured} setIsFeatured={setIsFeatured}/>
+      <AdsFilters
+        isActive={isActive}
+        setIsActive={setIsActive}
+        isExpired={isExpired}
+        setIsExpired={setIsExpired}
+        isSold={isSold}
+        setIsSold={setIsSold}
+        isFeatured={isFeatured}
+        setIsFeatured={setIsFeatured}
+      />
 
       <Card>
         <CardHeader title={t('ads')} />

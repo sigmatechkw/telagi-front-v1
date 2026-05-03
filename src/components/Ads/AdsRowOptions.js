@@ -1,42 +1,35 @@
-import IconButton from "@mui/material/IconButton";
-import {useRouter} from "next/router";
-import {Icon} from "@iconify/react";
-
+import IconButton from '@mui/material/IconButton'
+import { useRouter } from 'next/router'
+import { Icon } from '@iconify/react'
 
 const AdsRowOptions = ({ id, handleClickDeleteButton }) => {
   const router = useRouter()
 
-  const handleView = (e) => {
+  const handleView = e => {
     e.stopPropagation()
     router.push(`/ads/details/${id}`)
   }
 
-  const handleEdit = (e) => {
+  const handleEdit = e => {
     e.stopPropagation()
     router.push(`/ads/edit/${id}`)
   }
 
-  const handleDelete = (e) => {
+  const handleDelete = e => {
     e.stopPropagation()
     handleClickDeleteButton(id)
   }
 
   return (
     <>
-      <IconButton
-        color="secondary"
-        onClick={handleView}>
-        <Icon icon='tabler:eye' fontSize={20}/>
+      <IconButton color='secondary' onClick={handleView}>
+        <Icon icon='tabler:eye' fontSize={20} />
       </IconButton>
-      <IconButton
-        color="warning"
-        onClick={handleEdit}>
-        <Icon icon='tabler:edit' fontSize={20}/>
+      <IconButton color='warning' onClick={handleEdit}>
+        <Icon icon='tabler:edit' fontSize={20} />
       </IconButton>
-      <IconButton
-        color="error"
-        onClick={handleDelete}>
-        <Icon icon='tabler:trash' fontSize={20}/>
+      <IconButton color='error' onClick={handleDelete}>
+        <Icon icon='tabler:trash' fontSize={20} />
       </IconButton>
     </>
   )
