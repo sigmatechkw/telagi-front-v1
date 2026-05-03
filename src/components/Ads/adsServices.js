@@ -1,32 +1,44 @@
-import {store} from "../../store";
-import axios from "axios";
-import {getCookie} from "cookies-next";
-import toast from "react-hot-toast";
+import { store } from '../../store'
+import axios from 'axios'
+import { getCookie } from 'cookies-next'
+import toast from 'react-hot-toast'
 
 const state = store.getState()
 
-export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'desc', perPage = 10, isActive = '', isExpired = '' , isSold = '', isFeatured = '', setRows, setLoading) => {
+export const fetchAds = async (
+  page = 1,
+  search,
+  sortKey = 'id',
+  sortType = 'desc',
+  perPage = 10,
+  isActive = '',
+  isExpired = '',
+  isSold = '',
+  isFeatured = '',
+  setRows,
+  setLoading
+) => {
   let params = {
     paginate: 1,
     page: page + 1,
-    perPage,
+    perPage
   }
-  
-  let filters = { }
 
-  if(isActive !== ''){ 
+  let filters = {}
+
+  if (isActive !== '') {
     filters.active = isActive
   }
 
-  if(isExpired !== ''){ 
+  if (isExpired !== '') {
     filters.expired = isExpired
   }
 
-  if(isSold !== ''){ 
+  if (isSold !== '') {
     filters.sold = isSold
   }
-  
-  if(isFeatured !== ''){ 
+
+  if (isFeatured !== '') {
     filters.featured = isFeatured
   }
 
@@ -43,17 +55,21 @@ export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'des
   }
 
   if (Object.keys(filters).length === 0) {
-    filters = null;
+    filters = null
   }
 
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}all-ads`, filters === null ? null : {filters}, {
-      params,
-      headers: {
-        'Authorization': getCookie('token'),
-        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_KEY}all-ads`,
+      filters === null ? null : { filters },
+      {
+        params,
+        headers: {
+          Authorization: getCookie('token'),
+          'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+        }
       }
-    })
+    )
     setRows(response.data.data)
     setLoading(false)
   } catch (err) {
@@ -62,7 +78,7 @@ export const fetchAds = async (page = 1, search, sortKey = 'id', sortType = 'des
   }
 }
 
-export const deleteAds = async (ids) => {
+export const deleteAds = async ids => {
   let data = {
     delete_ids: ids
   }
@@ -70,11 +86,24 @@ export const deleteAds = async (ids) => {
   try {
     await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}ads/delete`, data, {
       headers: {
-        'Authorization': getCookie('token'),
+        Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
     })
   } catch (err) {
     toast.error(err.response?.data?.message)
   }
+}
+
+export const updateAdApproved = async (id, data) => {
+  await axios
+    .put(`${process.env.NEXT_PUBLIC_API_KEY}ads/${id}/toggle-approved`, data, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: getCookie('token')
+      }
+    })
+    .catch(err => {
+      toast.error(err.response?.data?.message)
+    })
 }
