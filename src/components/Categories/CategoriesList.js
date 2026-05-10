@@ -23,10 +23,11 @@ const CategoriesList = ({
   canExport = false
 }) => {
   const { t } = useTranslation()
-  const [total, setTotal] = useState(data.total)
+  const [total, setTotal] = useState(Number(data?.total) || 0)
   const [rowSelectionModel, setRowSelectionModel] = useState([])
   const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
   const [selectedRowId, setSelectedRowId] = useState(null)
+  const rows = Array.isArray(data?.items) ? data.items : []
 
   const handleDelete = () => {
     deleteCategories([selectedRowId]).then(res => {
@@ -143,7 +144,7 @@ const CategoriesList = ({
   ]
 
   useEffect(() => {
-    setTotal(data.total)
+    setTotal(Number(data?.total) || 0)
   }, [data])
 
   return (
@@ -160,7 +161,7 @@ const CategoriesList = ({
             fetchData: fetchData,
             canExport: canExport
           }}
-          rows={data.items}
+          rows={rows}
           columns={columns}
           total={total}
           paginationModel={paginationModel}

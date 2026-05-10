@@ -1,0 +1,27 @@
+
+================================================================================
+TDAD Session Started: 2026-05-10T13:23:41.140Z
+================================================================================
+[2026-05-10T13:23:41.712Z] [EXTENSION] 🚀 TDAD extension is now ACTIVATED! Version with comprehensive logging
+[2026-05-10T13:23:41.713Z] [EXTENSION] 📁 Log file location: c:\Users\lenovo\Documents\GitHub\telagi-front-v1\.tdad\logs\tdad-2026-05-10.log
+[2026-05-10T13:23:41.713Z] [EXTENSION] 📊 Workspace folders: c:\Users\lenovo\Documents\GitHub\telagi-front-v1
+[2026-05-10T13:23:41.713Z] [EXTENSION] Creating WorkflowController...
+[2026-05-10T13:23:41.715Z] [EXTENSION] MVP: Using simple JSON storage (.tdad/workflows/workflow.json)
+[2026-05-10T13:23:41.715Z] [EXTENSION] TDAD Extension activated successfully
+[2026-05-10T13:23:41.715Z] [EXTENSION] Registering commands...
+[2026-05-10T13:23:41.779Z] [EXTENSION] TDAD structure already initialized
+[2026-05-10T13:23:41.780Z] [EXTENSION] Auto-opening TDAD Canvas...
+[2026-05-10T13:23:41.782Z] [CANVAS] Created directory: c:\Users\lenovo\Documents\GitHub\telagi-front-v1\.tdad\workflows
+[2026-05-10T13:23:41.783Z] [CANVAS] Sprint 13: Agent Orchestrator initialized
+[2026-05-10T13:23:41.783Z] [CANVAS] [FileStatusSync] File watchers initialized
+[2026-05-10T13:23:41.784Z] [CANVAS] [FileStatusSync] Synced 0 nodes
+[2026-05-10T13:23:41.786Z] [EXTENSION] FeedbackManager: Session 134
+[2026-05-10T13:23:42.125Z] [CANVAS] WEBVIEW
+Data: Using stylesheets: index-WTAp2nbL.css
+[2026-05-10T13:23:42.125Z] [CANVAS] MVP: Canvas initialized with simple JSON storage
+[2026-05-10T13:23:42.258Z] [CANVAS] [FitView] isLoading=true, nodes.length=0, folderId=null
+[2026-05-10T13:23:42.449Z] [CANVAS] [FitView] isLoading=false, nodes.length=0, folderId=null
+[2026-05-10T13:24:29.021Z] [CANVAS] saveNow: Saving 0 nodes to folder root - statuses: []
+[2026-05-10T13:24:29.023Z] [CANVAS] [FileStatusSync] File watchers disposed
+[2026-05-10T13:24:29.104Z] [EXTENSION] Blueprint workflow created: c:\Users\lenovo\Documents\GitHub\telagi-front-v1\.tdad\workflows\root.workflow.json
+[2026-05-10T13:24:29.106Z] [EXTENSION] Scaffolded 1 files from blueprint

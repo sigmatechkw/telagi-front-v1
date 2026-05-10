@@ -3,11 +3,13 @@ import {useEffect, useState} from "react";
 import { fetchCategories } from "src/components/Categories/CategoriesServices";
 import CategoriesList from "src/components/Categories/CategoriesList";
 
+const emptyCategoriesData = { items: [], total: 0 }
+
 const Categories = () => {
   const [searchValue, setSearchValue] = useState('')
   const [paginationModel, setPaginationModel] = useState({page: 0, pageSize: 10})
   const [sortModel, setSortModel] = useState([])
-  const [rows, setRows] = useState([])
+  const [rows, setRows] = useState(emptyCategoriesData)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
