@@ -58,14 +58,14 @@ export const fetchCategories = async (page = 1, search, sortKey = 'id', sortType
         headers: getCategoriesHeaders()
       })
     } catch (err) {
-      if (err.response?.status !== 404) {
+      if (err.response?.status === 404) {
+        response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}all-categories`, {
+          params,
+          headers: getCategoriesHeaders()
+        })
+      } else {
         throw err
       }
-
-      response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}all-categories`, {
-        params,
-        headers: getCategoriesHeaders()
-      })
     }
 
     setRows(normalizeCategoriesResponse(response.data?.data))
