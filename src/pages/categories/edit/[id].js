@@ -2,12 +2,14 @@ import Card from '@mui/material/Card'
 import toast from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { fetchCategoryDetails as fetchCategoryDetailsById } from "src/components/Categories/Details/CategoriesDetailsServices";
 import CategoriesForm from 'src/components/Categories/CategoriesForm'
+import CustomLoader from 'src/components/Shared/CustomLoader'
 
 const defaultValues = {
     name_en: "",
@@ -43,6 +45,13 @@ const CategoriesEdit = ({ type, id }) => {
     formState: { errors }
   } = useForm({ defaultValues })
 
+  const { isPending, isFetched, data: category } = useQuery({
+    queryKey: ['fetchCategoryDetails', id],
+    queryFn: () => fetchCategoryDetailsById(id),
+    enabled: !!id,
+    initialData: type ?? undefined
+  })
+
   const testBase64 = src => {
     const base64Regex = /^(data:image\/[a-zA-Z]*;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
 
@@ -50,35 +59,37 @@ const CategoriesEdit = ({ type, id }) => {
   }
 
   const populateCategoryForm = () => {
-    if (!type) {
+    if (!category) {
       return
     }
 
-    setValue('name_en', type.name_en)
-    setValue('name_ar', type.name_ar)
-    setValue('description_en', type.description_en)
-    setValue('description_ar', type.description_ar)
-    setValue('long_description_en', type.long_description_en)
-    setValue('long_description_ar', type.long_description_ar)
-    setValue('image', type.image)
-    setImgSrc(type.image);
-    setValue('category_id', type.parent?.id)
-    setCategoryId(type.parent?.id)
-    setValue('order', type.order)
-    setValue('active', type.active == 1? true : false)
-    setValue('featured', type.featured  == 1? true : false)
-    setValue('image_id' , type.image_id)
+    setValue('name_en', category.name_en)
+    setValue('name_ar', category.name_ar)
+    setValue('description_en', category.description_en)
+    setValue('description_ar', category.description_ar)
+    setValue('long_description_en', category.long_description_en)
+    setValue('long_description_ar', category.long_description_ar)
+    setValue('image', category.image)
+    setImgSrc(category.image);
+    setValue('category_id', category.parent?.id)
+    setCategoryId(category.parent?.id)
+    setValue('order', category.order)
+    setValue('active', category.active == 1? true : false)
+    setValue('featured', category.featured  == 1? true : false)
+    setValue('image_id' , category.image_id)
   }
 
   useEffect(() => {
-    if (!id || !type) {
+    if (isFetched && !category) {
       router.replace('/404')
 
       return
     }
 
-    populateCategoryForm()
-  }, [id, type, router, setValue])
+    if (category) {
+      populateCategoryForm()
+    }
+  }, [category, isFetched, router, setValue])
 
   const onSubmit = data => {
     if (!id) {
@@ -119,6 +130,14 @@ const CategoriesEdit = ({ type, id }) => {
       })
   }
 
+  if (isPending && !category) {
+    return <CustomLoader />
+  }
+
+  if (isFetched && !category) {
+    return null
+  }
+
   return (
     <Card>
       <CategoriesForm
@@ -143,20 +162,7 @@ const CategoriesEdit = ({ type, id }) => {
 
 export const getServerSideProps = async context => {
   const id = context.params?.id
-
-  if (!id) {
-    return {
-      notFound: true
-    }
-  }
-
-  const type = await fetchCategoryDetailsById(id, context.req.cookies)
-
-  if (!type) {
-    return {
-      notFound: true
-    }
-  }
+  const type = id ? await fetchCategoryDetailsById(id, context.req.cookies) : null
 
   return {
     props: { type, id }

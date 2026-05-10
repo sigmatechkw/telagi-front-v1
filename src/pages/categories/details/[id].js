@@ -9,18 +9,18 @@ import CategoryDetails from "src/components/Categories/Details/CategoriesDetails
 const CategoryDetailsPage = ({type: initialTypeData, id}) => {
   const router = useRouter()
 
-  const {isPending, data: type, error} = useQuery({
+  const {isPending, isFetched, data: type, error} = useQuery({
     queryKey: ['fetchCategoryDetails', id],
     queryFn: () => fetchCategoryDetails(id),
     enabled: !!id,
-    initialData: initialTypeData
+    initialData: initialTypeData ?? undefined
   })
 
   useEffect(() => {
-    if (!id || (!isPending && (!type || error))) {
+    if (isFetched && (!type || error)) {
       router.replace('/404')
     }
-  }, [error, id, isPending, router, type])
+  }, [error, isFetched, router, type])
 
   if (isPending) {
     return <CustomLoader />
@@ -44,20 +44,7 @@ const CategoryDetailsPage = ({type: initialTypeData, id}) => {
 
 export const getServerSideProps = async (context) => {
   const id = context.params?.id
-
-  if (!id) {
-    return {
-      notFound: true
-    }
-  }
-
-  const type = await fetchCategoryDetails(id, context.req.cookies)
-
-  if (!type) {
-    return {
-      notFound: true
-    }
-  }
+  const type = id ? await fetchCategoryDetails(id, context.req.cookies) : null
 
   return {
     props: {type, id}
