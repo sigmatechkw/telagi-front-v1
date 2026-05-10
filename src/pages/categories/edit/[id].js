@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { fetchCategoryDetails } from "src/components/Categories/Details/CategoriesDetailsServices";
+import { fetchCategoryDetails as fetchCategoryDetailsById } from "src/components/Categories/Details/CategoriesDetailsServices";
 import CategoriesForm from 'src/components/Categories/CategoriesForm'
 
 const defaultValues = {
@@ -26,7 +26,6 @@ const defaultValues = {
 
 const CategoriesEdit = ({ type, id }) => {
   const auth = useSelector(state => state.auth)
-  const lang = useSelector(state => state.lang)
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -50,40 +49,11 @@ const CategoriesEdit = ({ type, id }) => {
     return base64Regex.test(src)
   }
 
-  const onSubmit = data => {
-    setLoading(true)
-
-    data.parent_id = data.category_id;
-
-    if(!testBase64(imgSrc)){ 
-        delete data.image;
-    }else{ 
-        data.image = imgSrc;
+  const populateCategoryForm = () => {
+    if (!type) {
+      return
     }
 
-    if(deleteImage) { 
-      data.deleted_images_ids = [data.image_id];
-    }
-
-    axios
-      .put(`${process.env.NEXT_PUBLIC_API_KEY}categories/${id}`, data, {
-        headers: {
-          Authorization: auth.token
-        }
-      })
-      .then(res => {
-        setLoading(false)
-        toast.success(t('success'))
-        router.push(`/categories/details/${id}`)
-        reset()
-      })
-      .catch(error => {
-        setLoading(false)
-        toast.error(error.response.data.message)
-      })
-  }
-
-  const fetchCategoryDetails = () => {
     setValue('name_en', type.name_en)
     setValue('name_ar', type.name_ar)
     setValue('description_en', type.description_en)
@@ -101,10 +71,53 @@ const CategoriesEdit = ({ type, id }) => {
   }
 
   useEffect(() => {
-    if (id) {
-        fetchCategoryDetails()
+    if (!id || !type) {
+      router.replace('/404')
+
+      return
     }
-  }, [id])
+
+    populateCategoryForm()
+  }, [id, type, router, setValue])
+
+  const onSubmit = data => {
+    if (!id) {
+      toast.error(t('something_went_wrong'))
+
+      return
+    }
+
+    setLoading(true)
+
+    data.parent_id = data.category_id;
+
+    if(!testBase64(imgSrc)){
+        delete data.image;
+    }else{
+        data.image = imgSrc;
+    }
+
+    if(deleteImage) {
+      data.deleted_images_ids = [data.image_id];
+    }
+
+    axios
+      .put(`${process.env.NEXT_PUBLIC_API_KEY}categories/${id}`, data, {
+        headers: {
+          Authorization: auth.token
+        }
+      })
+      .then(res => {
+        setLoading(false)
+        toast.success(t('success'))
+        router.push(`/categories/details/${id}`)
+        reset()
+      })
+      .catch(error => {
+        setLoading(false)
+        toast.error(error.response?.data?.message ?? t('something_went_wrong'))
+      })
+  }
 
   return (
     <Card>
@@ -129,10 +142,24 @@ const CategoriesEdit = ({ type, id }) => {
 }
 
 export const getServerSideProps = async context => {
-  const type = await fetchCategoryDetails(context.params.id, context.req.cookies)
+  const id = context.params?.id
+
+  if (!id) {
+    return {
+      notFound: true
+    }
+  }
+
+  const type = await fetchCategoryDetailsById(id, context.req.cookies)
+
+  if (!type) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
-    props: { type, id: context.params.id }
+    props: { type, id }
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CustomDataGrid from 'src/components/Shared/CustomDataGrid'
@@ -17,6 +17,8 @@ const SubCategoriesTable = ({
   const { t } = useTranslation()
   const [selectedRowId, setSelectedRowId] = useState(null)
   const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const rows = Array.isArray(data) ? data : []
 
   const router = useRouter()
 
@@ -164,10 +166,11 @@ const SubCategoriesTable = ({
       <Card item xs={12}>
         <CardHeader title={t('sub_categories')} />
         <CustomDataGrid 
-          rows={data}
+          rows={rows}
           columns={columns}
-          total={data.length}
-          paginationModel={{perPage: 12 , page: 1}}
+          total={rows.length}
+          paginationModel={paginationModel}
+          setPaginationModel={setPaginationModel}
           multiSelection={false}
         />
         <Snackbar

@@ -1,5 +1,6 @@
 import {useRouter} from "next/router";
 import {useQuery} from "@tanstack/react-query";
+import {useEffect} from "react";
 import CustomLoader from "../../../components/Shared/CustomLoader";
 import Grid from "@mui/material/Grid";
 import { fetchCategoryDetails } from "src/components/Categories/Details/CategoriesDetailsServices";
@@ -15,14 +16,18 @@ const CategoryDetailsPage = ({type: initialTypeData, id}) => {
     initialData: initialTypeData
   })
 
+  useEffect(() => {
+    if (!id || (!isPending && (!type || error))) {
+      router.replace('/404')
+    }
+  }, [error, id, isPending, router, type])
+
   if (isPending) {
     return <CustomLoader />
   }
 
-  if (error) {
-    router.push('/404')
-
-    return
+  if (!type || error) {
+    return null
   }
 
   return (
@@ -38,10 +43,24 @@ const CategoryDetailsPage = ({type: initialTypeData, id}) => {
 }
 
 export const getServerSideProps = async (context) => {
-  const type = await fetchCategoryDetails(context.params.id, context.req.cookies)
+  const id = context.params?.id
+
+  if (!id) {
+    return {
+      notFound: true
+    }
+  }
+
+  const type = await fetchCategoryDetails(id, context.req.cookies)
+
+  if (!type) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
-    props: {type, id: context.params.id}
+    props: {type, id}
   }
 }
 

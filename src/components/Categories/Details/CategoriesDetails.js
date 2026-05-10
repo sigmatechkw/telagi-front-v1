@@ -19,6 +19,7 @@ const CategoryDetails = ({ type }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
+  const subCategories = Array.isArray(type?.sub_categories) ? type.sub_categories : []
 
   const handleDelete = () => {
     deleteCategories([type.id]).then(res => {
@@ -98,7 +99,7 @@ const CategoryDetails = ({ type }) => {
         </Card>
 
         <Grid item xs={12} style={{marginTop: 20}}>
-          <SubCategoriesTable data={type.sub_categories}/>
+          <SubCategoriesTable data={subCategories}/>
         </Grid>
       </Grid>
       <Snackbar
