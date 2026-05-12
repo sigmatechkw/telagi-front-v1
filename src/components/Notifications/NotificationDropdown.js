@@ -24,8 +24,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Util Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import { fetchNotifications, readNotification, readNotifications, unReadNotification } from './notificationsServices'
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
+import { fetchNotifications, readNotifications, unReadNotification } from './notificationsServices'
 import CustomLoader from '../Shared/CustomLoader'
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
@@ -109,6 +109,7 @@ const NotificationDropdown = props => {
   const theme = useTheme()
   const { t } = useTranslation()
   const router = useRouter()
+  const queryClient = useQueryClient()
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
   const lastNotificationId = useRef(null)
@@ -131,14 +132,20 @@ const NotificationDropdown = props => {
       return lastPage.current_page < lastPage.last_page ? lastPage.current_page : undefined
     },
     refetchInterval: 10000,
-    refetchIntervalInBackground: true
+    refetchIntervalInBackground: true,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
+    staleTime: 0
   })
 
   const { data: unReadNotificationCount } = useQuery({
     queryKey: ['unReadNotificationCount'],
     queryFn: unReadNotification,
     refetchInterval: 10000,
-    refetchIntervalInBackground: true
+    refetchIntervalInBackground: true,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: true,
+    staleTime: 0
   })
 
   useEffect(() => {
@@ -157,11 +164,17 @@ const NotificationDropdown = props => {
 
   const handleDropdownOpen = event => {
     setAnchorEl(event.currentTarget)
-    readNotifications()
+    queryClient.invalidateQueries({ queryKey: ['fetchNotifications'] })
+    queryClient.invalidateQueries({ queryKey: ['unReadNotificationCount'] })
   }
 
-  const handleDropdownClose = () => {
+  const handleDropdownClose = async () => {
     setAnchorEl(null)
+    if (unReadNotificationCount > 0) {
+      await readNotifications()
+      queryClient.invalidateQueries({ queryKey: ['unReadNotificationCount'] })
+      queryClient.invalidateQueries({ queryKey: ['fetchNotifications'] })
+    }
   }
 
   const handleNotificationClick = notification => {
@@ -250,7 +263,11 @@ const NotificationDropdown = props => {
               (page?.items || []).map((notification, itemIndex) => (
                 <MenuItem
                   key={notification?.id ?? `${pageIndex}-${itemIndex}`}
-                  sx={{ display: 'flex', flexDirection: 'column' }}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backgroundColor: notification?.read == 0 ? theme.palette.action.selected : 'transparent'
+                  }}
                   disableRipple
                   disableTouchRipple
                   onClick={() => handleNotificationClick(notification)}
