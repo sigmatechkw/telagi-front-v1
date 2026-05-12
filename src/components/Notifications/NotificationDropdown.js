@@ -124,7 +124,10 @@ const NotificationDropdown = props => {
     queryFn: fetchNotifications,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      if (!lastPage) return undefined
+      if (!lastPage) {
+        return undefined
+      }
+
       return lastPage.current_page < lastPage.last_page ? lastPage.current_page : undefined
     },
     refetchInterval: 10000,

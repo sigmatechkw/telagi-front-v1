@@ -21,6 +21,7 @@ export const fetchNotifications = async (page) => {
     })
 
     const data = response.data?.data
+
     return {
       items: Array.isArray(data?.items) ? data.items : (Array.isArray(data) ? data : []),
       current_page: data?.current_page ?? 1,
