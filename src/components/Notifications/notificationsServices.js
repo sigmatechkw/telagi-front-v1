@@ -20,12 +20,14 @@ export const fetchNotifications = async (page) => {
       }
     })
 
-    return response.data.data
-    // setRows(response.data.data)
-    // setLoading(false)
+    const data = response.data?.data
+    return {
+      items: Array.isArray(data?.items) ? data.items : (Array.isArray(data) ? data : []),
+      current_page: data?.current_page ?? 1,
+      last_page: data?.last_page ?? 1,
+    }
   } catch (err) {
-    toast.error(err.response?.data?.message)
-    // setLoading(false)
+    return { items: [], current_page: 1, last_page: 1 }
   }
 }
 
@@ -51,7 +53,7 @@ export const readNotifications = async () => {
 
 export const unReadNotification = async () => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications/unread-count`, 
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications/unread-count`,
     {
       headers: {
         'Authorization': getCookie('token'),
@@ -59,9 +61,9 @@ export const unReadNotification = async () => {
       }
     })
 
-    return response.data.data?.count
+    return response.data.data?.count ?? 0
   } catch (err) {
-    toast.error(err.response?.data?.message)
+    return 0
   }
 }
 
