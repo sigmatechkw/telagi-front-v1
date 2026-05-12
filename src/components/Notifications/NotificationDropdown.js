@@ -123,9 +123,9 @@ const NotificationDropdown = props => {
     queryKey: ['fetchNotifications'],
     queryFn: fetchNotifications,
     initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) => lastPage?.current_page,
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.current_page < lastPage.last_page ? lastPage?.current_page : undefined
+    getNextPageParam: (lastPage) => {
+      if (!lastPage) return undefined
+      return lastPage.current_page < lastPage.last_page ? lastPage.current_page : undefined
     },
     refetchInterval: 10000,
     refetchIntervalInBackground: true
@@ -133,7 +133,9 @@ const NotificationDropdown = props => {
 
   const { data: unReadNotificationCount } = useQuery({
     queryKey: ['unReadNotificationCount'],
-    queryFn: unReadNotification
+    queryFn: unReadNotification,
+    refetchInterval: 10000,
+    refetchIntervalInBackground: true
   })
 
   useEffect(() => {
@@ -238,61 +240,59 @@ const NotificationDropdown = props => {
             <CustomLoader />
           ) : status === 'error' ? (
             <MenuItem disableRipple disableTouchRipple>
-              {error.message}
+              {error?.message || t('no_notifications')}
             </MenuItem>
-          ) : data?.pages.length > 0 ? (
-            data?.pages.map((page, index) =>
-              page?.items.length > 0 ? (
-                page.items.map((notification, index) => (
-                  <MenuItem
-                    key={index}
-                    sx={{ display: 'flex', flexDirection: 'column' }}
-                    disableRipple
-                    disableTouchRipple
-                    onClick={() => handleNotificationClick(notification)}
-                  >
-                    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-                      {/*<RenderAvatar notification={notification} />*/}
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          p: 3,
-                          mx: 1,
-                          borderRadius: '50%',
-                          backgroundColor: theme.palette.background.default
-                        }}
-                      >
-                        <Icon icon={'tabler:ad-circle'} fontSize={'1.5rem'} />
-                      </Box>
-                      <Box
-                        sx={{
-                          mr: 4,
-                          ml: 2.5,
-                          flex: '1 1',
-                          display: 'flex',
-                          overflow: 'hidden',
-                          flexDirection: 'column'
-                        }}
-                      >
-                        <MenuItemTitle>{notification.title}</MenuItemTitle>
-                        <MenuItemSubtitle variant='body2'>{notification.body}</MenuItemSubtitle>
-                        {/*<MenuItemSubtitle variant='body2' sx={{display: 'flex', justifyContent: 'end', mt: 2}}>{notification.created_at}</MenuItemSubtitle>*/}
-                      </Box>
+          ) : (data?.pages?.some(page => page?.items?.length > 0)) ? (
+            data.pages.map((page, pageIndex) =>
+              (page?.items || []).map((notification, itemIndex) => (
+                <MenuItem
+                  key={notification?.id ?? `${pageIndex}-${itemIndex}`}
+                  sx={{ display: 'flex', flexDirection: 'column' }}
+                  disableRipple
+                  disableTouchRipple
+                  onClick={() => handleNotificationClick(notification)}
+                >
+                  <Box sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+                    {/*<RenderAvatar notification={notification} />*/}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: 3,
+                        mx: 1,
+                        borderRadius: '50%',
+                        backgroundColor: theme.palette.background.default
+                      }}
+                    >
+                      <Icon icon={'tabler:ad-circle'} fontSize={'1.5rem'} />
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2, width: '100%' }}>
-                      <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                        {notification.created_at}
-                      </Typography>
+                    <Box
+                      sx={{
+                        mr: 4,
+                        ml: 2.5,
+                        flex: '1 1',
+                        display: 'flex',
+                        overflow: 'hidden',
+                        flexDirection: 'column'
+                      }}
+                    >
+                      <MenuItemTitle>{notification.title}</MenuItemTitle>
+                      <MenuItemSubtitle variant='body2'>{notification.body}</MenuItemSubtitle>
+                      {notification.target_type === 5 && notification.target ? (
+                        <MenuItemSubtitle variant='caption' sx={{ color: 'text.secondary', mt: 1 }}>
+                          {`${t('ad_id')}: #${notification.target}`}
+                        </MenuItemSubtitle>
+                      ) : null}
                     </Box>
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem key={index} disableRipple disableTouchRipple>
-                  {t('no_notifications')}
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2, width: '100%' }}>
+                    <Typography variant='body2' sx={{ color: 'text.disabled' }}>
+                      {notification.created_at}
+                    </Typography>
+                  </Box>
                 </MenuItem>
-              )
+              ))
             )
           ) : (
             <MenuItem disableRipple disableTouchRipple>
