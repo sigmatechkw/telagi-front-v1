@@ -91,13 +91,13 @@ const RoleList = ({
         </Typography>
       )
     },
-    // {
-    //   flex: 0.3,
-    //   minWidth: 120,
-    //   field: 'control',
-    //   headerName: t('control'),
-    //   renderCell: ({ row }) => <RowOptions id={row.id} editable={row.editable} />
-    // }
+    {
+      flex: 0.3,
+      minWidth: 120,
+      field: 'control',
+      headerName: t('control'),
+      renderCell: ({ row }) => <RowOptions id={row.id} editable={row.editable} />
+    }
   ]
 
   const handleSearch = value => {
