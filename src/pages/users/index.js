@@ -28,6 +28,7 @@ import {deleteUsers} from "../../components/Users/Details/userDetailsServices";
 import DreamsFilters from "../../components/Dreams/DreamsFilters";
 import UsersFilters from "../../components/Users/List/UsersFilters";
 import UsersStatistics from "../../components/Users/List/UsersStatistics";
+import { getApiBaseUrl } from 'src/configs/api'
 
 // ** renders client column
 
@@ -174,8 +175,9 @@ const UsersList = () => {
 
 
   const fetchTableData = () => {
+    const apiBaseUrl = getApiBaseUrl()
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_KEY}users`, {
+      .get(`${apiBaseUrl}users`, {
         params: {
           paginate: 1,
           search: searchValue,

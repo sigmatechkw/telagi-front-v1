@@ -2,12 +2,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import {store} from "../../../store";
 import {getCookie} from "cookies-next";
+import { getApiBaseUrl } from "src/configs/api";
 
 const state = store.getState()
 
 export const fetchUsersRoles = async () => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}roles`, {
+    const response = await axios.get(`${apiBaseUrl}roles`, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
@@ -21,8 +23,9 @@ export const fetchUsersRoles = async () => {
 }
 
 export const fetchUsersStatistics = async (dateRange) => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users/getStatistics/${dateRange}`, {
+    const response = await axios.get(`${apiBaseUrl}users/getStatistics/${dateRange}`, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
@@ -36,8 +39,9 @@ export const fetchUsersStatistics = async (dateRange) => {
 }
 
 export const fetchDateRanges = async () => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}getDateRanges`, {
+    const response = await axios.get(`${apiBaseUrl}getDateRanges`, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
@@ -51,8 +55,9 @@ export const fetchDateRanges = async () => {
 }
 
 export const fetchCountries = async () => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}countries`, {
+    const response = await axios.get(`${apiBaseUrl}countries`, {
       headers: {
         'Authorization': getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
@@ -67,10 +72,11 @@ export const fetchCountries = async () => {
 
 
 export const fetchUsersInfinityQuery = async ({ pageParam = 1, queryKey }) => {
+  const apiBaseUrl = getApiBaseUrl()
   try { 
     const [_, searchTerm] = queryKey;
 
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users`, {
+    const response = await axios.get(`${apiBaseUrl}users`, {
       params: {
         page: pageParam,
         search: searchTerm,
