@@ -3,21 +3,29 @@ import toast from "react-hot-toast";
 import {t} from "i18next";
 import {store} from "../../../store";
 import {getCookie} from "cookies-next";
+import { getApiBaseUrl } from "src/configs/api";
 
 const state = store.getState()
 
-export const fetchUserDetails = async (id) => {
+const getAuthToken = cookies => cookies?.token ?? getCookie('token')
+
+export const fetchUserDetails = async (id, cookies) => {
+  const apiBaseUrl = getApiBaseUrl()
+  const token = getAuthToken(cookies)
+
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users/${id}`, {
+    const response = await axios.get(`${apiBaseUrl}users/${id}`, {
       headers: {
-        'Authorization': getCookie('token'),
-        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
+        ...(token ? { 'Authorization': token } : {}),
+        'Accepted-Language': cookies?.lang ?? getCookie('lang') ?? state.lang ?? 'en'
       }
     })
 
     return response.data.data.items
   } catch (err) {
-    toast.error(err.response?.data?.message)
+    if (typeof window !== 'undefined') {
+      toast.error(err.response?.data?.message)
+    }
 
     return null
   }

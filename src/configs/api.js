@@ -12,6 +12,10 @@ export const getApiBaseUrl = () => {
   const envApiUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_KEY)
   const appUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_APP_URL)
 
+  if (isLocalApiUrl(envApiUrl) && appUrl) {
+    return `${appUrl}api/v1/`
+  }
+
   if (typeof window === 'undefined') {
     return envApiUrl
   }

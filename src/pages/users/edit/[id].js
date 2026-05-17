@@ -1,14 +1,17 @@
 import Card from '@mui/material/Card'
 import toast from 'react-hot-toast'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import UsersForm from "../../../components/Users/UsersForm";
-import {useTranslation} from "react-i18next";
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import dayjs from "dayjs";
-import {useSelector} from "react-redux";
-import {store} from "../../../store";
+import { useQuery } from '@tanstack/react-query'
+import UsersForm from '../../../components/Users/UsersForm'
+import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
+import { useSelector } from 'react-redux'
+import CustomLoader from '../../../components/Shared/CustomLoader'
+import { getApiBaseUrl } from 'src/configs/api'
+import { fetchUserDetails } from '../../../components/Users/Details/userDetailsServices'
 
 const defaultValues = {
   image: '',
@@ -30,13 +33,12 @@ const defaultValues = {
   expert_commission_value: 0,
   expert_commission_type: 'fixed',
   is_busy: false,
-  notification_enabled: 1,
+  notification_enabled: 1
 }
 
-const UsersEdit = ({user, id}) => {
+const UsersEdit = ({ user: initialUserData, id }) => {
   const auth = useSelector(state => state.auth)
-  const lang = useSelector(state => state.lang)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -46,18 +48,37 @@ const UsersEdit = ({user, id}) => {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
-  } = useForm({ defaultValues });
+    formState: { errors }
+  } = useForm({ defaultValues })
 
-  const onSubmit = (data) => {
+  const {
+    isPending,
+    isFetched,
+    data: user
+  } = useQuery({
+    queryKey: ['fetchUserDetails', id],
+    queryFn: () => fetchUserDetails(id),
+    enabled: !!id,
+    initialData: initialUserData ?? undefined
+  })
+
+  const onSubmit = data => {
+    const apiBaseUrl = getApiBaseUrl()
+
+    if (!user) {
+      toast.error(t('something_went_wrong'))
+
+      return
+    }
+
     setLoading(true)
 
-    data.country_id = data.country_id.id
-    data.role_id = data.role_id.id
+    data.country_id = data.country_id?.id
+    data.role_id = data.role_id?.id
     if (data.birthday && data.birthday.format('YYYY-MM-DD') !== 'Invalid Date')
       data.birthday = data.birthday.format('YYYY-MM-DD')
 
-    if (!data.image) {
+    if (!data.image && user.image_id) {
       data.deleted_image = [user.image_id]
     }
 
@@ -71,25 +92,28 @@ const UsersEdit = ({user, id}) => {
     }
 
     axios
-      .put(`${process.env.NEXT_PUBLIC_API_KEY}users/${id}`, data, {
+      .put(`${apiBaseUrl}users/${id}`, data, {
         headers: {
-          'Authorization': auth.token,
+          Authorization: auth.token
         }
       })
       .then(res => {
         setLoading(false)
-        toast.success(t('success'));
+        toast.success(t('success'))
         router.push(`/users/${id}`)
-        reset();
+        reset()
       })
       .catch(error => {
         setLoading(false)
-        toast.error(error.response.data.message);
-      });
+        toast.error(error.response.data.message)
+      })
+  }
 
-  };
+  const populateUserForm = () => {
+    if (!user) {
+      return
+    }
 
-  const fetchUserDetails = () => {
     setValue('image', user.image)
     setValue('first_name', user.first_name)
     setValue('last_name', user.last_name)
@@ -97,9 +121,9 @@ const UsersEdit = ({user, id}) => {
     setValue('phone', user.phone)
     setValue('gender', user.gender)
     setValue('bio', user.bio ?? '')
-    setValue('country_id', { id: user.country.id, label: user.country.name})
-    setValue('birthday', dayjs(new Date(user.birthday)))
-    setValue('role_id', { id: user.roles[0]?.id, label: user.roles[0]?.name})
+    setValue('country_id', user.country ? { id: user.country.id, label: user.country.name } : null)
+    setValue('birthday', user.birthday ? dayjs(new Date(user.birthday)) : null)
+    setValue('role_id', { id: user.roles[0]?.id, label: user.roles[0]?.name })
     setValue('is_mail_verified', user.email_verified)
     setValue('is_phone_verified', user.phone_verified)
     setValue('expert_commission_value', user.commission_value)
@@ -143,32 +167,47 @@ const UsersEdit = ({user, id}) => {
   }
 
   useEffect(() => {
-    if(id) {
-      fetchUserDetails();
+    if (isFetched && !user) {
+      router.replace('/404')
+
+      return
     }
-  }, [id]);
+
+    if (id && user) {
+      populateUserForm()
+    }
+  }, [id, isFetched, router, setValue, user])
+
+  if (isPending && !user) {
+    return <CustomLoader />
+  }
+
+  if (isFetched && !user) {
+    return null
+  }
 
   return (
     <Card>
-      <UsersForm type={'edit'} onSubmit={handleSubmit(onSubmit)} control={control} watch={watch} setValue={setValue} errors={errors} title={t('user_edit')} loading={loading} />
+      <UsersForm
+        type={'edit'}
+        onSubmit={handleSubmit(onSubmit)}
+        control={control}
+        watch={watch}
+        setValue={setValue}
+        errors={errors}
+        title={t('user_edit')}
+        loading={loading}
+      />
     </Card>
-  );
-};
+  )
+}
 
-export const getServerSideProps = async ({params}) => {
-  const state = store.getState()
-
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users/${params.id}`, {
-      headers: {
-        'Accepted-Language': state.lang ?? 'en'
-      }
-    })
-
-  const user = await res.data.data.items
+export const getServerSideProps = async ({ params, req }) => {
+  const user = params?.id ? await fetchUserDetails(params.id, req.cookies) : null
 
   return {
-    props: {user, id: params.id}
+    props: { user, id: params.id }
   }
 }
 
-export default UsersEdit;
+export default UsersEdit
