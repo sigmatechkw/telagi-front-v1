@@ -7,8 +7,6 @@ import { useRouter } from 'next/router'
 // ** Axios
 import axios from 'axios'
 
-// ** Config
-import authConfig from 'src/configs/auth'
 import { getApiBaseUrl } from 'src/configs/api'
 import { login as loginAction, logout as logoutAction } from '../store/reducers/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -63,7 +61,7 @@ const AuthProvider = ({ children }) => {
           'Accepted-Language': getCookie('lang') ?? 'en'
         }
       })
-      .then(async response => {
+      .then(response => {
         setCookie('token', `Bearer ${response.data.data.access_token}`)
         // window.localStorage.setItem('token', `Bearer ${response.data.data.access_token}`)
         const returnUrl = router.query.returnUrl
