@@ -15,6 +15,7 @@ import { CacheProvider } from '@emotion/react'
 // ** Config Imports
 import 'src/configs/i18n'
 import { defaultACLObj } from 'src/configs/acl'
+import { configureAxiosApiRewrite } from 'src/configs/axios'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Fake-DB Import
@@ -84,6 +85,8 @@ const Guard = ({ children, authGuard, guestGuard }) => {
 }
 
 const queryClient = new QueryClient()
+
+configureAxiosApiRewrite()
 
 // ** Configure JSS & ClassName
 const App = props => {
