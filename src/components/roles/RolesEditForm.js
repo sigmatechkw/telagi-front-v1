@@ -42,9 +42,10 @@ const RolesEditForm = ({
   setPermissionsIds
 }) => {
   const { t } = useTranslation()
+  const permissionGroups = permissions && typeof permissions === 'object' ? permissions : {}
 
   const destruct = () => {
-    const mergedArray = Object.values(permissions).flatMap(array => array)
+    const mergedArray = Object.values(permissionGroups).flatMap(array => array)
 
     setPermissionsIds(mergedArray)
   }
@@ -113,7 +114,7 @@ const RolesEditForm = ({
 
             <Grid item xs={12} sm={6}>
               <Controller
-                name={t('Guard Name')}
+                name='guard_name'
                 control={control}
                 render={({ field }) => (
                   <>
@@ -163,10 +164,10 @@ const RolesEditForm = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {Object.keys(permissions).map((key, index) => (
+                  {Object.keys(permissionGroups).map((key, index) => (
                     <TableRow key={index}>
                       <TableCell>{key.replace('_', ' ')}</TableCell>
-                      {permissions[key].map(item => (
+                      {permissionGroups[key].map(item => (
                         <TableCell
                           key={item.id}
                           colSpan={

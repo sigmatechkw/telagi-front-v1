@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import RolesEditForm from 'src/components/roles/RolesEditForm'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const defaultValues = {
   name: '',
@@ -21,6 +22,7 @@ const RolesEdit = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const { id } = router.query
+  const apiBaseUrl = getApiBaseUrl()
   const [loading, setLoading] = useState(false)
 
   const [rows, setRows] = useState([])
@@ -43,7 +45,7 @@ const RolesEdit = () => {
     const { permissions, editable, id, slug, ...rest } = data
     axios
       .put(
-        `${process.env.NEXT_PUBLIC_API_KEY}roles/${id}`,
+        `${apiBaseUrl}roles/${id}`,
         {
           ...rest,
           permission_ids: permissionsIds.length > 0 ? permissionsIds.map(item => item.id) : []
@@ -69,7 +71,7 @@ const RolesEdit = () => {
   const fetchRolesDetails = () => {
     if (!isNaN(id)) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_KEY}roles/${id}`, {
+        .get(`${apiBaseUrl}roles/${id}`, {
           headers: {
             Authorization: getCookie('token'),
             'Accepted-Language': getCookie('lang') ?? 'en'
@@ -79,7 +81,7 @@ const RolesEdit = () => {
           const data = res.data.data.items
           if (data.editable == 1) {
             setValue('active', data.active)
-            setValue('name', data.active)
+            setValue('name', data.name)
 
             setPermissionsIds(data.permissions)
             reset(data)
@@ -101,14 +103,14 @@ const RolesEdit = () => {
 
   const fetchPermissions = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}permissions`, {
+      const response = await axios.get(`${apiBaseUrl}permissions`, {
         headers: {
           Authorization: getCookie('token'),
           'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
         }
       })
 
-      setRows(response.data.data.items)
+      setRows(response.data?.data?.items || {})
     } catch (err) {
       toast.error(err.response?.data?.message)
     }
