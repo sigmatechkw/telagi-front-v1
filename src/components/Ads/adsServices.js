@@ -20,6 +20,7 @@ export const fetchAds = async (
   setLoading
 ) => {
   const apiBaseUrl = getApiBaseUrl()
+
   let params = {
     paginate: 1,
     page: page + 1,
@@ -61,17 +62,13 @@ export const fetchAds = async (
   }
 
   try {
-    const response = await axios.post(
-      `${apiBaseUrl}all-ads`,
-      filters === null ? null : { filters },
-      {
-        params,
-        headers: {
-          Authorization: getCookie('token'),
-          'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
-        }
+    const response = await axios.post(`${apiBaseUrl}all-ads`, filters === null ? null : { filters }, {
+      params,
+      headers: {
+        Authorization: getCookie('token'),
+        'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
-    )
+    })
     setRows(response.data.data)
     setLoading(false)
   } catch (err) {
@@ -82,6 +79,7 @@ export const fetchAds = async (
 
 export const deleteAds = async ids => {
   const apiBaseUrl = getApiBaseUrl()
+
   let data = {
     delete_ids: ids
   }
