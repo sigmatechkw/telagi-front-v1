@@ -1,5 +1,5 @@
 // ** React Imports
-import {createContext, useEffect, useState} from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -9,9 +9,10 @@ import axios from 'axios'
 
 // ** Config
 import authConfig from 'src/configs/auth'
-import {login as loginAction, logout as logoutAction} from "../store/reducers/authSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {getCookie, setCookie} from "cookies-next";
+import { getApiBaseUrl } from 'src/configs/api'
+import { login as loginAction, logout as logoutAction } from '../store/reducers/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCookie, setCookie } from 'cookies-next'
 
 // ** Defaults
 const defaultProvider = {
@@ -52,9 +53,10 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   const handleLogin = (params, errorCallback) => {
-    let data = {...params, role: 'admin'}
+    let data = { ...params, role: 'admin' }
+    const apiBaseUrl = getApiBaseUrl()
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_KEY}login`, data)
+      .post(`${apiBaseUrl}login`, data)
       .then(async response => {
         setCookie('token', `Bearer ${response.data.data.access_token}`)
         // window.localStorage.setItem('token', `Bearer ${response.data.data.access_token}`)
@@ -62,10 +64,12 @@ const AuthProvider = ({ children }) => {
         setUser({ ...response.data.data.user_details })
         setCookie('user', response.data.data.user_details)
         // window.localStorage.setItem('user', JSON.stringify(response.data.data.user_details))
-        dispatch(loginAction({
-          token: `Bearer ${response.data.data.access_token}`,
-          user: response.data.data.user_details
-        }))
+        dispatch(
+          loginAction({
+            token: `Bearer ${response.data.data.access_token}`,
+            user: response.data.data.user_details
+          })
+        )
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
         router.replace(redirectURL)
       })
