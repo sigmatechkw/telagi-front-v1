@@ -62,6 +62,26 @@ const AttributesForm = ({
   };
 
   const AttributesSetsOptions = attributesSets?.pages.flatMap((page) => page.items) || []; 
+
+  const getCategoryLabel = category => {
+    if (!category) {
+      return ''
+    }
+
+    if (i18n.language === 'ar') {
+      return category.name_ar || category.name || category.name_en || ''
+    }
+
+    return category.name_en || category.name || category.name_ar || ''
+  }
+
+  const getAttributeSetCategoriesLabel = option => {
+    if (!Array.isArray(option?.categories)) {
+      return ''
+    }
+
+    return option.categories.map(getCategoryLabel).filter(Boolean).join(' , ')
+  }
   
   const {
     data : attributes,
@@ -246,6 +266,22 @@ const AttributesForm = ({
                     isOptionEqualToValue={(option, value) => option.id === value?.id}
                     options={AttributesSetsOptions}
                     getOptionLabel={option => option.name || ''}
+                    renderOption={(props, option) => {
+                      const categoriesLabel = getAttributeSetCategoriesLabel(option)
+
+                      return (
+                        <Box component='li' {...props} sx={{ alignItems: 'flex-start', display: 'block' }}>
+                          <Typography variant='body2' sx={{ color: 'text.primary', fontWeight: 500 }}>
+                            {option.name || ''}
+                          </Typography>
+                          {categoriesLabel ? (
+                            <Typography variant='caption' sx={{ color: 'text.secondary', display: 'block' }}>
+                              {categoriesLabel}
+                            </Typography>
+                          ) : null}
+                        </Box>
+                      )
+                    }}
                     renderInput={params => <CustomTextField required  {...params}
                      label={t('attributes_sets')} />}
                   />
