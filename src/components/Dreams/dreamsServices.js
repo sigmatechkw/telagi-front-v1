@@ -7,8 +7,21 @@ import { getApiBaseUrl } from 'src/configs/api'
 
 const state = store.getState()
 
-export const fetchDreams = async (page = 1, search, sortKey = 'id', sortType = 'desc', perPage = 10, type = '', status = '', isLate = '', isPublic = '', isPaid = '', user = '', setRows, setLoading) => {
-
+export const fetchDreams = async (
+  page = 1,
+  search,
+  sortKey = 'id',
+  sortType = 'desc',
+  perPage = 10,
+  type = '',
+  status = '',
+  isLate = '',
+  isPublic = '',
+  isPaid = '',
+  user = '',
+  setRows,
+  setLoading
+) => {
   let params = {
     paginate: 1,
     page: page + 1,
@@ -17,7 +30,7 @@ export const fetchDreams = async (page = 1, search, sortKey = 'id', sortType = '
     status,
     isLate,
     isPublic,
-    isPaid,
+    isPaid
   }
 
   if (search) {
@@ -134,10 +147,11 @@ export const fetchDreamsStatuses = async () => {
 
 export const fetchDreamsUsers = async (page, search) => {
   const apiBaseUrl = getApiBaseUrl()
+
   let params = {
     paginate: 1,
     page: page.pageParam + 1,
-    filters: {role: 2}
+    filters: { role: 2 }
   }
 
   if (search) {
@@ -148,7 +162,7 @@ export const fetchDreamsUsers = async (page, search) => {
     const response = await axios.get(`${apiBaseUrl}users`, {
       params,
       headers: {
-        'Authorization': getCookie('token'),
+        Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
     })

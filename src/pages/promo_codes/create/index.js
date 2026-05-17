@@ -66,6 +66,7 @@ const PromoCodesCreate = () => {
 
   const fetchUsers = async (search, filtered) => {
     const apiBaseUrl = getApiBaseUrl()
+
     const response = await axios.get(`${apiBaseUrl}users?${search ? 'search=' + search : ''}`, {
       params: {
         filters: { role: 2 }

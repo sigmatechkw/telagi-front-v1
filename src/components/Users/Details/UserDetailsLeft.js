@@ -1,5 +1,5 @@
 // ** React Imports
-import {useState} from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import {styled, useTheme} from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
@@ -21,16 +21,16 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import {useTranslation} from "react-i18next";
-import {useRouter} from "next/router";
-import SnackbarConfirmActions from "../../Shared/SnackbarConfirmActions";
-import Snackbar from "@mui/material/Snackbar";
-import axios from "axios";
-import toast from "react-hot-toast";
-import {useQueryClient} from "@tanstack/react-query";
-import {deleteUsers} from "./userDetailsServices";
-import {useSelector} from "react-redux";
-import ExpertStatistics from "./ExpertStatistics";
+import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/router'
+import SnackbarConfirmActions from '../../Shared/SnackbarConfirmActions'
+import Snackbar from '@mui/material/Snackbar'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useQueryClient } from '@tanstack/react-query'
+import { deleteUsers } from './userDetailsServices'
+import { useSelector } from 'react-redux'
+import ExpertStatistics from './ExpertStatistics'
 import { getApiBaseUrl } from 'src/configs/api'
 
 const roleColors = {
@@ -59,51 +59,51 @@ const Sub = styled('sub')(({ theme }) => ({
   fontSize: theme.typography.body1.fontSize
 }))
 
-const UserDetailsLeft = ({user}) => {
+const UserDetailsLeft = ({ user }) => {
   const queryClient = useQueryClient()
   const theme = useTheme()
   const auth = useSelector(state => state.auth)
   const lang = useSelector(state => state.lang)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const router = useRouter()
-  const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false);
+  const [openDeleteSnackbar, setOpenDeleteSnackbar] = useState(false)
 
   const handleDelete = () => {
     deleteUsers([user.id]).then(res => {
-      toast.success(t('success'));
+      toast.success(t('success'))
       setOpenDeleteSnackbar(false)
       router.replace('/users')
     })
   }
 
   const handleClickDeleteButton = () => {
-    setOpenDeleteSnackbar(true);
-  };
+    setOpenDeleteSnackbar(true)
+  }
 
   const handleCloseDeleteSnackbar = () => {
-    setOpenDeleteSnackbar(false);
-  };
+    setOpenDeleteSnackbar(false)
+  }
 
   const handleToggleUserActive = () => {
     const apiBaseUrl = getApiBaseUrl()
+
     let data = {
       active: user.active ? 0 : 1
     }
     axios
       .put(`${apiBaseUrl}users/${user.id}/toggle-active`, data, {
         headers: {
-          'Authorization': auth.token,
+          Authorization: auth.token,
           'Accepted-Language': lang ?? 'en'
         }
       })
       .then(res => {
-        toast.success(t('success'));
+        toast.success(t('success'))
         queryClient.invalidateQueries({ queryKey: ['fetchUserDetails', user.id] })
-
       })
       .catch(error => {
-        toast.error(t('error'));
-      });
+        toast.error(t('error'))
+      })
   }
 
   return (
@@ -150,18 +150,18 @@ const UserDetailsLeft = ({user}) => {
                   {t('details')}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  {
-                    user.is_busy && user.roles[0]?.id === 3 ?
-                      <CustomChip
-                        rounded
-                        skin='light'
-                        size='small'
-                        label={t('busy')}
-                        color={'error'}
-                        sx={{ textTransform: 'capitalize', mx: 2 }}
-                      />
-                    : <></>
-                  }
+                  {user.is_busy && user.roles[0]?.id === 3 ? (
+                    <CustomChip
+                      rounded
+                      skin='light'
+                      size='small'
+                      label={t('busy')}
+                      color={'error'}
+                      sx={{ textTransform: 'capitalize', mx: 2 }}
+                    />
+                  ) : (
+                    <></>
+                  )}
                   <CustomChip
                     rounded
                     skin='light'
@@ -196,62 +196,72 @@ const UserDetailsLeft = ({user}) => {
                 </Box>
                 <Box sx={{ display: 'flex', mb: 3 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('wallet')}:</Typography>
-                  <Typography sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>{user.wallet ?? 0} {t('kwd')}</Typography>
+                  <Typography sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+                    {user.wallet ?? 0} {t('kwd')}
+                  </Typography>
                 </Box>
-                {
-                  user.birthday &&
+                {user.birthday && (
+                  <Box sx={{ display: 'flex', mb: 3 }}>
+                    <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('birthday')}:</Typography>
+                    <Typography sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+                      {user.birthday}
+                    </Typography>
+                  </Box>
+                )}
+                <Box sx={{ display: 'flex', mb: 3 }}>
+                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                    {t('email_verified')}:
+                  </Typography>
+                  {user.email_verified ? (
+                    <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
+                  ) : (
+                    <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
+                  )}
+                </Box>
+                <Box sx={{ display: 'flex', mb: 3 }}>
+                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                    {t('phone_verified')}:
+                  </Typography>
+                  {user.phone_verified ? (
+                    <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
+                  ) : (
+                    <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
+                  )}
+                </Box>
+                <Box sx={{ display: 'flex', mb: 3 }}>
+                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                    {t('enable_notification')}:
+                  </Typography>
+                  {user.notification_enabled ? (
+                    <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem' />
+                  ) : (
+                    <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem' />
+                  )}
+                </Box>
+                {user.preferred_language && (
+                  <Box sx={{ display: 'flex', mb: 3 }}>
+                    <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                      {t('preferred_language')}:
+                    </Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{user.preferred_language}</Typography>
+                  </Box>
+                )}
+                {user.roles[0]?.id === 3 && (
+                  <>
                     <Box sx={{ display: 'flex', mb: 3 }}>
-                      <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('birthday')}:</Typography>
-                      <Typography sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>{user.birthday}</Typography>
+                      <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                        {t('commission_value')}:
+                      </Typography>
+                      <Typography sx={{ color: 'text.secondary' }}>{user.commission_value}</Typography>
                     </Box>
-                }
-                <Box sx={{ display: 'flex', mb: 3 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('email_verified')}:</Typography>
-                  {
-                    user.email_verified ?
-                      <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem'/>
-                    :
-                      <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem'/>
-                  }
-                </Box>
-                <Box sx={{ display: 'flex', mb: 3 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('phone_verified')}:</Typography>
-                  {
-                    user.phone_verified ?
-                      <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem'/>
-                      :
-                      <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem'/>
-                  }
-                </Box>
-                <Box sx={{ display: 'flex', mb: 3 }}>
-                  <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('enable_notification')}:</Typography>
-                  {
-                    user.notification_enabled ?
-                      <Icon icon='tabler:circle-check' color='green' fontSize='1.5rem'/>
-                      :
-                      <Icon icon='tabler:xbox-x' color='red' fontSize='1.5rem'/>
-                  }
-                </Box>
-                {
-                  user.preferred_language &&
                     <Box sx={{ display: 'flex', mb: 3 }}>
-                      <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('preferred_language')}:</Typography>
-                      <Typography sx={{ color: 'text.secondary' }}>{user.preferred_language}</Typography>
+                      <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>
+                        {t('commission_type')}:
+                      </Typography>
+                      <Typography sx={{ color: 'text.secondary' }}>{user.commission_type}</Typography>
                     </Box>
-                }
-                {
-                  user.roles[0]?.id === 3 &&
-                    <>
-                      <Box sx={{ display: 'flex', mb: 3 }}>
-                        <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('commission_value')}:</Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>{user.commission_value}</Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', mb: 3 }}>
-                        <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>{t('commission_type')}:</Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>{user.commission_type}</Typography>
-                      </Box>
-                    </>
-                }
+                  </>
+                )}
               </Box>
             </CardContent>
 
@@ -259,23 +269,24 @@ const UserDetailsLeft = ({user}) => {
               <Button variant='tonal' sx={{ mr: 2 }} onClick={() => router.push(`/users/edit/${user.id}`)}>
                 {t('edit')}
               </Button>
-              <Button variant='tonal' color={user.active ? 'warning' : 'success'} sx={{ mr: 2 }} onClick={handleToggleUserActive}>
+              <Button
+                variant='tonal'
+                color={user.active ? 'warning' : 'success'}
+                sx={{ mr: 2 }}
+                onClick={handleToggleUserActive}
+              >
                 {user.active ? t('deactivate') : t('activate')}
               </Button>
               <Button color='error' variant='tonal' onClick={handleClickDeleteButton}>
                 {t('delete')}
               </Button>
             </CardActions>
-
           </Card>
         </Grid>
-        {
-          user.roles[0]?.id === 3 &&
-            <ExpertStatistics userId={user.id} />
-        }
+        {user.roles[0]?.id === 3 && <ExpertStatistics userId={user.id} />}
       </Grid>
       <Snackbar
-        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={openDeleteSnackbar}
         onClose={handleCloseDeleteSnackbar}
         message={t('are_you_sure')}

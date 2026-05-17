@@ -33,6 +33,7 @@ export const fetchUserDetails = async (id, cookies) => {
 
 export const deleteUsers = async ids => {
   const apiBaseUrl = getApiBaseUrl()
+
   let data = {
     delete_ids: ids
   }
