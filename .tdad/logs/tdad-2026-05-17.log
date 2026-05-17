@@ -1,0 +1,22 @@
+
+================================================================================
+TDAD Session Started: 2026-05-17T11:20:26.739Z
+================================================================================
+[2026-05-17T11:20:27.733Z] [EXTENSION] 🚀 TDAD extension is now ACTIVATED! Version with comprehensive logging
+[2026-05-17T11:20:27.734Z] [EXTENSION] 📁 Log file location: c:\Users\lenovo\Documents\GitHub\telagi-front-v1\.tdad\logs\tdad-2026-05-17.log
+[2026-05-17T11:20:27.735Z] [EXTENSION] 📊 Workspace folders: c:\Users\lenovo\Documents\GitHub\telagi-front-v1
+[2026-05-17T11:20:27.735Z] [EXTENSION] Creating WorkflowController...
+[2026-05-17T11:20:27.737Z] [EXTENSION] MVP: Using simple JSON storage (.tdad/workflows/workflow.json)
+[2026-05-17T11:20:27.738Z] [EXTENSION] TDAD Extension activated successfully
+[2026-05-17T11:20:27.738Z] [EXTENSION] Registering commands...
+[2026-05-17T11:20:27.985Z] [EXTENSION] TDAD structure already initialized
+[2026-05-17T11:20:27.985Z] [EXTENSION] Auto-opening TDAD Canvas...
+[2026-05-17T11:20:27.987Z] [CANVAS] Sprint 13: Agent Orchestrator initialized
+[2026-05-17T11:20:27.990Z] [CANVAS] [FileStatusSync] File watchers initialized
+[2026-05-17T11:20:27.992Z] [CANVAS] [FileStatusSync] Synced 0 nodes
+[2026-05-17T11:20:28.004Z] [EXTENSION] FeedbackManager: Session 157
+[2026-05-17T11:20:28.675Z] [CANVAS] WEBVIEW
+Data: Using stylesheets: index-WTAp2nbL.css
+[2026-05-17T11:20:28.676Z] [CANVAS] MVP: Canvas initialized with simple JSON storage
+[2026-05-17T11:20:28.849Z] [CANVAS] [FitView] isLoading=true, nodes.length=0, folderId=null
+[2026-05-17T11:20:29.124Z] [CANVAS] [FitView] isLoading=false, nodes.length=0, folderId=null

@@ -2,17 +2,19 @@ import axios from "axios";
 import {getCookie} from "cookies-next";
 import toast from "react-hot-toast";
 import {store} from "../../store";
+import { getApiBaseUrl } from "src/configs/api";
 
 const state = store.getState()
 
 export const fetchNotifications = async (page) => {
+  const apiBaseUrl = getApiBaseUrl()
   let params = {
     paginate: 1,
     page: page.pageParam + 1,
   }
 
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications`, {
+    const response = await axios.get(`${apiBaseUrl}user/notifications`, {
       params,
       headers: {
         'Authorization': getCookie('token'),
@@ -33,8 +35,9 @@ export const fetchNotifications = async (page) => {
 }
 
 export const readNotifications = async () => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications-read`, 
+    const response = await axios.post(`${apiBaseUrl}user/notifications-read`, 
     {
       all_notifications: true
     }, 
@@ -53,8 +56,9 @@ export const readNotifications = async () => {
 }
 
 export const unReadNotification = async () => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}user/notifications/unread-count`,
+    const response = await axios.get(`${apiBaseUrl}user/notifications/unread-count`,
     {
       headers: {
         'Authorization': getCookie('token'),

@@ -56,7 +56,13 @@ const AuthProvider = ({ children }) => {
     let data = { ...params, role: 'admin' }
     const apiBaseUrl = getApiBaseUrl()
     axios
-      .post(`${apiBaseUrl}login`, data)
+      .post(`${apiBaseUrl}login`, data, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Accepted-Language': getCookie('lang') ?? 'en'
+        }
+      })
       .then(async response => {
         setCookie('token', `Bearer ${response.data.data.access_token}`)
         // window.localStorage.setItem('token', `Bearer ${response.data.data.access_token}`)

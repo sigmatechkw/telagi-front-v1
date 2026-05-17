@@ -2,6 +2,7 @@ import { store } from '../../store'
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
 import toast from 'react-hot-toast'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const state = store.getState()
 
@@ -18,6 +19,7 @@ export const fetchAds = async (
   setRows,
   setLoading
 ) => {
+  const apiBaseUrl = getApiBaseUrl()
   let params = {
     paginate: 1,
     page: page + 1,
@@ -60,7 +62,7 @@ export const fetchAds = async (
 
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_KEY}all-ads`,
+      `${apiBaseUrl}all-ads`,
       filters === null ? null : { filters },
       {
         params,
@@ -79,12 +81,13 @@ export const fetchAds = async (
 }
 
 export const deleteAds = async ids => {
+  const apiBaseUrl = getApiBaseUrl()
   let data = {
     delete_ids: ids
   }
 
   try {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}ads/delete`, data, {
+    await axios.post(`${apiBaseUrl}ads/delete`, data, {
       headers: {
         Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
@@ -96,8 +99,9 @@ export const deleteAds = async ids => {
 }
 
 export const updateAdApproved = async (id, data) => {
+  const apiBaseUrl = getApiBaseUrl()
   await axios
-    .put(`${process.env.NEXT_PUBLIC_API_KEY}ads/${id}/toggle-approved`, data, {
+    .put(`${apiBaseUrl}ads/${id}/toggle-approved`, data, {
       headers: {
         Accept: 'application/json',
         Authorization: getCookie('token')
