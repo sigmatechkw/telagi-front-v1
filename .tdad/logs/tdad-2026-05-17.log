@@ -73,3 +73,6 @@ Data: Using stylesheets: index-WTAp2nbL.css
 [2026-05-17T11:29:01.990Z] [CANVAS] [FileStatusSync] Test file created: unionTypes
 [2026-05-17T11:29:03.844Z] [CANVAS] [FileStatusSync] Test file created: validate-google-font-function-call
 [2026-05-17T11:29:03.845Z] [CANVAS] [FileStatusSync] Test file created: validate-local-font-function-call
+[2026-05-17T12:21:12.436Z] [CANVAS] saveNow: Saving 0 nodes to folder root - statuses: []
+[2026-05-17T12:21:12.439Z] [CANVAS] [FileStatusSync] File watchers disposed
+[2026-05-17T12:21:12.553Z] [EXTENSION] Blueprint workflow changed (suppressed - internal save): c:\Users\lenovo\Documents\GitHub\telagi-front-v1\.tdad\workflows\root.workflow.json

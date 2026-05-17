@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { useTheme } from '@mui/material/styles'
 import { Autocomplete } from '@mui/material'
 import PickersComponent from 'src/views/forms/form-elements/pickers/PickersCustomInput'
+import { getApiBaseUrl } from 'src/configs/api'
 import 'react-datepicker/dist/react-datepicker.css' // Import the default styles for react-datepicker
 
 const PaymentsForm = ({ type = 'create', errors, control, watch, setValue, onSubmit, title, loading }) => {
@@ -30,8 +31,10 @@ const PaymentsForm = ({ type = 'create', errors, control, watch, setValue, onSub
   const popperPlacement = direction === 'ltr' ? 'bottom-start' : 'bottom-end'
 
   const fetchRoles = () => {
+    const apiBaseUrl = getApiBaseUrl()
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_KEY}roles`, {
+      .get(`${apiBaseUrl}roles`, {
         headers: {
           Authorization: auth.token,
           'Accepted-Language': lang ?? 'en'

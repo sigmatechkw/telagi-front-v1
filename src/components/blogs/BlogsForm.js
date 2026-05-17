@@ -16,6 +16,7 @@ import 'react-datepicker/dist/react-datepicker.css' // Import the default styles
 import CustomAutocomplete from 'src/@core/components/mui/autocomplete'
 import CkEditorForEdit from '../ckEditor/CkEditorForEdit'
 import { getCookie } from 'cookies-next'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 100,
@@ -92,7 +93,8 @@ const BlogsForm = ({
   } */
 
   const fetchExperts = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}experts`, {
+    const apiBaseUrl = getApiBaseUrl()
+    const response = await axios.get(`${apiBaseUrl}experts`, {
       headers: {
         Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? 'en'

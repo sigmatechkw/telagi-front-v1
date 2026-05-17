@@ -22,6 +22,7 @@ import { Box } from '@mui/system'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 100,
@@ -82,7 +83,9 @@ const PushMessagesForm = ({
   })
 
   const fetchUsers = async (search, filtered) => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users${search ? '?search=' + search : ''}`, {
+    const apiBaseUrl = getApiBaseUrl()
+
+    const response = await axios.get(`${apiBaseUrl}users${search ? '?search=' + search : ''}`, {
       params: {
         filters: { role: 2 }
       },
@@ -106,7 +109,9 @@ const PushMessagesForm = ({
   }
 
   const fetchExperts = async (search, filtered) => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users${search ? '?search=' + search : ''}`, {
+    const apiBaseUrl = getApiBaseUrl()
+
+    const response = await axios.get(`${apiBaseUrl}users${search ? '?search=' + search : ''}`, {
       params: {
         filters: { role: 3 }
       },

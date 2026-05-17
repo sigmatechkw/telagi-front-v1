@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import PromosEditForm from 'src/components/promo_codes/PromosEditForm'
 import { getCookie } from 'cookies-next'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const defaultValues = {
   name_ar: '',
@@ -46,7 +47,8 @@ const PromosEdit = () => {
   }, [])
 
   const fetchUsers = async (search, filtered) => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users${search ? '?search=' + search : ''}`, {
+    const apiBaseUrl = getApiBaseUrl()
+    const response = await axios.get(`${apiBaseUrl}users${search ? '?search=' + search : ''}`, {
       params: {
         filters: { role: 2 }
       },

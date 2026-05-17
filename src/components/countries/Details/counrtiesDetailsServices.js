@@ -1,9 +1,12 @@
 import axios from 'axios'
 import { getCookie } from 'cookies-next'
+import toast from 'react-hot-toast'
+import { getApiBaseUrl } from 'src/configs/api'
 
 export const fetchCountriesDetails = async id => {
+  const apiBaseUrl = getApiBaseUrl()
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}countries/${id}`, {
+    const response = await axios.get(`${apiBaseUrl}countries/${id}`, {
       headers: {
         Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? 'en'

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { getCookie } from 'cookies-next'
 import CountriesEditForm from 'src/components/countries/CountriesEditForm'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const defaultValues = {
   active: ''
@@ -31,10 +32,11 @@ const CountriesEdit = () => {
 
 
   const onSubmit = data => {
+    const apiBaseUrl = getApiBaseUrl()
     setLoading(true)
     axios
       .put(
-        `${process.env.NEXT_PUBLIC_API_KEY}countries/${id}/toggle-active`,
+        `${apiBaseUrl}countries/${id}/toggle-active`,
         {
           active: +active
         },
@@ -61,9 +63,10 @@ const CountriesEdit = () => {
   }
 
   const fetchCountriesDetails = () => {
+    const apiBaseUrl = getApiBaseUrl()
     if (!isNaN(id)) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_KEY}countries/${id}`, {
+        .get(`${apiBaseUrl}countries/${id}`, {
           headers: {
             Authorization: getCookie('token'),
             'Accepted-Language': getCookie('lang') ?? 'en'

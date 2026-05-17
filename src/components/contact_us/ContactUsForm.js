@@ -16,6 +16,7 @@ import { useTheme } from '@mui/material/styles'
 import { Autocomplete, Box, Typography } from '@mui/material'
 import 'react-datepicker/dist/react-datepicker.css' // Import the default styles for react-datepicker
 import { styled } from '@mui/material/styles'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 100,
@@ -70,8 +71,10 @@ const ContactUsForm = ({
   }, [])
 
   const fetchCountries = () => {
+    const apiBaseUrl = getApiBaseUrl()
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_KEY}countries`, {
+      .get(`${apiBaseUrl}countries`, {
         headers: {
           'Accepted-Language': lang ?? 'en'
         }

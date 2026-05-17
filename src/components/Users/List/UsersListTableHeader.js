@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import Snackbar from "@mui/material/Snackbar";
 import SnackbarConfirmActions from "../../Shared/SnackbarConfirmActions";
 import {deleteUsers} from "../Details/userDetailsServices";
+import { getApiBaseUrl } from 'src/configs/api'
 
 
 const UsersListTableHeader = props => {
@@ -27,8 +28,9 @@ const UsersListTableHeader = props => {
   };
 
   const handleExport = () => {
+    const apiBaseUrl = getApiBaseUrl()
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_KEY}users/export`, {}, {
+      .post(`${apiBaseUrl}users/export`, {}, {
         headers: {
           'Content-disposition': 'attachment'
         }

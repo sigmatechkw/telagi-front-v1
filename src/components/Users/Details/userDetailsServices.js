@@ -1,9 +1,9 @@
-import axios from "axios";
-import toast from "react-hot-toast";
-import {t} from "i18next";
-import {store} from "../../../store";
-import {getCookie} from "cookies-next";
-import { getApiBaseUrl } from "src/configs/api";
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { t } from 'i18next'
+import { store } from '../../../store'
+import { getCookie } from 'cookies-next'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const state = store.getState()
 
@@ -16,7 +16,7 @@ export const fetchUserDetails = async (id, cookies) => {
   try {
     const response = await axios.get(`${apiBaseUrl}users/${id}`, {
       headers: {
-        ...(token ? { 'Authorization': token } : {}),
+        ...(token ? { Authorization: token } : {}),
         'Accepted-Language': cookies?.lang ?? getCookie('lang') ?? state.lang ?? 'en'
       }
     })
@@ -31,15 +31,16 @@ export const fetchUserDetails = async (id, cookies) => {
   }
 }
 
-export const deleteUsers = async (ids) => {
+export const deleteUsers = async ids => {
+  const apiBaseUrl = getApiBaseUrl()
   let data = {
     delete_ids: ids
   }
 
   try {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}users/delete`, data, {
+    await axios.post(`${apiBaseUrl}users/delete`, data, {
       headers: {
-        'Authorization': getCookie('token'),
+        Authorization: getCookie('token'),
         'Accepted-Language': getCookie('lang') ?? state.lang ?? 'en'
       }
     })
@@ -48,7 +49,7 @@ export const deleteUsers = async (ids) => {
   }
 }
 
-export const fetchExpertStatistics = async (id) => {
+export const fetchExpertStatistics = async id => {
   // try {
   //   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}experts/${id}/statistics`, {
   //     headers: {
@@ -61,5 +62,5 @@ export const fetchExpertStatistics = async (id) => {
   // } catch (err) {
   //   toast.error(err.response?.data?.message)
   // }
-  return {};
+  return {}
 }

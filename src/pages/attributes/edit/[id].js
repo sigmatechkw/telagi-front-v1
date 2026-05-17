@@ -2,12 +2,15 @@ import Card from '@mui/material/Card'
 import toast from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { fetchAttributesDetails } from 'src/components/Attributes/Details/AttributesDetailsServices'
+import { fetchAttributesDetails as fetchAttributeDetailsById } from 'src/components/Attributes/Details/AttributesDetailsServices'
 import AttributesForm from 'src/components/Attributes/AttributesForm'
+import CustomLoader from 'src/components/Shared/CustomLoader'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const defaultValues = {
   name_en: "",
@@ -20,9 +23,8 @@ const defaultValues = {
   active: true,
 }
 
-const AttributesEdit = ({ type, id }) => {
+const AttributesEdit = ({ type: initialAttributeData, id }) => {
   const auth = useSelector(state => state.auth)
-  const lang = useSelector(state => state.lang)
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -40,6 +42,13 @@ const AttributesEdit = ({ type, id }) => {
     formState: { errors }
   } = useForm({ defaultValues })
 
+  const { isPending, isFetched, data: attribute } = useQuery({
+    queryKey: ['fetchAttributesDetails', id],
+    queryFn: () => fetchAttributeDetailsById(id),
+    enabled: !!id,
+    initialData: initialAttributeData ?? undefined
+  })
+
   const testBase64 = src => {
     if (!src || typeof src !== 'string') {
       return false;
@@ -51,6 +60,14 @@ const AttributesEdit = ({ type, id }) => {
   }
 
   const onSubmit = data => {
+    const apiBaseUrl = getApiBaseUrl()
+
+    if (!attribute) {
+      toast.error(t('something_went_wrong'))
+
+      return
+    }
+
     setLoading(true)
 
     data.attribute_set_id = data?.attribute_set_id?.id;
@@ -67,7 +84,7 @@ const AttributesEdit = ({ type, id }) => {
     }
 
     axios
-      .put(`${process.env.NEXT_PUBLIC_API_KEY}attributes/${id}`, data, {
+      .put(`${apiBaseUrl}attributes/${id}`, data, {
         headers: {
           Authorization: auth.token
         }
@@ -80,28 +97,46 @@ const AttributesEdit = ({ type, id }) => {
       })
       .catch(error => {
         setLoading(false)
-        toast.error(error.response.data.message)
+        toast.error(error.response?.data?.message ?? t('something_went_wrong'))
       })
   }
 
-  const fetchAttributesDetails = () => {
-    setValue('name_en', type.name_en)
-    setValue('name_ar', type.name_ar)
-    setValue('image', type.image)
-    setImgSrc(type.image)
-    setValue('attribute_set_id', type.attribute_set)
-    setValue('parent_attribute_id', type.parent_attribute)
-    setValue('order', type.order)
-    setValue('active', type.active)
-    setValue('is_default', type.is_default)
-    setValue('image_id' , type.image_id)
+  const populateAttributeForm = () => {
+    if (!attribute) {
+      return
+    }
+
+    setValue('name_en', attribute.name_en)
+    setValue('name_ar', attribute.name_ar)
+    setValue('image', attribute.image)
+    setImgSrc(attribute.image ?? '')
+    setValue('attribute_set_id', attribute.attribute_set ?? null)
+    setValue('parent_attribute_id', attribute.parent_attribute ?? null)
+    setValue('order', attribute.order)
+    setValue('active', Boolean(attribute.active))
+    setValue('is_default', attribute.is_default)
+    setValue('image_id', attribute.image_id)
   }
 
   useEffect(() => {
-    if (id) {
-      fetchAttributesDetails()
+    if (isFetched && !attribute) {
+      router.replace('/404')
+
+      return
     }
-  }, [id])
+
+    if (id && attribute) {
+      populateAttributeForm()
+    }
+  }, [attribute, id, isFetched, router, setValue])
+
+  if (isPending && !attribute) {
+    return <CustomLoader />
+  }
+
+  if (isFetched && !attribute) {
+    return null
+  }
 
   return (
     <Card>
@@ -125,7 +160,7 @@ const AttributesEdit = ({ type, id }) => {
 }
 
 export const getServerSideProps = async context => {
-  const type = await fetchAttributesDetails(context.params.id, context.req.cookies)
+  const type = await fetchAttributeDetailsById(context.params.id, context.req.cookies)
 
   return {
     props: { type, id: context.params.id }

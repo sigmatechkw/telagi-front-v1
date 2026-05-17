@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { t } from 'i18next'
 import { store } from '../../store'
 import { getCookie } from 'cookies-next'
+import { getApiBaseUrl } from 'src/configs/api'
 
 const state = store.getState()
 
@@ -132,6 +133,7 @@ export const fetchDreamsStatuses = async () => {
 }
 
 export const fetchDreamsUsers = async (page, search) => {
+  const apiBaseUrl = getApiBaseUrl()
   let params = {
     paginate: 1,
     page: page.pageParam + 1,
@@ -143,7 +145,7 @@ export const fetchDreamsUsers = async (page, search) => {
   }
 
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}users`, {
+    const response = await axios.get(`${apiBaseUrl}users`, {
       params,
       headers: {
         'Authorization': getCookie('token'),

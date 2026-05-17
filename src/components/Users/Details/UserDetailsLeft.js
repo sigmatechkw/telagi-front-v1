@@ -31,6 +31,7 @@ import {useQueryClient} from "@tanstack/react-query";
 import {deleteUsers} from "./userDetailsServices";
 import {useSelector} from "react-redux";
 import ExpertStatistics from "./ExpertStatistics";
+import { getApiBaseUrl } from 'src/configs/api'
 
 const roleColors = {
   admin: 'error',
@@ -84,11 +85,12 @@ const UserDetailsLeft = ({user}) => {
   };
 
   const handleToggleUserActive = () => {
+    const apiBaseUrl = getApiBaseUrl()
     let data = {
       active: user.active ? 0 : 1
     }
     axios
-      .put(`${process.env.NEXT_PUBLIC_API_KEY}users/${user.id}/toggle-active`, data, {
+      .put(`${apiBaseUrl}users/${user.id}/toggle-active`, data, {
         headers: {
           'Authorization': auth.token,
           'Accepted-Language': lang ?? 'en'

@@ -7,6 +7,7 @@ import UsersForm from "../../../components/Users/UsersForm";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {useSelector} from "react-redux";
+import { getApiBaseUrl } from 'src/configs/api'
 
 const defaultValues = {
   image: '',
@@ -47,6 +48,7 @@ const UsersCreate = () => {
   } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
+    const apiBaseUrl = getApiBaseUrl()
     setLoading(true)
 
     data.country_id = data.country_id.id
@@ -55,7 +57,7 @@ const UsersCreate = () => {
       data.birthday = data.birthday.format('YYYY-MM-DD')
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_KEY}users`, data, {
+      .post(`${apiBaseUrl}users`, data, {
         headers: {
           'Authorization': auth.token,
         }

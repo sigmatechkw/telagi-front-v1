@@ -24,6 +24,7 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import CircularProgress from "@mui/material/CircularProgress";
 import {useSelector} from "react-redux";
+import { getApiBaseUrl } from 'src/configs/api'
 
 const UsersForm = ({type = 'create', errors, control, watch, setValue, onSubmit, title, loading}) => {
   const auth = useSelector(state => state.auth)
@@ -40,8 +41,10 @@ const UsersForm = ({type = 'create', errors, control, watch, setValue, onSubmit,
   const expertCommissionType = watch('expert_commission_type')
 
   const fetchCountries = () => {
+    const apiBaseUrl = getApiBaseUrl()
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_KEY}countries`, {
+      .get(`${apiBaseUrl}countries`, {
         headers: {
           'Accepted-Language': lang ?? 'en'
         }
@@ -57,8 +60,10 @@ const UsersForm = ({type = 'create', errors, control, watch, setValue, onSubmit,
   }
 
   const fetchRoles = () => {
+    const apiBaseUrl = getApiBaseUrl()
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_KEY}roles`, {
+      .get(`${apiBaseUrl}roles`, {
         headers: {
           'Authorization': auth.token,
           'Accepted-Language': lang ?? 'en'
