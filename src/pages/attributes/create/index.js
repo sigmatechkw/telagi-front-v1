@@ -49,7 +49,7 @@ const AttributesCreate = () => {
     setLoading(true)
 
     data.attribute_set_id = data.attribute_set_id.id;
-    data.parent_attribute_id = data.parent_attribute_id.id;
+    // data.parent_attribute_id = data.parent_attribute_id.id;
 
     if(!imgSrc){ 
         delete data.image;

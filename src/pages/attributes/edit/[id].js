@@ -71,7 +71,7 @@ const AttributesEdit = ({ type: initialAttributeData, id }) => {
     setLoading(true)
 
     data.attribute_set_id = data?.attribute_set_id?.id;
-    data.parent_attribute_id = data?.parent_attribute_id?.id;
+    // data.parent_attribute_id = data?.parent_attribute_id?.id;
 
     if(testBase64(imgSrc)){ 
       data.image = imgSrc;

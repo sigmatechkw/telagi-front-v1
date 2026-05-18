@@ -289,7 +289,7 @@ const AttributesForm = ({
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <Controller
                 name='parent_attribute_id'
                 control={control}
@@ -323,7 +323,7 @@ const AttributesForm = ({
                   />
                 )}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sx={{ pt: theme => `${theme.spacing(2)} !important` }}>
               <FormControl>
